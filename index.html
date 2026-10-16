@@ -402,45 +402,45 @@ input[type="file"]{display:none}
 /* ================================================================
    PRINT / PDF STYLESHEET
 ================================================================ */
-#cv-print-area{display:none}
+/* CV print area — always-on styles (html2pdf renders these; @media print kept for manual print fallback) */
+#cv-print-area{display:none;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#F5F2EC;padding:0;margin:0;font-size:10pt;line-height:1.5;width:210mm}
+.cvp-header{display:flex;align-items:center;gap:24pt;padding:24pt 24pt 18pt;border-bottom:2pt solid #17405f;background:#F5F2EC}
+.cvp-photo{width:72pt;height:96pt;object-fit:cover;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f}
+.cvp-photo-ph{width:72pt;height:96pt;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:#17405f}
+.cvp-header-info{flex:1}
+.cvp-name{font-size:26pt;font-weight:900;color:#17405f;line-height:1.05;margin-bottom:4pt}
+.cvp-tagline{font-size:10pt;color:#6B6257;margin-bottom:6pt;line-height:1.5}
+.cvp-label{font-size:7pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#17405f;margin-bottom:2pt}
+.cvp-section{padding:14pt 24pt;background:#F5F2EC}
+.cvp-section+.cvp-section{border-top:1pt solid #D6CFC0}
+.cvp-section h2{font-size:13pt;font-weight:700;color:#17405f;margin-bottom:10pt;padding-bottom:4pt;border-bottom:1.5pt solid #17405f}
+.cvp-about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10pt}
+.cvp-about-item{padding-left:8pt;border-left:2pt solid #17405f}
+.cvp-about-heading{font-weight:700;font-size:8pt;color:#17405f;margin-bottom:2pt}
+.cvp-about-body{font-size:8pt;color:#444;line-height:1.55}
+.cvp-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
+.cvp-exp-item{padding-left:8pt;border-left:2pt solid #17405f;margin-bottom:6pt}
+.cvp-exp-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
+.cvp-exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+.cvp-exp-date{font-size:7pt;color:#6B6257;margin-bottom:3pt}
+.cvp-exp-desc{font-size:8pt;color:#444;line-height:1.55}
+.cvp-edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+.cvp-edu-item{padding-left:8pt;border-left:2pt solid #17405f}
+.cvp-edu-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
+.cvp-edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+.cvp-edu-date{font-size:7pt;color:#6B6257}
+.cvp-skills{display:flex;flex-wrap:wrap;gap:5pt}
+.cvp-skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:2pt 8pt}
+.cvp-contact{display:flex;gap:16pt;margin-top:4pt}
+.cvp-contact a{font-size:8pt;color:#17405f;text-decoration:none}
+.cvp-references{font-size:8pt;color:#6B6257;font-style:italic;border-top:1pt solid #D6CFC0;padding:10pt 24pt}
 
 @media print{
-  @page{margin:0}
+  @page{margin:0;size:A4}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html,body{margin:0;padding:0;background:#F5F2EC}
   body>*:not(#cv-print-area){display:none!important}
-  #cv-print-area{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#F5F2EC;padding:0;margin:0;font-size:10pt;line-height:1.5}
-  .cvp-header{display:flex;align-items:center;gap:24pt;padding:24pt 24pt 18pt;border-bottom:2pt solid #17405f;background:#F5F2EC}
-  .cvp-photo{width:72pt;height:96pt;object-fit:cover;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f}
-  .cvp-photo-ph{width:72pt;height:96pt;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:#17405f}
-  .cvp-header-info{flex:1}
-  .cvp-name{font-size:26pt;font-weight:900;color:#17405f;line-height:1.05;margin-bottom:4pt}
-  .cvp-tagline{font-size:10pt;color:#6B6257;margin-bottom:6pt;line-height:1.5}
-  .cvp-label{font-size:7pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#17405f;margin-bottom:2pt}
-  .cvp-section{padding:14pt 24pt;background:#F5F2EC}
-  .cvp-section+.cvp-section{border-top:1pt solid #D6CFC0}
-  .cvp-section h2{font-size:13pt;font-weight:700;color:#17405f;margin-bottom:10pt;padding-bottom:4pt;border-bottom:1.5pt solid #17405f}
-  .cvp-about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10pt}
-  .cvp-about-item{padding-left:8pt;border-left:2pt solid #17405f}
-  .cvp-about-heading{font-weight:700;font-size:8pt;color:#17405f;margin-bottom:2pt}
-  .cvp-about-body{font-size:8pt;color:#444;line-height:1.55}
-  .cvp-exp-section{page-break-inside:avoid;break-inside:avoid}
-  .cvp-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
-  .cvp-exp-item{padding-left:8pt;border-left:2pt solid #17405f;margin-bottom:6pt}
-  .cvp-exp-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
-  .cvp-exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
-  .cvp-exp-date{font-size:7pt;color:#6B6257;margin-bottom:3pt}
-  .cvp-exp-desc{font-size:8pt;color:#444;line-height:1.55}
-  .cvp-edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
-  .cvp-edu-item{padding-left:8pt;border-left:2pt solid #17405f}
-  .cvp-edu-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
-  .cvp-edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
-  .cvp-edu-date{font-size:7pt;color:#6B6257}
-  .cvp-skills{display:flex;flex-wrap:wrap;gap:5pt}
-  .cvp-skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:2pt 8pt}
-  .cvp-contact{display:flex;gap:16pt;margin-top:4pt}
-  .cvp-contact a{font-size:8pt;color:#17405f;text-decoration:none}
-  .cvp-references{font-size:8pt;color:#6B6257;font-style:italic;border-top:1pt solid #D6CFC0}
+  #cv-print-area{display:block!important;width:100%}
 }
 
 /* ================================================================
@@ -1185,7 +1185,31 @@ function downloadCV(){
       References available upon request.
     </div>`;
 
-  window.print();
+  const area = document.getElementById('cv-print-area');
+  // Reveal off-screen so html2pdf can measure and render it
+  area.style.cssText = 'display:block;position:fixed;top:0;left:-9999px;width:210mm;z-index:-1';
+
+  function doExport(){
+    html2pdf().set({
+      margin: 0,
+      filename: 'Amran-Ali-CV.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#F5F2EC' },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: 'avoid-all' }
+    }).from(area).save().then(()=>{
+      area.style.cssText = '';
+    });
+  }
+
+  if(window.html2pdf){
+    doExport();
+  } else {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    s.onload = doExport;
+    document.head.appendChild(s);
+  }
 }
 
 function renderContact(){
