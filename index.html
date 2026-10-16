@@ -1513,9 +1513,9 @@ function openEditor(){ editData=structuredClone(C); renderEditorTab(activeEditor
 function closeEditor(){ document.getElementById('editor-overlay').classList.remove('open'); document.body.style.overflow=''; }
 function switchEditorTab(tab){ activeEditorTab=tab; document.querySelectorAll('.ed-tab').forEach(b=>b.classList.toggle('active',b.dataset.etab===tab)); renderEditorTab(tab); }
 
-// Press backtick (`) to open the content / image editor
+// Press Shift+E to open the content / image editor
 document.addEventListener('keydown', e => {
-  if(e.key === '`' && !e.ctrlKey && !e.metaKey && !e.altKey){
+  if(e.key === 'E' && e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey){
     const tag = document.activeElement.tagName;
     if(tag === 'INPUT' || tag === 'TEXTAREA') return;
     document.getElementById('editor-overlay').classList.contains('open') ? closeEditor() : openEditor();
