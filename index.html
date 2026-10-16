@@ -349,7 +349,8 @@ input[type="file"]{display:none}
 /* ================================================================
    ACCORDION EXPERIENCE
 ================================================================ */
-.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 48px;margin-top:32px;align-items:start}
+.acc-two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:32px}
+.acc-col{display:flex;flex-direction:column;gap:20px}
 .acc-item{padding-left:18px;border-left:3px solid var(--a1);overflow:hidden}
 .acc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:6px 0;cursor:pointer;user-select:none}
 .acc-header:hover .acc-title{color:var(--a1)}
@@ -435,7 +436,7 @@ input[type="file"]{display:none}
 @media(max-width:900px){
   .about-grid{grid-template-columns:1fr;gap:20px}
   .cv-grid{grid-template-columns:1fr;gap:36px}
-  .acc-grid{grid-template-columns:1fr}
+  .acc-two-col{grid-template-columns:1fr}
   .edu-grid{grid-template-columns:1fr}
 }
 @media(max-width:768px){
@@ -564,7 +565,10 @@ input[type="file"]{display:none}
 
       <div class="cv-block reveal">
         <h3 class="cv-block-heading">Experience<span class="a1">.</span></h3>
-        <div class="acc-grid" id="acc-exp"></div>
+        <div class="acc-two-col">
+          <div class="acc-col" id="acc-exp-left"></div>
+          <div class="acc-col" id="acc-exp-right"></div>
+        </div>
       </div>
 
       <div class="cv-block reveal d1">
@@ -1009,11 +1013,9 @@ document.getElementById('soon-close').addEventListener('click', closeSoonModal);
 document.getElementById('soon-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('soon-modal')) closeSoonModal(); });
 
 function renderCV(){
-  // Experience accordion (2-col grid)
-  const accGrid = document.getElementById('acc-exp');
-  if(accGrid){
-    accGrid.innerHTML = C.experience.map((e,i)=>`
-      <div class="acc-item" data-acc="${i}">
+  // Experience accordion — two truly independent columns
+  function makeAccItem(e, i){
+    return `<div class="acc-item" data-acc="${i}">
         <div class="acc-header">
           <div class="acc-header-left">
             <div class="acc-title">${esc(e.title)}</div>
@@ -1025,17 +1027,24 @@ function renderCV(){
         <div class="acc-body">
           <div class="acc-body-inner">${esc(e.desc||'')}</div>
         </div>
-      </div>`).join('');
-    accGrid.querySelectorAll('.acc-item').forEach(item=>{
+      </div>`;
+  }
+  function wireAccordion(colEl){
+    colEl.querySelectorAll('.acc-item').forEach(item=>{
       item.querySelector('.acc-header').addEventListener('click',()=>{
-        const colIdx = parseInt(item.dataset.acc);
         const wasOpen = item.classList.contains('open');
-        accGrid.querySelectorAll('.acc-item').forEach(x=>{
-          if(parseInt(x.dataset.acc) % 2 === colIdx % 2) x.classList.remove('open');
-        });
+        colEl.querySelectorAll('.acc-item').forEach(x=>x.classList.remove('open'));
         if(!wasOpen) item.classList.add('open');
       });
     });
+  }
+  const leftCol = document.getElementById('acc-exp-left');
+  const rightCol = document.getElementById('acc-exp-right');
+  if(leftCol && rightCol){
+    leftCol.innerHTML  = C.experience.filter((_,i)=>i%2===0).map((e,i)=>makeAccItem(e, i*2)).join('');
+    rightCol.innerHTML = C.experience.filter((_,i)=>i%2===1).map((e,i)=>makeAccItem(e, i*2+1)).join('');
+    wireAccordion(leftCol);
+    wireAccordion(rightCol);
   }
 
   // Education cards (2-col grid)
