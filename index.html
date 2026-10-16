@@ -534,8 +534,8 @@ input[type="file"]{display:none}
     <div class="container">
       <div class="divider"></div>
       <p class="section-label">About</p>
-      <h2>What I do<span class="a1">.</span></h2>
-      <p class="about-sub reveal">I drive design led product thinking. Working with teams across product, engineering and sales to ensure; products solve real problems at scale.</p>
+      <h2 id="about-heading"></h2>
+      <p class="about-sub reveal" id="about-sub"></p>
       <div class="about-grid" id="about-grid"></div>
     </div>
   </section>
@@ -855,6 +855,10 @@ const DEFAULTS = {
     photo: null,
     staticPhoto: 'images/hero-photo.jpg',
   },
+  aboutSection: {
+    heading: 'What I do',
+    sub: 'I drive design led product thinking. Working with teams across product, engineering and sales to ensure; products solve real problems at scale.',
+  },
   about: [
     { heading: 'Who I am.', body: "I'm Amran, I grew up in the Bengali community in Yorkshire. It taught me the importance of empathy and diversity. We help each other with everyday challenges, bringing people together." },
     { heading: 'Why I do it.', body: "I have always been a bit of an outsider, I know what it feels like to have different needs. To have assumptions made on my behalf, and to not fit the mould. This is why I design with sympathy and empathy. Building solutions that meet the needs of real people." },
@@ -975,6 +979,9 @@ function renderHero(){
 }
 
 function renderAbout(){
+  const s = C.aboutSection || {};
+  document.getElementById('about-heading').innerHTML = dotify(s.heading||'What I do');
+  document.getElementById('about-sub').textContent = s.sub||'';
   document.getElementById('about-grid').innerHTML = C.about.map((c,i)=>`
     <article class="about-card reveal${i?` d${i}`:''}">
       <h3>${dotify(c.heading)}</h3>
@@ -1557,7 +1564,15 @@ function buildHeroEd(){return `
     ${imgZoneHTML('hero-photo',3/4,'Portrait · drag or click')}
   </div>`;}
 
-function buildAboutEd(){return `<div class="ed-sec"><div class="ed-sec-title">About cards</div>
+function buildAboutEd(){
+  const s=editData.aboutSection||{};
+  return `<div class="ed-sec"><div class="ed-sec-title">Section heading</div>
+  <div class="ed-card">
+    <div class="field"><label>Heading</label><input type="text" data-p="aboutSection.heading" value="${esc(s.heading||'')}"></div>
+    <div class="field"><label>Subheading</label><textarea data-p="aboutSection.sub">${esc(s.sub||'')}</textarea></div>
+  </div>
+</div>
+<div class="ed-sec"><div class="ed-sec-title">About cards</div>
   ${editData.about.map((c,i)=>`<div class="ed-card">
     <div class="ed-card-title">Card ${i+1}</div>
     <div class="field"><label>Heading (include trailing dot)</label><input type="text" data-p="about[${i}].heading" value="${esc(c.heading)}"></div>
