@@ -915,7 +915,16 @@ const DEFAULTS = {
 ================================================================ */
 function loadContent(){
   // v4 = new format where image fields are true|null, not base64
-  try{ const s=localStorage.getItem('aa-v4'); if(s) return JSON.parse(s); }catch(e){}
+  try{
+    const s=localStorage.getItem('aa-v4');
+    if(s){
+      const saved=JSON.parse(s);
+      // Shallow-merge top-level keys from DEFAULTS that are missing in saved data
+      // (handles new keys added after first save, e.g. aboutSection)
+      const merged=Object.assign(structuredClone(DEFAULTS), saved);
+      return merged;
+    }
+  }catch(e){}
   return structuredClone(DEFAULTS);
 }
 function saveContent(d){
