@@ -393,7 +393,9 @@ input[type="file"]{display:none}
 #cv-print-area{display:none}
 
 @media print{
+  @page{margin:0}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{margin:0;padding:0;background:#F5F2EC}
   body>*:not(#cv-print-area){display:none!important}
   #cv-print-area{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#F5F2EC;padding:0;margin:0;font-size:10pt;line-height:1.5}
   .cvp-header{display:flex;align-items:center;gap:24pt;padding:24pt 24pt 18pt;border-bottom:2pt solid #17405f;background:#F5F2EC}
@@ -406,6 +408,10 @@ input[type="file"]{display:none}
   .cvp-section{padding:14pt 24pt;background:#F5F2EC}
   .cvp-section+.cvp-section{border-top:1pt solid #D6CFC0}
   .cvp-section h2{font-size:13pt;font-weight:700;color:#17405f;margin-bottom:10pt;padding-bottom:4pt;border-bottom:1.5pt solid #17405f}
+  .cvp-about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10pt}
+  .cvp-about-item{padding-left:8pt;border-left:2pt solid #17405f}
+  .cvp-about-heading{font-weight:700;font-size:8pt;color:#17405f;margin-bottom:2pt}
+  .cvp-about-body{font-size:8pt;color:#444;line-height:1.55}
   .cvp-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
   .cvp-exp-item{padding-left:8pt;border-left:2pt solid #17405f;margin-bottom:6pt}
   .cvp-exp-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
@@ -1092,18 +1098,27 @@ function downloadCV(){
   const skillsHtml = C.skills.map(s=>`<span class="cvp-skill">${esc(s)}</span>`).join('');
   const c = C.contact;
 
+  const aboutHtml = C.about.map(a=>`
+    <div class="cvp-about-item">
+      <div class="cvp-about-heading">${esc(a.heading)}</div>
+      <div class="cvp-about-body">${esc(a.body)}</div>
+    </div>`).join('');
+
   document.getElementById('cv-print-area').innerHTML = `
     <div class="cvp-header">
       ${photoHtml}
       <div class="cvp-header-info">
-        <div class="cvp-name">${esc(h.name)}</div>
+        <div class="cvp-name">${esc(h.name)} — CV</div>
         <div class="cvp-tagline">${esc(h.tagline)}</div>
-        <div class="cvp-label">CV</div>
         <div class="cvp-contact">
           <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>
           <a href="https://${esc(c.linkedin)}">${esc(c.linkedin)}</a>
         </div>
       </div>
+    </div>
+    <div class="cvp-section">
+      <h2>About</h2>
+      <div class="cvp-about-grid">${aboutHtml}</div>
     </div>
     <div class="cvp-section">
       <h2>Experience</h2>
