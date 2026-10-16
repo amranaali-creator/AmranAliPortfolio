@@ -1186,15 +1186,15 @@ function downloadCV(){
     </div>`;
 
   const area = document.getElementById('cv-print-area');
-  // Reveal off-screen so html2pdf can measure and render it
-  area.style.cssText = 'display:block;position:fixed;top:0;left:-9999px;width:210mm;z-index:-1';
+  // Must be in-viewport for html2canvas to capture (off-screen = blank render)
+  area.style.cssText = 'display:block;position:fixed;top:0;left:0;width:210mm;z-index:9999;background:#F5F2EC;overflow:visible';
 
   function doExport(){
     html2pdf().set({
       margin: 0,
       filename: 'Amran-Ali-CV.pdf',
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#F5F2EC' },
+      html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#F5F2EC', windowWidth: 794 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       pagebreak: { mode: 'avoid-all' }
     }).from(area).save().then(()=>{
