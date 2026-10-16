@@ -1186,18 +1186,49 @@ function downloadCV(){
       References available upon request.
     </div>`;
 
-  const area = document.getElementById('cv-print-area');
-  const prevTitle = document.title;
-  document.title = 'Amran Ali - CV';
-  area.style.display = 'block';
+  const cvHtml = document.getElementById('cv-print-area').innerHTML;
 
-  window.print();
-
-  window.addEventListener('afterprint', ()=>{
-    area.style.display = '';
-    area.innerHTML = '';
-    document.title = prevTitle;
-  }, { once: true });
+  const win = window.open('', '_blank', 'width=900,height=700');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Amran Ali - CV</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#F5F2EC;font-size:10pt;line-height:1.5}
+@page{margin:0;size:A4}
+@media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}html,body{background:#F5F2EC}}
+.cvp-header{display:flex;align-items:center;gap:24pt;padding:24pt 24pt 18pt;border-bottom:2pt solid #17405f;background:#F5F2EC}
+.cvp-photo{width:72pt;height:96pt;object-fit:cover;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f}
+.cvp-photo-ph{width:72pt;height:96pt;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:#17405f}
+.cvp-header-info{flex:1}
+.cvp-name{font-size:26pt;font-weight:900;color:#17405f;line-height:1.05;margin-bottom:4pt}
+.cvp-tagline{font-size:10pt;color:#6B6257;margin-bottom:6pt;line-height:1.5}
+.cvp-contact{display:flex;gap:16pt;margin-top:4pt}
+.cvp-contact a{font-size:8pt;color:#17405f;text-decoration:none}
+.cvp-section{padding:14pt 24pt;background:#F5F2EC}
+.cvp-section+.cvp-section{border-top:1pt solid #D6CFC0}
+.cvp-section h2{font-size:13pt;font-weight:700;color:#17405f;margin-bottom:10pt;padding-bottom:4pt;border-bottom:1.5pt solid #17405f}
+.cvp-about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10pt}
+.cvp-about-item{padding-left:8pt;border-left:2pt solid #17405f}
+.cvp-about-heading{font-weight:700;font-size:8pt;color:#17405f;margin-bottom:2pt}
+.cvp-about-body{font-size:8pt;color:#444;line-height:1.55}
+.cvp-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
+.cvp-exp-item{padding-left:8pt;border-left:2pt solid #17405f;margin-bottom:6pt}
+.cvp-exp-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
+.cvp-exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+.cvp-exp-date{font-size:7pt;color:#6B6257;margin-bottom:3pt}
+.cvp-exp-desc{font-size:8pt;color:#444;line-height:1.55}
+.cvp-edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+.cvp-edu-item{padding-left:8pt;border-left:2pt solid #17405f}
+.cvp-edu-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
+.cvp-edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+.cvp-edu-date{font-size:7pt;color:#6B6257}
+.cvp-skills{display:flex;flex-wrap:wrap;gap:5pt}
+.cvp-skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:2pt 8pt}
+.cvp-references{font-size:8pt;color:#6B6257;font-style:italic;border-top:1pt solid #D6CFC0;padding:10pt 24pt}
+</style></head><body>${cvHtml}</body></html>`);
+  win.document.close();
+  win.focus();
+  win.print();
 }
 
 function renderContact(){
