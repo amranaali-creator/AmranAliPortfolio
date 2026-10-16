@@ -134,7 +134,8 @@ h4{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.3}
    ABOUT
 ================================================================ */
 #about{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+.about-sub{font-size:18px;line-height:1.7;color:var(--text-muted);max-width:640px;margin:18px 0 0}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px}
 .about-card{background:var(--offwhite);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:var(--shadow-md) var(--shadow);padding:32px 28px;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
 .about-card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--shadow)}
 .about-card h3{margin-bottom:14px}
@@ -412,6 +413,7 @@ input[type="file"]{display:none}
   .cvp-about-item{padding-left:8pt;border-left:2pt solid #17405f}
   .cvp-about-heading{font-weight:700;font-size:8pt;color:#17405f;margin-bottom:2pt}
   .cvp-about-body{font-size:8pt;color:#444;line-height:1.55}
+  .cvp-exp-section{page-break-inside:avoid;break-inside:avoid}
   .cvp-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
   .cvp-exp-item{padding-left:8pt;border-left:2pt solid #17405f;margin-bottom:6pt}
   .cvp-exp-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
@@ -427,6 +429,7 @@ input[type="file"]{display:none}
   .cvp-skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:2pt 8pt}
   .cvp-contact{display:flex;gap:16pt;margin-top:4pt}
   .cvp-contact a{font-size:8pt;color:#17405f;text-decoration:none}
+  .cvp-references{font-size:8pt;color:#6B6257;font-style:italic;border-top:1pt solid #D6CFC0}
 }
 
 /* ================================================================
@@ -531,7 +534,8 @@ input[type="file"]{display:none}
     <div class="container">
       <div class="divider"></div>
       <p class="section-label">About</p>
-      <h2>About me<span class="a1">.</span></h2>
+      <h2>What I do<span class="a1">.</span></h2>
+      <p class="about-sub reveal">I drive design led product thinking. Working with teams across product, engineering and sales to ensure; products solve real problems at scale.</p>
       <div class="about-grid" id="about-grid"></div>
     </div>
   </section>
@@ -858,6 +862,12 @@ const DEFAULTS = {
   ],
   projects: {
     ux: [
+      { title:'The Compact Kiosk', desc:'A 0-1 product that doubled the returns network and landed a $14M deal', role:'UX Lead', link:'#', image:null, staticImage:'images/compact-kiosk.png',
+        detail:{ heroImage:null, result:'A 0-1 physical and digital product that doubled the returns network and landed the biggest deal for the department at $14M+.', timeline:[{phase:'Discovery',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Design',date:'Month 3–4'},{phase:'Test',date:'Month 5'},{phase:'Launch',date:'Month 6'}], process:[{title:'Research & Discovery',body:'Identifying user and business needs for a compact self-service kiosk.',image:null},{title:'Hardware & Software Design',body:'Designing both the physical enclosure and the kiosk software interface.',image:null},{title:'Prototype & Test',body:'Iterative testing with real users at live sites.',image:null}], futureLearning:'', liveLink:'' } },
+      { title:'Reducing Parcel Processing Time', desc:'66% reduction in staff processing time driving network expansion', role:'UX Lead', link:'#', image:null, staticImage:'images/reduce-staff-time.png',
+        detail:{ heroImage:null, result:'Achieved a 66% reduction in staff processing time, enabling faster network expansion for reverse logistics operations.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 3'},{phase:'Test',date:'Month 4'}], process:[{title:'Process Mapping',body:'Mapping existing staff workflows to identify bottlenecks.',image:null},{title:'Design & Iteration',body:'Redesigning the processing interface to reduce steps and cognitive load.',image:null},{title:'Validation',body:'Measuring time-on-task before and after with real staff.',image:null}], futureLearning:'', liveLink:'' } },
+      { title:'Reducing New User Confusion', desc:'Taking users through every step of the drop-off kiosk experience. Driving adoption.', role:'UX Lead', link:'#', image:null, staticImage:'images/new-user-confusion.png',
+        detail:{ heroImage:null, result:'Improved first-time user success rate and increased kiosk adoption by guiding users through every step of the drop-off experience.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 2–3'},{phase:'Test',date:'Month 4'}], process:[{title:'User Research',body:'Observing first-time users at live kiosks to identify pain points.',image:null},{title:'Onboarding Design',body:'Designing step-by-step guidance flows for new users.',image:null},{title:'Testing & Rollout',body:'A/B testing with new vs returning users to measure adoption uplift.',image:null}], futureLearning:'', liveLink:'' } },
       { title:'Women in Action', desc:'A digital community for social change', role:'UX Lead', link:'#', image:null, staticImage:'images/women-in-action.png',
         detail:{ heroImage:null, result:'Add the project result here — the key outcome, impact, or deliverable achieved.', timeline:[{phase:'Discovery',date:'Week 1–2'},{phase:'Define',date:'Week 3'},{phase:'Ideate',date:'Week 4–5'},{phase:'Prototype',date:'Week 6'},{phase:'Test',date:'Week 7–8'}], process:[{title:'Research & Discovery',body:'Describe the research methods, user interviews, and insights gathered at this stage.',image:null},{title:'Define & Synthesise',body:'Explain how you synthesised research into clear problem statements and user needs.',image:null},{title:'Ideation',body:'Describe the ideation process, workshops, and how concepts were generated and refined.',image:null},{title:'Prototype & Test',body:'Detail the prototyping approach and what was learned from user testing.',image:null}], futureLearning:'Add reflections on what you would do differently, next iterations, and future opportunities.', liveLink:'' } },
       { title:'Empact Chicago', desc:'Clinical trial access for minority women', role:'UX Lead & Research', link:'#', image:null, staticImage:'images/empact-chicago.gif',
@@ -1080,14 +1090,6 @@ function downloadCV(){
     ? `<img class="cvp-photo" src="${esc(photoUrl)}" alt="Amran Ali">`
     : `<div class="cvp-photo-ph">AA</div>`;
 
-  const expHtml = C.experience.map(e=>`
-    <div class="cvp-exp-item">
-      <div class="cvp-exp-title">${esc(e.title)}</div>
-      <div class="cvp-exp-org">${esc(e.org)}</div>
-      <div class="cvp-exp-date">${esc(e.date)}</div>
-      <div class="cvp-exp-desc">${esc(e.desc||'')}</div>
-    </div>`).join('');
-
   const eduHtml = C.education.map(e=>`
     <div class="cvp-edu-item">
       <div class="cvp-edu-title">${esc(e.title)}</div>
@@ -1102,6 +1104,14 @@ function downloadCV(){
     <div class="cvp-about-item">
       <div class="cvp-about-heading">${esc(a.heading)}</div>
       <div class="cvp-about-body">${esc(a.body)}</div>
+    </div>`).join('');
+
+  const expHtmlWrapped = C.experience.map(e=>`
+    <div class="cvp-exp-item">
+      <div class="cvp-exp-title">${esc(e.title)}</div>
+      <div class="cvp-exp-org">${esc(e.org)}</div>
+      <div class="cvp-exp-date">${esc(e.date)}</div>
+      <div class="cvp-exp-desc">${esc(e.desc||'')}</div>
     </div>`).join('');
 
   document.getElementById('cv-print-area').innerHTML = `
@@ -1120,9 +1130,9 @@ function downloadCV(){
       <h2>About</h2>
       <div class="cvp-about-grid">${aboutHtml}</div>
     </div>
-    <div class="cvp-section">
+    <div class="cvp-section cvp-exp-section">
       <h2>Experience</h2>
-      <div class="cvp-exp-grid">${expHtml}</div>
+      <div class="cvp-exp-grid">${expHtmlWrapped}</div>
     </div>
     <div class="cvp-section">
       <h2>Education</h2>
@@ -1131,6 +1141,9 @@ function downloadCV(){
     <div class="cvp-section">
       <h2>Key Skills</h2>
       <div class="cvp-skills">${skillsHtml}</div>
+    </div>
+    <div class="cvp-section cvp-references">
+      References available upon request.
     </div>`;
 
   window.print();
