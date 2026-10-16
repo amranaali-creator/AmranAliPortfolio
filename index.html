@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amran Ali — Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+/* ================================================================
+   DESIGN TOKENS — LIGHT MODE
+   Accent 1 (#17405f) = 9.6:1 contrast on bg  → AAA ✓
+   Accent 2 (#17e3c7) used as fill bg; dark text on it = 9.4:1 → AAA ✓
+   Text (#252525) on bg = 12.9:1               → AAA ✓
+================================================================ */
+:root {
+  --bg:         #EDE8DF;
+  --surface:    #F5F2EC;
+  --offwhite:   #FAFAF7;
+  --text:       #252525;
+  --text-muted: rgba(37,37,37,0.55);
+  --a1:         #17405f;   /* navy blue — primary accent */
+  --a1-dk:      #0d2a3e;
+  --a1-lt:      #e8f0f6;   /* tint for badge bg */
+  --a2:         #17e3c7;   /* teal — fills & decorative */
+  --a2-on:      #252525;   /* text on --a2 bg: 9.4:1 AAA */
+  --border:     rgba(37,37,37,0.14);
+  --shadow:     #252525;
+  --placeholder:#D4CFCA;
+  --ph-text:    #8a8480;
+
+  --shadow-sm:  4px 4px 0px;
+  --shadow-md:  6px 6px 0px;
+  --shadow-lg:  8px 8px 0px;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ease:  cubic-bezier(0.22,1,0.36,1);
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+  --bg:         #0d1b26;
+  --surface:    #152232;
+  --offwhite:   #1c2f40;
+  --text:       #EDE8DF;
+  --text-muted: rgba(237,232,223,0.55);
+  --a1:         #17e3c7;   /* teal as primary in dark: 11:1 AAA ✓ */
+  --a1-dk:      #0fb5a0;
+  --a1-lt:      rgba(23,227,199,0.1);
+  --a2:         #4ea8d4;   /* lighter blue as secondary */
+  --a2-on:      #0d1b26;
+  --border:     rgba(237,232,223,0.12);
+  --shadow:     rgba(0,0,0,0.6);
+  --placeholder:#1e3045;
+  --ph-text:    #5a7a8e;
+}
+
+/* ================================================================
+   RESET & BASE
+================================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ================================================================
+   TYPOGRAPHY
+================================================================ */
+h1{font-family:var(--serif);font-size:clamp(44px,8vw,72px);font-weight:900;line-height:1.05;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1}
+h3{font-family:var(--serif);font-size:clamp(20px,3vw,30px);font-weight:700;line-height:1.2}
+h4{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.3}
+.a1{color:var(--a1)}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.section{padding:88px 0}
+.section-label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:14px}
+.divider{width:40px;height:3px;background:var(--a1);border-radius:2px;margin-bottom:20px}
+
+/* ================================================================
+   NAV
+================================================================ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 0;transition:background .25s var(--ease),border-color .25s var(--ease),padding .25s var(--ease);border-bottom:1px solid transparent}
+#nav.scrolled{background:var(--bg);border-color:var(--border);padding:12px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--a1);cursor:pointer;user-select:none;line-height:1}
+.nav-logo-hint{display:block;font-size:9px;font-family:var(--sans);color:var(--text-muted);font-weight:500;letter-spacing:.06em;margin-top:2px}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:14px;font-weight:600;color:var(--text);position:relative;transition:color .2s;letter-spacing:.01em}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--a1);transition:width .2s var(--ease)}
+.nav-links a:hover{color:var(--a1)}
+.nav-links a:hover::after{width:100%}
+/* Dark mode toggle */
+.theme-toggle{width:34px;height:34px;border-radius:var(--r-sm);border:2px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s;flex-shrink:0}
+.theme-toggle:hover{border-color:var(--a1);background:var(--a1-lt)}
+.theme-toggle svg{width:16px;height:16px;color:var(--text)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--text);transition:transform .2s,opacity .2s}
+
+/* ================================================================
+   BUTTONS
+================================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:var(--r-md);font-size:15px;font-weight:600;cursor:pointer;border:2px solid transparent;transition:transform .15s var(--ease),box-shadow .15s var(--ease);white-space:nowrap}
+.btn-primary{background:var(--a1);color:var(--offwhite);border-color:var(--a1);box-shadow:var(--shadow-sm) var(--a1-dk)}
+[data-theme="dark"] .btn-primary{color:var(--bg)}
+.btn-primary:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--a1-dk)}
+.btn-secondary{background:transparent;color:var(--text);border-color:var(--text);box-shadow:var(--shadow-sm) var(--shadow)}
+.btn-secondary:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow)}
+
+/* ================================================================
+   HERO
+================================================================ */
+#hero{padding:152px 0 88px}
+.hero-grid{display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:center}
+.hero-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:18px}
+.hero-name{margin-bottom:14px}
+.hero-subtitle{font-size:clamp(16px,2.4vw,22px);color:var(--text-muted);margin-bottom:22px}
+.hero-tagline{font-size:17px;line-height:1.75;max-width:480px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.portrait-card{background:var(--surface);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:var(--shadow-lg) var(--shadow);overflow:hidden;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;position:relative;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.portrait-card:hover{transform:translate(-2px,-2px);box-shadow:10px 10px 0 var(--shadow)}
+.portrait-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ================================================================
+   PLACEHOLDER
+================================================================ */
+.ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ph-text);background:var(--placeholder)}
+.ph svg{opacity:.5}
+.ph span{font-size:12px;font-weight:500;letter-spacing:.04em;text-align:center;padding:0 16px}
+
+/* ================================================================
+   ABOUT
+================================================================ */
+#about{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+.about-card{background:var(--offwhite);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:var(--shadow-md) var(--shadow);padding:32px 28px;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.about-card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--shadow)}
+.about-card h3{margin-bottom:14px}
+.about-card p{font-size:15px;line-height:1.75;color:var(--text-muted)}
+
+/* ================================================================
+   WORK TABS
+================================================================ */
+.work-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:20px}
+.tab-nav{display:flex;gap:8px}
+.tab-btn{padding:9px 18px;border-radius:var(--r-sm);border:2px solid var(--text);background:transparent;color:var(--text);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:background .15s,color .15s,transform .15s;letter-spacing:.02em}
+.tab-btn:hover{background:var(--surface)}
+.tab-btn.active{background:var(--text);color:var(--bg)}
+/* Mobile select — simple stroke, no shadow */
+.tab-select{display:none;width:100%;padding:11px 40px 11px 14px;border-radius:var(--r-md);border:2px solid var(--text);background:var(--offwhite);font-family:var(--sans);font-size:14px;font-weight:600;color:var(--text);cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 8L13 1' stroke='%23252525' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;margin-bottom:28px}
+[data-theme="dark"] .tab-select{background-image:url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 8L13 1' stroke='%23EDE8DF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+[data-theme="dark"] .tab-select{background-color:var(--offwhite);color:var(--text)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.project-card{background:var(--offwhite);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:var(--shadow-md) var(--shadow);overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease);cursor:pointer}
+.project-card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--shadow)}
+.project-thumb{aspect-ratio:16/9;overflow:hidden;border-bottom:2px solid var(--border);position:relative;background:var(--placeholder)}
+.project-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.project-thumb .ph{aspect-ratio:16/9}
+.project-body{padding:22px}
+.project-title{font-family:var(--serif);font-size:19px;font-weight:700;margin-bottom:5px}
+.project-desc{font-size:14px;color:var(--text-muted);margin-bottom:14px;line-height:1.5}
+.project-footer{display:flex;align-items:center;justify-content:space-between}
+.role-badge{display:inline-block;padding:3px 12px;border-radius:100px;background:var(--a1-lt);border:1.5px solid var(--a1);font-size:11px;font-weight:700;color:var(--a1);letter-spacing:.04em}
+.project-link{font-size:13px;font-weight:700;color:var(--a1);display:flex;align-items:center;gap:4px;transition:gap .15s var(--ease)}
+.project-link:hover{gap:8px}
+
+/* ================================================================
+   CV
+================================================================ */
+#cv{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px}
+.cv-column h3{margin-bottom:28px;padding-bottom:14px;border-bottom:2px solid var(--text)}
+.timeline{display:flex;flex-direction:column;gap:24px}
+/* Experience items — clickable, with hover */
+.timeline-item{padding-left:18px;border-left:3px solid var(--a1)}
+.timeline-item.clickable{cursor:pointer}
+.timeline-item.clickable:hover .timeline-title{color:var(--a1)}
+/* Education items — static */
+.timeline-item.static{border-left:3px solid var(--a1)}
+.timeline-title{font-weight:700;font-size:15px;margin-bottom:2px;transition:color .2s}
+.timeline-sub{font-size:13px;color:var(--text-muted);margin-bottom:2px}
+.timeline-date{font-size:12px;font-weight:600;color:var(--a1);letter-spacing:.04em}
+.timeline-item.clickable .timeline-title::after{content:' ↗';font-size:11px;opacity:.5}
+/* Skills */
+.skills-section{margin-top:56px}
+.skills-section h3{margin-bottom:20px}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px}
+.skill-tag{padding:7px 16px;border-radius:100px;border:2px solid var(--a1);font-size:13px;font-weight:600;color:var(--a1);background:transparent;cursor:default}
+
+/* ================================================================
+   CONTACT
+================================================================ */
+#contact{text-align:center;padding:88px 0 60px}
+.contact-heading{margin-bottom:28px}
+.contact-links{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:56px}
+.contact-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:15px;font-weight:600;color:var(--text);padding:14px 0;width:260px;border-radius:var(--r-md);border:2px solid var(--text);background:var(--offwhite);box-shadow:var(--shadow-sm) var(--shadow);transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+.contact-link:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow)}
+footer{border-top:1px solid var(--border);padding:22px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:13px;color:var(--text-muted)}
+.footer-tag{font-size:12px;font-weight:600;color:var(--a1);letter-spacing:.04em}
+
+/* ================================================================
+   PROJECT DETAIL PAGE
+================================================================ */
+#project-view{display:none;min-height:100vh;background:var(--bg);padding-top:72px}
+#project-view.active{display:block}
+
+.proj-back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--a1);cursor:pointer;padding:10px 0;transition:gap .15s var(--ease)}
+.proj-back:hover{gap:12px}
+
+.proj-hero{position:relative;width:100%;aspect-ratio:16/6;background:var(--surface);border-radius:var(--r-lg);overflow:hidden;border:2px solid var(--border);margin:20px 0 48px}
+.proj-hero img{width:100%;height:100%;object-fit:cover}
+.proj-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 60%);display:flex;align-items:flex-end;padding:32px}
+.proj-hero-meta{color:#fff}
+.proj-hero-meta h1{font-size:clamp(28px,5vw,52px);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.proj-hero-badge{display:inline-block;padding:5px 14px;border-radius:100px;background:var(--a2);color:var(--a2-on);font-size:12px;font-weight:700;letter-spacing:.04em}
+
+.proj-section{margin-bottom:64px}
+.proj-section-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--a1);margin-bottom:8px}
+.proj-section h2{font-size:clamp(22px,3.5vw,36px);margin-bottom:20px}
+.proj-body{font-size:17px;line-height:1.8;max-width:720px;white-space:pre-wrap}
+
+/* Timeline */
+.proj-timeline{display:flex;gap:0;overflow-x:auto;margin-top:8px;padding-bottom:8px}
+.proj-timeline-item{flex:1;min-width:120px;position:relative;padding:0 16px 20px;border-top:3px solid var(--a1);padding-top:16px}
+.proj-timeline-item::before{content:'';position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--a1);border:2px solid var(--bg)}
+.proj-timeline-phase{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.proj-timeline-date{font-size:12px;color:var(--text-muted)}
+
+/* Process steps */
+.process-steps{display:flex;flex-direction:column;gap:40px;margin-top:8px}
+.process-step{display:grid;grid-template-columns:48px 1fr;gap:20px;align-items:start}
+.process-step-num{width:48px;height:48px;border-radius:var(--r-sm);background:var(--a1);color:var(--offwhite);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:18px;font-weight:900;flex-shrink:0}
+[data-theme="dark"] .process-step-num{color:var(--bg)}
+.process-step-body h4{margin-bottom:8px}
+.process-step-body p{font-size:16px;line-height:1.75;color:var(--text-muted);white-space:pre-wrap}
+.process-step-img{margin-top:16px;border-radius:var(--r-md);overflow:hidden;border:2px solid var(--border);aspect-ratio:16/9;background:var(--placeholder);position:relative}
+.process-step-img img{width:100%;height:100%;object-fit:cover}
+.process-step-img .ph{aspect-ratio:16/9}
+
+.proj-live-link{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:var(--r-md);border:2px solid var(--a1);background:var(--a1);color:var(--offwhite);font-size:15px;font-weight:700;box-shadow:var(--shadow-sm) var(--a1-dk);transition:transform .15s,box-shadow .15s;margin-top:8px}
+[data-theme="dark"] .proj-live-link{color:var(--bg)}
+.proj-live-link:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--a1-dk)}
+
+/* ================================================================
+   EXPERIENCE MODAL
+================================================================ */
+#exp-modal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
+#exp-modal.open{display:flex}
+.exp-modal-inner{background:var(--offwhite);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:var(--shadow-lg) var(--shadow);width:min(560px,100%);max-height:85vh;display:flex;flex-direction:column;overflow:hidden}
+.exp-modal-header{padding:24px 28px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.exp-modal-header h3{margin-bottom:4px}
+.exp-modal-org{font-size:14px;color:var(--a1);font-weight:600}
+.exp-modal-date{font-size:12px;color:var(--text-muted);margin-top:2px}
+.exp-modal-body{padding:24px 28px;overflow-y:auto;font-size:16px;line-height:1.8;white-space:pre-wrap;color:var(--text-muted)}
+.exp-modal-close{position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:var(--r-sm);border:2px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:border-color .2s}
+.exp-modal-close:hover{border-color:var(--a1)}
+.exp-modal-header{position:relative;padding-right:56px}
+
+/* ================================================================
+   CROP MODAL
+================================================================ */
+#crop-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px}
+#crop-modal.open{display:flex}
+.crop-wrap{background:var(--offwhite);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:10px 10px 0 var(--shadow);width:min(540px,100%);overflow:hidden}
+.crop-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.crop-hdr span{font-weight:700;font-size:15px}
+.crop-hdr button{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-muted);line-height:1}
+.crop-stage{position:relative;width:100%;overflow:hidden;cursor:grab;user-select:none;touch-action:none}
+.crop-stage:active{cursor:grabbing}
+#crop-img-el{position:absolute;transform-origin:0 0;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.crop-frame-el{position:absolute;pointer-events:none;box-shadow:0 0 0 9999px rgba(0,0,0,.55);border:2px solid #fff}
+.crop-frame-el::before,.crop-frame-el::after{content:'';position:absolute;width:20px;height:20px;border-color:#fff;border-style:solid}
+.crop-frame-el::before{top:-2px;left:-2px;border-width:3px 0 0 3px}
+.crop-frame-el::after{bottom:-2px;right:-2px;border-width:0 3px 3px 0}
+.crop-ftr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--border)}
+.crop-hint{font-size:12px;color:var(--text-muted)}
+.crop-apply{padding:10px 24px;border-radius:var(--r-md);border:2px solid var(--a1);background:var(--a1);color:var(--offwhite);font-weight:700;font-size:14px;cursor:pointer;box-shadow:3px 3px 0 var(--a1-dk);transition:transform .15s,box-shadow .15s}
+[data-theme="dark"] .crop-apply{color:var(--bg)}
+.crop-apply:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--a1-dk)}
+
+/* ================================================================
+   EDITOR OVERLAY
+================================================================ */
+#editor-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.45);backdrop-filter:blur(4px)}
+#editor-overlay.open{display:flex}
+#editor-panel{position:absolute;top:0;right:0;bottom:0;width:min(540px,100vw);background:var(--offwhite);border-left:2px solid var(--text);box-shadow:-6px 0 0 var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.ed-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:2px solid var(--text);background:var(--surface);flex-shrink:0}
+.ed-title{font-family:var(--serif);font-size:18px;font-weight:700}
+.ed-close{width:34px;height:34px;border-radius:var(--r-sm);border:2px solid var(--text);background:var(--offwhite);box-shadow:var(--shadow-sm) var(--shadow);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .15s,box-shadow .15s}
+.ed-close:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--shadow)}
+.ed-tabs{display:flex;border-bottom:2px solid var(--text);flex-shrink:0;overflow-x:auto}
+.ed-tab{padding:11px 16px;font-family:var(--sans);font-size:12px;font-weight:700;background:none;border:none;border-right:1px solid var(--border);cursor:pointer;color:var(--text-muted);white-space:nowrap;letter-spacing:.04em;text-transform:uppercase;transition:opacity .15s,background .15s}
+.ed-tab:hover{color:var(--text);background:var(--surface)}
+.ed-tab.active{color:var(--a1);background:var(--bg);border-bottom:2px solid var(--bg);margin-bottom:-2px}
+.ed-body{flex:1;overflow-y:auto;padding:20px}
+.ed-sec{margin-bottom:28px}
+.ed-sec-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:5px;letter-spacing:.05em;text-transform:uppercase}
+.field input,.field textarea,.field select{width:100%;padding:9px 13px;border-radius:var(--r-sm);border:2px solid var(--border);background:var(--surface);font-family:var(--sans);font-size:13px;color:var(--text);transition:border-color .2s;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--a1)}
+.field textarea{min-height:72px;line-height:1.5}
+.ed-card{background:var(--surface);border-radius:var(--r-md);border:2px solid var(--border);padding:14px;margin-bottom:12px}
+.ed-card-title{font-size:12px;font-weight:700;color:var(--a1);margin-bottom:10px;letter-spacing:.02em}
+/* Add/remove row buttons */
+.ed-add-btn{width:100%;padding:9px;border-radius:var(--r-sm);border:2px dashed var(--border);background:none;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer;transition:border-color .2s,color .2s;margin-top:4px}
+.ed-add-btn:hover{border-color:var(--a1);color:var(--a1)}
+.ed-remove-btn{font-size:11px;font-weight:700;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:2px 6px;float:right;transition:color .2s}
+.ed-remove-btn:hover{color:red}
+/* Image upload zone */
+.img-zone{border:2px dashed var(--border);border-radius:var(--r-md);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+.img-zone:hover,.img-zone.drag-over{border-color:var(--a1);background:var(--a1-lt)}
+.img-zone.has-img{border-style:solid;border-color:var(--a1)}
+.img-zone-thumb{width:60px;height:45px;border-radius:6px;background:var(--placeholder);border:1px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.img-zone-thumb img{width:100%;height:100%;object-fit:cover}
+.img-zone-info{flex:1;min-width:0}
+.img-zone-info strong{display:block;font-size:12px;font-weight:700;color:var(--text)}
+.img-zone-info small{font-size:11px;color:var(--text-muted)}
+.img-zone-clear{position:absolute;top:8px;right:8px;font-size:11px;font-weight:700;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:2px 6px;transition:color .2s}
+.img-zone-clear:hover{color:red}
+input[type="file"]{display:none}
+/* Editor footer */
+.ed-ftr{padding:14px 22px;border-top:2px solid var(--text);background:var(--surface);display:flex;gap:10px;align-items:center;flex-shrink:0}
+.ed-save{flex:1;padding:11px;border-radius:var(--r-md);border:2px solid var(--a1);background:var(--a1);color:var(--offwhite);font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;box-shadow:var(--shadow-sm) var(--a1-dk);transition:transform .15s,box-shadow .15s}
+[data-theme="dark"] .ed-save{color:var(--bg)}
+.ed-save:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--a1-dk)}
+.ed-reset{padding:11px 16px;border-radius:var(--r-md);border:2px solid var(--border);background:none;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);transition:color .15s,border-color .15s}
+.ed-reset:hover{color:var(--text);border-color:var(--text)}
+.ed-saved{font-size:12px;font-weight:700;color:var(--a1);opacity:0;transition:opacity .3s}
+.ed-saved.show{opacity:1}
+
+/* ================================================================
+   SCROLL REVEAL
+================================================================ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:20px}
+  .cv-grid{grid-template-columns:1fr;gap:36px}
+}
+@media(max-width:768px){
+  :root{--shadow-sm:3px 3px 0;--shadow-md:4px 4px 0;--shadow-lg:5px 5px 0}
+  .section{padding:60px 0}
+  #hero{padding:120px 0 60px}
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .portrait-card{max-width:260px;margin:0 auto}
+  .project-grid{grid-template-columns:1fr}
+  .tab-nav{display:none}.tab-select{display:block}
+  .work-header{flex-direction:column;align-items:flex-start}
+  .hero-ctas{flex-direction:column}
+  .btn{width:100%}
+  .contact-link{width:100%}
+  .footer-inner{flex-direction:column;text-align:center}
+  .nav-links{display:none}.nav-toggle{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);align-items:center;justify-content:center;gap:36px;z-index:99}
+  .nav-links.open a{font-size:26px;font-weight:600}
+  .process-step{grid-template-columns:36px 1fr}
+  .process-step-num{width:36px;height:36px;font-size:15px}
+}
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav id="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <div class="nav-logo" id="nav-logo" title="Double-click to edit content">
+      AA<span class="a1">.</span>
+      <span class="nav-logo-hint">dbl-click to edit</span>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#cv">CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <!-- Moon (shown in light mode) -->
+          <path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>
+        </svg>
+      </button>
+      <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HOME VIEW
+============================================================ -->
+<div id="home-view">
+<main>
+
+  <!-- HERO -->
+  <section id="hero" aria-label="Introduction">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-eyebrow" id="h-eyebrow"></p>
+          <h1 class="hero-name reveal" id="h-name"></h1>
+          <p class="hero-subtitle reveal d1" id="h-subtitle"></p>
+          <p class="hero-tagline reveal d2" id="h-tagline"></p>
+          <div class="hero-ctas reveal d3">
+            <a href="#work" class="btn btn-primary">View my work</a>
+            <a href="#contact" class="btn btn-secondary">Get in touch</a>
+          </div>
+        </div>
+        <div class="portrait-card reveal d2" id="portrait-card">
+          <div class="ph" id="portrait-ph">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>[Photo: Amran Ali]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section" aria-label="About">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="section-label">About</p>
+      <h2>A bit about me<span class="a1">.</span></h2>
+      <div class="about-grid" id="about-grid"></div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="section" aria-label="Selected work">
+    <div class="container">
+      <div class="work-header">
+        <div>
+          <div class="divider"></div>
+          <p class="section-label">Selected work</p>
+          <h2>Projects<span class="a1">.</span></h2>
+        </div>
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" data-tab="ux">UX</button>
+          <button class="tab-btn" data-tab="industrial">Industrial Design</button>
+          <button class="tab-btn" data-tab="other">Other Work</button>
+        </div>
+      </div>
+      <select class="tab-select" id="tab-select-mobile" aria-label="Select work category">
+        <option value="ux">UX</option>
+        <option value="industrial">Industrial Design</option>
+        <option value="other">Other Work</option>
+      </select>
+      <div class="tab-panel active" id="panel-ux"><div class="project-grid" id="grid-ux"></div></div>
+      <div class="tab-panel" id="panel-industrial"><div class="project-grid" id="grid-industrial"></div></div>
+      <div class="tab-panel" id="panel-other"><div class="project-grid" id="grid-other"></div></div>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv" class="section" aria-label="CV">
+    <div class="container">
+      <div class="divider"></div>
+      <p class="section-label">Experience &amp; Education</p>
+      <h2>Background<span class="a1">.</span></h2>
+      <div class="cv-grid">
+        <div class="cv-column reveal">
+          <h3>Experience<span class="a1">.</span></h3>
+          <div class="timeline" id="timeline-exp"></div>
+        </div>
+        <div class="cv-column reveal d1">
+          <h3>Education<span class="a1">.</span></h3>
+          <div class="timeline" id="timeline-edu"></div>
+        </div>
+      </div>
+      <div class="skills-section reveal">
+        <h3>Key skills<span class="a1">.</span></h3>
+        <div class="tag-cloud" id="tag-cloud"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" aria-label="Contact">
+    <div class="container">
+      <div class="divider" style="background:var(--a1);margin:0 auto 20px"></div>
+      <p class="section-label" style="color:var(--a1)">Get in touch</p>
+      <h2 class="contact-heading reveal">Let's talk<span class="a1">.</span></h2>
+      <div class="contact-links reveal d1" id="contact-links"></div>
+    </div>
+  </section>
+
+</main>
+<footer>
+  <div class="container footer-inner">
+    <span class="footer-copy" id="footer-copy"></span>
+    <span class="footer-tag">Designed &amp; built with intention.</span>
+  </div>
+</footer>
+</div><!-- /home-view -->
+
+
+<!-- ============================================================
+     PROJECT DETAIL VIEW
+============================================================ -->
+<div id="project-view">
+  <div class="container" style="padding-top:24px;padding-bottom:88px">
+    <button class="proj-back" id="proj-back">← Back to work</button>
+
+    <div class="proj-hero" id="proj-hero-img">
+      <div class="ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span id="proj-hero-ph-label">[Hero image]</span></div>
+      <div class="proj-hero-overlay">
+        <div class="proj-hero-meta">
+          <h1 id="proj-detail-title"></h1>
+          <span class="proj-hero-badge" id="proj-detail-role"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="proj-section" id="proj-result-section">
+      <p class="proj-section-label">The outcome</p>
+      <h2>Result<span class="a1">.</span></h2>
+      <p class="proj-body" id="proj-result"></p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="proj-section" id="proj-timeline-section">
+      <p class="proj-section-label">Project phases</p>
+      <h2>Timeline<span class="a1">.</span></h2>
+      <div class="proj-timeline" id="proj-timeline"></div>
+    </div>
+
+    <!-- Process -->
+    <div class="proj-section" id="proj-process-section">
+      <p class="proj-section-label">How we got there</p>
+      <h2>Process<span class="a1">.</span></h2>
+      <div class="process-steps" id="proj-process"></div>
+    </div>
+
+    <!-- Future learning -->
+    <div class="proj-section" id="proj-future-section">
+      <p class="proj-section-label">Reflections</p>
+      <h2>Future learning<span class="a1">.</span></h2>
+      <p class="proj-body" id="proj-future"></p>
+    </div>
+
+    <!-- Live link -->
+    <div id="proj-live-section" style="display:none">
+      <a id="proj-live-link" class="proj-live-link" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View live work
+      </a>
+    </div>
+
+    <div style="margin-top:32px">
+      <button class="btn btn-secondary" id="proj-edit-btn" style="font-size:13px;padding:10px 20px">Edit this project ✏</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     EXPERIENCE MODAL
+============================================================ -->
+<div id="exp-modal" role="dialog" aria-modal="true" aria-label="Role details">
+  <div class="exp-modal-inner">
+    <div class="exp-modal-header">
+      <h3 id="exp-modal-title"></h3>
+      <div class="exp-modal-org" id="exp-modal-org"></div>
+      <div class="exp-modal-date" id="exp-modal-date"></div>
+      <button class="exp-modal-close" id="exp-modal-close">✕</button>
+    </div>
+    <div class="exp-modal-body" id="exp-modal-body"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     CROP MODAL
+============================================================ -->
+<div id="crop-modal" aria-label="Crop image">
+  <div class="crop-wrap">
+    <div class="crop-hdr">
+      <span>Crop image</span>
+      <button id="crop-cancel">✕</button>
+    </div>
+    <div class="crop-stage" id="crop-stage">
+      <img id="crop-img-el" alt="" draggable="false"/>
+      <div class="crop-frame-el" id="crop-frame-el"></div>
+    </div>
+    <div class="crop-ftr">
+      <span class="crop-hint">Drag to pan · Scroll or pinch to zoom</span>
+      <button class="crop-apply" id="crop-apply">Apply crop</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     EDITOR OVERLAY
+============================================================ -->
+<div id="editor-overlay" role="dialog" aria-modal="true" aria-label="Content editor">
+  <div id="editor-panel">
+    <div class="ed-hdr">
+      <span class="ed-title">Edit Content<span class="a1">.</span></span>
+      <button class="ed-close" id="ed-close">✕</button>
+    </div>
+    <div class="ed-tabs" id="ed-tabs">
+      <button class="ed-tab active" data-etab="hero">Hero</button>
+      <button class="ed-tab" data-etab="about">About</button>
+      <button class="ed-tab" data-etab="ux">UX</button>
+      <button class="ed-tab" data-etab="industrial">Industrial</button>
+      <button class="ed-tab" data-etab="other">Other</button>
+      <button class="ed-tab" data-etab="cv">CV</button>
+      <button class="ed-tab" data-etab="contact">Contact</button>
+    </div>
+    <div class="ed-body" id="ed-body"></div>
+    <div class="ed-ftr">
+      <button class="ed-save" id="ed-save">Save changes</button>
+      <button class="ed-reset" id="ed-reset">Reset all</button>
+      <span class="ed-saved" id="ed-saved">Saved ✓</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ================================================================
+   IMAGE STORAGE — IndexedDB
+   Images are stored as Blobs (no base64, no size limit).
+   Text content stays in localStorage (it's tiny).
+   imageCache maps upload-id → object URL for rendering.
+================================================================ */
+let db = null;
+const imageCache = new Map();
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const req = indexedDB.open('aa-portfolio',1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore('images');
+    req.onsuccess  = e => { db=e.target.result; resolve(db); };
+    req.onerror    = ()=> reject(req.error);
+  });
+}
+function idbPut(key,blob){
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('images','readwrite');
+    tx.objectStore('images').put(blob,key);
+    tx.oncomplete=res; tx.onerror=()=>rej(tx.error);
+  });
+}
+function idbDelete(key){
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('images','readwrite');
+    tx.objectStore('images').delete(key);
+    tx.oncomplete=res; tx.onerror=()=>rej(tx.error);
+  });
+}
+function idbClear(){
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('images','readwrite');
+    tx.objectStore('images').clear();
+    tx.oncomplete=res; tx.onerror=()=>rej(tx.error);
+  });
+}
+async function loadImageCache(){
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('images','readonly');
+    const req=tx.objectStore('images').openCursor();
+    req.onsuccess=e=>{
+      const c=e.target.result;
+      if(c){ imageCache.set(c.key, URL.createObjectURL(c.value)); c.continue(); }
+      else res();
+    };
+    req.onerror=()=>rej(req.error);
+  });
+}
+
+/* Set an image: blob → IDB + cache + content flag. null → remove. */
+async function setImageByUploadId(id, blobOrNull){
+  // Helper updates the image flag (true/null) on whichever object owns the field
+  function flag(obj, val){
+    if(id==='hero-photo'){ obj.hero.photo=val; return; }
+    const a=id.match(/^proj-(\w+)-(\d+)-hero$/);
+    if(a){ obj.projects[a[1]]?.[+a[2]]?.detail && (obj.projects[a[1]][+a[2]].detail.heroImage=val); return; }
+    const b=id.match(/^proj-(\w+)-(\d+)-thumb$/);
+    if(b){ obj.projects[b[1]]?.[+b[2]] && (obj.projects[b[1]][+b[2]].image=val); return; }
+    const c=id.match(/^proj-(\w+)-(\d+)-step-(\d+)$/);
+    if(c){ const s=obj.projects[c[1]]?.[+c[2]]?.detail?.process?.[+c[3]]; s&&(s.image=val); }
+  }
+  flag(C, blobOrNull?true:null);
+  if(editData && Object.keys(editData).length) flag(editData, blobOrNull?true:null);
+
+  const old=imageCache.get(id);
+  if(old) URL.revokeObjectURL(old);
+
+  if(blobOrNull){
+    if(db) await idbPut(id, blobOrNull);
+    imageCache.set(id, URL.createObjectURL(blobOrNull));
+  } else {
+    if(db) await idbDelete(id);
+    imageCache.delete(id);
+  }
+  saveContent(C); // persist immediately so image flags are saved
+}
+
+function getImageByUploadId(id){ return imageCache.get(id)||null; }
+
+/* ================================================================
+   DEFAULT CONTENT
+================================================================ */
+const DEFAULTS = {
+  hero: {
+    eyebrow: 'Portfolio — 2025',
+    name: 'Amran Ali',
+    subtitle: 'Designer. Problem solver. Phygital thinker.',
+    tagline: 'I solve problems for people in meaningful ways — from initial concept to final product.',
+    photo: null,
+  },
+  about: [
+    { heading: 'Who I am.', body: "I'm Amran — a designer shaped by two cultures. Growing up in a Bengali community in Yorkshire gave me an early and intimate understanding of empathy, diversity, and the gaps that exist between people and the systems meant to serve them. That lived experience is the foundation of everything I design." },
+    { heading: 'Why I do it.', body: "Being an outsider gives you a perspective that insiders can't always access. I've spent my career using that vantage point to design with both sympathy and empathy — not just understanding what people need, but feeling why it matters. Good design isn't decoration. It's problem-solving with heart." },
+    { heading: 'Where I\'m going.', body: "The boundary between physical and digital is dissolving, and I'm building my practice right at that intersection. Phygital thinking — designing experiences that exist seamlessly across the material and the virtual — is where I see the most exciting, most necessary work of the next decade." },
+  ],
+  projects: {
+    ux: [
+      { title:'Women in Action', desc:'A digital community for social change', role:'UX Lead', link:'#', image:null,
+        detail:{ heroImage:null, result:'Add the project result here — the key outcome, impact, or deliverable achieved.', timeline:[{phase:'Discovery',date:'Week 1–2'},{phase:'Define',date:'Week 3'},{phase:'Ideate',date:'Week 4–5'},{phase:'Prototype',date:'Week 6'},{phase:'Test',date:'Week 7–8'}], process:[{title:'Research & Discovery',body:'Describe the research methods, user interviews, and insights gathered at this stage.',image:null},{title:'Define & Synthesise',body:'Explain how you synthesised research into clear problem statements and user needs.',image:null},{title:'Ideation',body:'Describe the ideation process, workshops, and how concepts were generated and refined.',image:null},{title:'Prototype & Test',body:'Detail the prototyping approach and what was learned from user testing.',image:null}], futureLearning:'Add reflections on what you would do differently, next iterations, and future opportunities.', liveLink:'' } },
+      { title:'Empact Chicago', desc:'Clinical trial access for minority women', role:'UX Lead & Research', link:'#', image:null,
+        detail:{ heroImage:null, result:'Add the project result here.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 3–4'},{phase:'Test',date:'Month 5'}], process:[{title:'Research & Discovery',body:'Describe the research methods and insights.',image:null},{title:'Define',body:'How insights shaped the design direction.',image:null},{title:'Design & Prototype',body:'The design process and decisions made.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
+    ],
+    industrial: [
+      { title:'FERN Planter', desc:'Freestanding planter range for Furnitubes', role:'Design Project Lead', link:'#', image:null,
+        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Brief',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Development',date:'Month 3–4'},{phase:'Production',date:'Month 5–6'}], process:[{title:'Brief & Research',body:'Initial brief analysis and material/manufacturing research.',image:null},{title:'Concept Development',body:'Concept generation and initial design direction.',image:null},{title:'Detailing',body:'Technical drawings, prototyping, and refinement.',image:null},{title:'Sign-off',body:'Client presentation and production approval.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
+      { title:'Arca Redesign', desc:'Modular bin redesign for manufacturability', role:'Project Lead', link:'#', image:null,
+        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Audit',date:'Week 1'},{phase:'Concept',date:'Week 2–3'},{phase:'Develop',date:'Week 4–6'},{phase:'Handoff',date:'Week 7'}], process:[{title:'Existing Product Audit',body:'Analysis of current product for manufacturability issues.',image:null},{title:'Redesign Concepts',body:'Exploring design options that improve production efficiency.',image:null},{title:'Final Design',body:'Resolved design ready for manufacture.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
+      { title:'Veeva Seating', desc:'Modular street seating range', role:'Designer', link:'#', image:null,
+        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Detail',date:'Month 3'},{phase:'Delivery',date:'Month 4'}], process:[{title:'Site & User Research',body:'Understanding the context of use and existing street furniture.',image:null},{title:'Concept Development',body:'Modular seating concepts and configurations.',image:null},{title:'Detail Design',body:'Final design and technical documentation.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
+      { title:'Kings Crescent', desc:'Bespoke public seating, Hackney', role:'Designer', link:'#', image:null,
+        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Brief',date:'Week 1'},{phase:'Design',date:'Week 2–4'},{phase:'Approval',date:'Week 5'},{phase:'Install',date:'Week 8'}], process:[{title:'Client Brief',body:'Understanding the site context and community requirements.',image:null},{title:'Bespoke Design',body:'Creating a seating solution unique to Kings Crescent.',image:null},{title:'Installation',body:'Coordinating production and site installation.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
+    ],
+    other: [
+      { title:'Model Making & Earlier Work', desc:'Physical prototypes and university projects', role:'Designer', link:'#', image:null,
+        detail:{ heroImage:null, result:'A collection of physical prototypes, model-making work, and earlier design projects from university and early career.', timeline:[{phase:'Foundation',date:'2009'},{phase:'University',date:'2009–2012'},{phase:'Early Career',date:'2012–2015'}], process:[{title:'University Projects',body:'Product and furniture design projects from Kingston University.',image:null},{title:'Physical Prototyping',body:'Model-making work demonstrating craft and technical skills.',image:null}], futureLearning:'Early work that shaped my design thinking and approach to problem-solving.', liveLink:'' } },
+    ],
+  },
+  experience: [
+    { title:'UX Designer II', org:'Blue Yonder', date:'Aug 2026 — Present', desc:'Driving impact through design to expand Blue Yonder\'s client network for returns globally. Working on strategy, research and implementation of key KPIs to offer value to clients and the consumer. Collaborating with global teams across Product, Engineering, Project, Sales and Operations to create a cohesive product offering fit for markets across LSP (logistics) and Retail with expansion into new markets as they become viable.' },
+    { title:'UX Designer', org:'Blue Yonder', date:'Jul 2025 — Aug 2026', desc:'Working with global brands to deliver reverse logistics solutions that offer business impact whilst meeting the needs of everyday users. Leading design on the kiosk offering, creating both hardware and software products and partnering with multifunctional teams and vendors.' },
+    { title:'Associate UX Designer', org:'Blue Yonder', date:'Apr 2024 — Jul 2025', desc:'Working as part of a global end-to-end logistics technology firm on both physical and digital product design. Discovery: conducting initial research and usability testing at prototype stage and live in the field. Design & Development: solving problems and proposing solutions to meet client and business needs. Implementation: working with internal stakeholders and the technology team to deliver solutions in readiness for project rollout.' },
+    { title:'UX Designer · Project Manager · Facilitator', org:'Freelance', date:'Nov 2022 — Present', desc:'Working with businesses and charities developing physical and digital solutions. Industrial Design: design for manufacture, concept strategy, 3D design, detailing and drafting. Project Management: strategy, planning, facilitation, execution and stakeholder management. User Experience: persona development, task analysis, user flows, wireframes, user testing and prototyping.' },
+    { title:'Workshop Instructor', org:'Experience Haus', date:'Jan 2024 — Oct 2025', desc:'Running workshops as a Design Advocate and Educator focused on User Centred Design principles and solving business problems. Delivered product design thinking sessions to students across the UK, helping the next generation of designers tackle real-world challenges through design thinking methodologies.' },
+    { title:'Industrial Product Designer', org:'Furnitubes International Ltd', date:'Mar 2015 — Jan 2024', desc:'Led the design development of multiple street furniture and public realm product ranges from concept through to manufacture. Full design process ownership across local authorities, housing associations, and transport operators. Notable projects include the FERN planter range, Arca bin redesign, Veeva seating, and the Kings Crescent bespoke installation.' },
+    { title:'Design Assistant', org:'Astudio', date:'Sep 2013 — Mar 2015', desc:'Designing, model making, detailing and general studio practice within a multi-disciplinary architecture and interior design studio. Worked across multiple scales — from bespoke furniture and interior fit-outs through to larger architectural projects.' },
+  ],
+  education: [
+    { title:'Diploma in Product Design — UX & UI', org:'Experience Haus', date:'2021' },
+    { title:'BA (Hons) Product & Furniture Design — 2:1', org:'Kingston University', date:'2012' },
+    { title:'Foundation in Art & Design — Distinction', org:'Leeds College of Art', date:'2009' },
+  ],
+  skills: ['Facilitation','Project Management','Creative Thinking','Problem Solving','Prototyping','User Research','Wireframing','Figma / FigJam / Miro','Adobe CC','3D Modelling'],
+  contact: { email:'amran.a.ali@gmail.com', linkedin:'linkedin.com/in/amran-ali-719b3842', footerName:'Amran Ali' },
+};
+
+/* ================================================================
+   CONTENT PERSISTENCE  (text only — images live in IndexedDB)
+================================================================ */
+function loadContent(){
+  // v4 = new format where image fields are true|null, not base64
+  try{ const s=localStorage.getItem('aa-v4'); if(s) return JSON.parse(s); }catch(e){}
+  return structuredClone(DEFAULTS);
+}
+function saveContent(d){
+  // Strip any legacy base64 strings that might have slipped in
+  try{ localStorage.setItem('aa-v4',JSON.stringify(d)); }catch(e){ console.warn('localStorage save failed',e); }
+}
+
+/* Migrate old aa-v3 format (base64 images in content) to IndexedDB */
+async function migrateV3(){
+  const raw=localStorage.getItem('aa-v3');
+  if(!raw) return null;
+  let content; try{ content=JSON.parse(raw); }catch(e){ return null; }
+
+  async function mv(obj,key,iid){
+    const v=obj[key];
+    if(v && typeof v==='string' && v.startsWith('data:')){
+      try{
+        const res=await fetch(v); const blob=await res.blob();
+        await idbPut(iid,blob);
+        imageCache.set(iid,URL.createObjectURL(blob));
+        obj[key]=true;
+      }catch(e){ obj[key]=null; }
+    }
+  }
+  await mv(content.hero,'photo','hero-photo');
+  for(const tab of ['ux','industrial','other']){
+    for(let i=0;i<(content.projects?.[tab]?.length||0);i++){
+      const p=content.projects[tab][i];
+      await mv(p,'image',`proj-${tab}-${i}-thumb`);
+      if(p.detail){
+        await mv(p.detail,'heroImage',`proj-${tab}-${i}-hero`);
+        for(let si=0;si<(p.detail.process?.length||0);si++)
+          await mv(p.detail.process[si],'image',`proj-${tab}-${i}-step-${si}`);
+      }
+    }
+  }
+  localStorage.removeItem('aa-v3');
+  return content;
+}
+
+let C = structuredClone(DEFAULTS); // will be replaced in init()
+
+/* ================================================================
+   RENDER — SITE
+================================================================ */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderHero(){
+  const h=C.hero;
+  document.getElementById('h-eyebrow').textContent = h.eyebrow;
+  document.getElementById('h-name').innerHTML = esc(h.name)+'<span class="a1">.</span>';
+  document.getElementById('h-subtitle').textContent = h.subtitle;
+  document.getElementById('h-tagline').textContent = h.tagline;
+  const card=document.getElementById('portrait-card');
+  const ph=document.getElementById('portrait-ph');
+  const existImg=card.querySelector('img');
+  if(existImg) existImg.remove();
+  const photoUrl = imageCache.get('hero-photo');
+  if(photoUrl){ ph.style.display='none'; const img=document.createElement('img'); img.src=photoUrl; img.alt='Amran Ali'; card.appendChild(img); }
+  else{ ph.style.display=''; }
+}
+
+function renderAbout(){
+  document.getElementById('about-grid').innerHTML = C.about.map((c,i)=>`
+    <article class="about-card reveal${i?` d${i}`:''}">
+      <h3>${dotify(c.heading)}</h3>
+      <p>${esc(c.body)}</p>
+    </article>`).join('');
+}
+
+function dotify(s){
+  s=String(s||'');
+  if(s.endsWith('.')) return esc(s.slice(0,-1))+'<span class="a1">.</span>';
+  return esc(s);
+}
+
+function renderProjectCard(p, tab, idx){
+  const url = imageCache.get(`proj-${tab}-${idx}-thumb`);
+  const thumb = url
+    ? `<img src="${url}" alt="${esc(p.title)}">`
+    : `<div class="ph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>[Project: ${esc(p.title)}]</span></div>`;
+  return `<article class="project-card" data-tab="${esc(tab)}" data-idx="${idx}">
+    <div class="project-thumb">${thumb}</div>
+    <div class="project-body">
+      <h3 class="project-title">${esc(p.title)}</h3>
+      <p class="project-desc">${esc(p.desc)}</p>
+      <div class="project-footer">
+        <span class="role-badge">${esc(p.role)}</span>
+        <span class="project-link">View project →</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderProjects(){
+  ['ux','industrial','other'].forEach(tab=>{
+    document.getElementById('grid-'+tab).innerHTML = (C.projects[tab]||[]).map((p,i)=>renderProjectCard(p,tab,i)).join('');
+  });
+  document.querySelectorAll('.project-card').forEach(card=>{
+    card.addEventListener('click',()=> openProject(card.dataset.tab, parseInt(card.dataset.idx,10)));
+  });
+}
+
+function renderCV(){
+  document.getElementById('timeline-exp').innerHTML = C.experience.map((e,i)=>`
+    <div class="timeline-item clickable" data-exp="${i}">
+      <div class="timeline-title">${esc(e.title)}</div>
+      <div class="timeline-sub">${esc(e.org)}</div>
+      <div class="timeline-date">${esc(e.date)}</div>
+    </div>`).join('');
+  document.getElementById('timeline-edu').innerHTML = C.education.map(e=>`
+    <div class="timeline-item static">
+      <div class="timeline-title">${esc(e.title)}</div>
+      <div class="timeline-sub">${esc(e.org)}</div>
+      <div class="timeline-date">${esc(e.date)}</div>
+    </div>`).join('');
+  document.getElementById('tag-cloud').innerHTML = C.skills.map(s=>`<span class="skill-tag">${esc(s)}</span>`).join('');
+  // Bind experience click
+  document.querySelectorAll('.timeline-item.clickable').forEach(el=>{
+    el.addEventListener('click',()=> openExpModal(parseInt(el.dataset.exp,10)));
+  });
+}
+
+function renderContact(){
+  const c=C.contact;
+  const yr=new Date().getFullYear();
+  document.getElementById('contact-links').innerHTML=`
+    <a href="mailto:${esc(c.email)}" class="contact-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 8l10 7 10-7"/></svg>
+      Email me
+    </a>
+    <a href="https://${esc(c.linkedin)}" target="_blank" rel="noopener noreferrer" class="contact-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.5"/><path d="M11 17v-4a2 2 0 014 0v4M11 10v7"/></svg>
+      Connect on LinkedIn
+    </a>`;
+  document.getElementById('footer-copy').textContent=`${c.footerName} © ${yr}`;
+}
+
+function renderAll(){ renderHero(); renderAbout(); renderProjects(); renderCV(); renderContact(); initReveal(); }
+
+/* ================================================================
+   PROJECT DETAIL PAGE (SPA ROUTER)
+================================================================ */
+let currentProjectTab='', currentProjectIdx=0;
+
+function openProject(tab, idx){
+  currentProjectTab=tab; currentProjectIdx=idx;
+  const p=(C.projects[tab]||[])[idx];
+  if(!p) return;
+  const d=p.detail||{};
+
+  // Hero image — look up from imageCache
+  const heroEl=document.getElementById('proj-hero-img');
+  const heroUrl=imageCache.get(`proj-${tab}-${idx}-hero`);
+  heroEl.querySelector('.ph').style.display=heroUrl?'none':'';
+  document.getElementById('proj-hero-ph-label').textContent=`[${p.title} — hero image]`;
+  const heroImgEl=heroEl.querySelector('img');
+  if(heroImgEl) heroImgEl.remove();
+  if(heroUrl){ const img=document.createElement('img'); img.src=heroUrl; img.alt=p.title; heroEl.insertBefore(img,heroEl.querySelector('.proj-hero-overlay')); }
+
+  document.getElementById('proj-detail-title').textContent=p.title;
+  document.getElementById('proj-detail-role').textContent=p.role;
+  document.getElementById('proj-result').textContent=d.result||'';
+  document.getElementById('proj-future').textContent=d.futureLearning||'';
+
+  // Timeline
+  document.getElementById('proj-timeline').innerHTML=(d.timeline||[]).map(t=>`
+    <div class="proj-timeline-item">
+      <div class="proj-timeline-phase">${esc(t.phase)}</div>
+      <div class="proj-timeline-date">${esc(t.date)}</div>
+    </div>`).join('');
+
+  // Process — look up step images from imageCache
+  document.getElementById('proj-process').innerHTML=(d.process||[]).map((s,si)=>{
+    const stepUrl=imageCache.get(`proj-${tab}-${idx}-step-${si}`);
+    return `<div class="process-step">
+      <div class="process-step-num">${si+1}</div>
+      <div class="process-step-body">
+        <h4>${esc(s.title)}</h4>
+        <p>${esc(s.body)}</p>
+        ${stepUrl
+          ? `<div class="process-step-img"><img src="${stepUrl}" alt="${esc(s.title)}"></div>`
+          : `<div class="process-step-img"><div class="ph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>[Step ${si+1} image — optional]</span></div></div>`}
+      </div>
+    </div>`;}).join('');
+
+  // Live link
+  const liveSection=document.getElementById('proj-live-section');
+  if(d.liveLink){ liveSection.style.display=''; document.getElementById('proj-live-link').href=d.liveLink; }
+  else{ liveSection.style.display='none'; }
+
+  document.getElementById('home-view').style.display='none';
+  const pv=document.getElementById('project-view');
+  pv.classList.add('active');
+  window.scrollTo(0,0);
+  window.location.hash='project/'+encodeURIComponent(title);
+}
+
+function closeProject(){
+  document.getElementById('home-view').style.display='';
+  document.getElementById('project-view').classList.remove('active');
+  window.scrollTo(0,0);
+  history.replaceState(null,'','#work');
+}
+
+document.getElementById('proj-back').addEventListener('click', closeProject);
+document.getElementById('proj-edit-btn').addEventListener('click',()=>{
+  openEditor(); switchEditorTab(currentProjectTab);
+});
+
+
+window.addEventListener('popstate',()=>{ if(!location.hash.startsWith('#project/')) closeProject(); });
+
+/* ================================================================
+   EXPERIENCE MODAL
+================================================================ */
+function openExpModal(i){
+  const e=C.experience[i];
+  if(!e) return;
+  document.getElementById('exp-modal-title').textContent=e.title;
+  document.getElementById('exp-modal-org').textContent=e.org;
+  document.getElementById('exp-modal-date').textContent=e.date;
+  document.getElementById('exp-modal-body').textContent=e.desc||'No description added yet — edit via the content editor.';
+  document.getElementById('exp-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeExpModal(){ document.getElementById('exp-modal').classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('exp-modal-close').addEventListener('click', closeExpModal);
+document.getElementById('exp-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('exp-modal')) closeExpModal(); });
+
+/* ================================================================
+   CROP TOOL
+================================================================ */
+const cropModal = document.getElementById('crop-modal');
+const cropStage = document.getElementById('crop-stage');
+const cropImgEl = document.getElementById('crop-img-el');
+const cropFrameEl = document.getElementById('crop-frame-el');
+
+let crop = {
+  uploadId: null,
+  aspect: 16/9,
+  naturalW: 0, naturalH: 0,
+  stageW: 0, stageH: 0,
+  frameW: 0, frameH: 0,
+  frameX: 0, frameY: 0,
+  // image position & scale (image centre relative to stage centre)
+  panX: 0, panY: 0,
+  scale: 1,      // 1 = image fills frame exactly
+  baseScale: 1,  // px per natural pixel at scale=1
+  dragging: false, lastPX: 0, lastPY: 0,
+  // pinch
+  pinching: false, pinchD0: 0, pinchS0: 1,
+};
+
+function openCrop(file, uploadId, aspect){
+  crop.uploadId = uploadId;
+  crop.aspect   = aspect;
+  crop._file    = file; // keep original for toBlob step
+  // Use a blob URL for preview — no base64 in memory
+  if(crop._previewUrl) URL.revokeObjectURL(crop._previewUrl);
+  crop._previewUrl = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = () => {
+    crop.naturalW = img.naturalWidth;
+    crop.naturalH = img.naturalHeight;
+    cropImgEl.src = crop._previewUrl;
+    cropModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(initCropLayout);
+  };
+  img.src = crop._previewUrl;
+}
+
+function initCropLayout(){
+  // Size the stage
+  const wrapW = cropModal.querySelector('.crop-wrap').clientWidth;
+  const stageH = Math.round(wrapW * 0.68);
+  cropStage.style.width  = wrapW + 'px';
+  cropStage.style.height = stageH + 'px';
+  crop.stageW = wrapW;
+  crop.stageH = stageH;
+
+  // Frame = 80% of smaller stage dimension, locked to aspect
+  const maxFW = wrapW * 0.82;
+  const maxFH = stageH * 0.82;
+  let fw = maxFW, fh = fw / crop.aspect;
+  if(fh > maxFH){ fh = maxFH; fw = fh * crop.aspect; }
+  crop.frameW = fw;
+  crop.frameH = fh;
+  crop.frameX = (wrapW - fw) / 2;
+  crop.frameY = (stageH - fh) / 2;
+
+  cropFrameEl.style.left   = crop.frameX + 'px';
+  cropFrameEl.style.top    = crop.frameY + 'px';
+  cropFrameEl.style.width  = crop.frameW + 'px';
+  cropFrameEl.style.height = crop.frameH + 'px';
+
+  // Base scale: image fills the frame exactly
+  crop.baseScale = Math.max(crop.frameW / crop.naturalW, crop.frameH / crop.naturalH);
+  crop.scale = 1;
+  crop.panX  = 0;
+  crop.panY  = 0;
+  applyCropTransform();
+}
+
+function applyCropTransform(){
+  const s  = crop.baseScale * crop.scale;
+  const dw = crop.naturalW * s;
+  const dh = crop.naturalH * s;
+  // image top-left so its centre aligns with stage centre + pan
+  const left = crop.stageW/2 - dw/2 + crop.panX;
+  const top  = crop.stageH/2 - dh/2 + crop.panY;
+  cropImgEl.style.width  = dw + 'px';
+  cropImgEl.style.height = dh + 'px';
+  cropImgEl.style.left   = left + 'px';
+  cropImgEl.style.top    = top  + 'px';
+  // Clamp pan so frame is always covered
+  clampPan();
+}
+
+function clampPan(){
+  const s  = crop.baseScale * crop.scale;
+  const dw = crop.naturalW * s;
+  const dh = crop.naturalH * s;
+  const imgL = crop.stageW/2 - dw/2 + crop.panX;
+  const imgT = crop.stageH/2 - dh/2 + crop.panY;
+  let dx=0,dy=0;
+  if(imgL > crop.frameX) dx = crop.frameX - imgL;
+  if(imgT > crop.frameY) dy = crop.frameY - imgT;
+  if(imgL+dw < crop.frameX+crop.frameW) dx = (crop.frameX+crop.frameW)-(imgL+dw);
+  if(imgT+dh < crop.frameY+crop.frameH) dy = (crop.frameY+crop.frameH)-(imgT+dh);
+  if(dx||dy){ crop.panX+=dx; crop.panY+=dy;
+    const s2=crop.baseScale*crop.scale,dw2=crop.naturalW*s2,dh2=crop.naturalH*s2;
+    const l2=crop.stageW/2-dw2/2+crop.panX,t2=crop.stageH/2-dh2/2+crop.panY;
+    cropImgEl.style.left=l2+'px'; cropImgEl.style.top=t2+'px'; }
+}
+
+// Mouse drag
+cropStage.addEventListener('mousedown',e=>{ crop.dragging=true; crop.lastPX=e.clientX; crop.lastPY=e.clientY; e.preventDefault(); });
+window.addEventListener('mousemove',e=>{
+  if(!crop.dragging) return;
+  crop.panX+=e.clientX-crop.lastPX; crop.panY+=e.clientY-crop.lastPY;
+  crop.lastPX=e.clientX; crop.lastPY=e.clientY;
+  applyCropTransform();
+});
+window.addEventListener('mouseup',()=>{ crop.dragging=false; });
+
+// Wheel zoom
+cropStage.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? 0.92 : 1.08;
+  crop.scale = Math.max(1, Math.min(8, crop.scale * delta));
+  applyCropTransform();
+},{passive:false});
+
+// Touch drag + pinch
+cropStage.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){ crop.dragging=true; crop.lastPX=e.touches[0].clientX; crop.lastPY=e.touches[0].clientY; }
+  else if(e.touches.length===2){ crop.pinching=true; crop.dragging=false; crop.pinchD0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY); crop.pinchS0=crop.scale; }
+  e.preventDefault();
+},{passive:false});
+cropStage.addEventListener('touchmove',e=>{
+  if(crop.dragging && e.touches.length===1){
+    crop.panX+=e.touches[0].clientX-crop.lastPX; crop.panY+=e.touches[0].clientY-crop.lastPY;
+    crop.lastPX=e.touches[0].clientX; crop.lastPY=e.touches[0].clientY;
+    applyCropTransform();
+  } else if(crop.pinching && e.touches.length===2){
+    const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    crop.scale=Math.max(1,Math.min(8,crop.pinchS0*(d/crop.pinchD0)));
+    applyCropTransform();
+  }
+  e.preventDefault();
+},{passive:false});
+cropStage.addEventListener('touchend',()=>{ crop.dragging=false; crop.pinching=false; });
+
+// Apply crop — output as Blob (no base64, no size limit)
+document.getElementById('crop-apply').addEventListener('click',()=>{
+  const s   = crop.baseScale * crop.scale;
+  const dw  = crop.naturalW * s;
+  const dh  = crop.naturalH * s;
+  const imgL= crop.stageW/2 - dw/2 + crop.panX;
+  const imgT= crop.stageH/2 - dh/2 + crop.panY;
+  const sx  = (crop.frameX - imgL) / s;
+  const sy  = (crop.frameY - imgT) / s;
+  const sw  = crop.frameW / s;
+  const sh  = crop.frameH / s;
+  const MAX = 1200;
+  const outW= Math.min(Math.round(sw), MAX);
+  const outH= Math.round(outW / crop.aspect);
+  const canvas=document.createElement('canvas');
+  canvas.width=outW; canvas.height=outH;
+  const ctx=canvas.getContext('2d');
+  // Draw from the original file's blob URL — stays off-heap until draw
+  const src=new Image(); src.src=cropImgEl.src;
+  ctx.drawImage(src, sx,sy,sw,sh, 0,0,outW,outH);
+  // toBlob: no base64, goes straight to IndexedDB as binary
+  canvas.toBlob(async blob=>{
+    await setImageByUploadId(crop.uploadId, blob);
+    updateImgZone(crop.uploadId, imageCache.get(crop.uploadId));
+    closeCrop();
+  },'image/jpeg',0.85);
+});
+
+document.getElementById('crop-cancel').addEventListener('click', closeCrop);
+function closeCrop(){
+  cropModal.classList.remove('open');
+  document.body.style.overflow='';
+  cropImgEl.src='';
+  // Revoke the preview blob URL — free memory
+  if(crop._previewUrl){ URL.revokeObjectURL(crop._previewUrl); crop._previewUrl=null; }
+}
+
+/* ================================================================
+   EDITOR — IMAGE ZONE HTML
+================================================================ */
+function imgZoneHTML(id, aspect, label){
+  const src=getImageByUploadId(id);
+  return `<div class="img-zone${src?' has-img':''}" id="zone-${id}" data-uid="${id}" data-aspect="${aspect}">
+    <div class="img-zone-thumb" id="thumb-${id}">${src?`<img src="${esc(src)}" alt="">`:''}</div>
+    <div class="img-zone-info"><strong>${src?'Image uploaded':'Click or drag image here'}</strong><small>${label}</small></div>
+    ${src?`<button class="img-zone-clear" data-uid="${id}" type="button" title="Remove">✕</button>`:''}
+    <input type="file" id="file-${id}" accept="image/*" data-uid="${id}" data-aspect="${aspect}">
+  </div>`;
+}
+
+function updateImgZone(id, src){
+  const zone=document.getElementById('zone-'+id);
+  const thumb=document.getElementById('thumb-'+id);
+  if(!zone||!thumb) return;
+  if(src){
+    zone.classList.add('has-img');
+    thumb.innerHTML=`<img src="${src}" alt="">`;
+    zone.querySelector('.img-zone-info strong').textContent='Image uploaded';
+    if(!zone.querySelector('.img-zone-clear')){
+      const btn=document.createElement('button');
+      btn.className='img-zone-clear'; btn.type='button'; btn.title='Remove'; btn.textContent='✕';
+      btn.dataset.uid=id;
+      btn.addEventListener('click',ev=>{ev.stopPropagation();setImageByUploadId(id,null);updateImgZone(id,null);});
+      zone.appendChild(btn);
+    }
+  } else {
+    zone.classList.remove('has-img');
+    thumb.innerHTML='';
+    zone.querySelector('.img-zone-info strong').textContent='Click or drag image here';
+    const cb=zone.querySelector('.img-zone-clear');
+    if(cb) cb.remove();
+    // Reset file input
+    const fi=zone.querySelector('input[type="file"]');
+    if(fi) fi.value='';
+  }
+}
+
+function wireImgZones(){
+  document.querySelectorAll('.img-zone').forEach(zone=>{
+    const id=zone.dataset.uid;
+    const aspect=parseFloat(zone.dataset.aspect)||16/9;
+    const fi=zone.querySelector('input[type="file"]');
+    // Click to open file picker
+    zone.addEventListener('click',e=>{
+      if(e.target.classList.contains('img-zone-clear')) return;
+      fi.click();
+    });
+    // File selected
+    fi&&fi.addEventListener('change',e=>{ const f=e.target.files[0]; if(f) openCrop(f,id,aspect); });
+    // Drag & drop
+    zone.addEventListener('dragover',e=>{ e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave',()=> zone.classList.remove('drag-over'));
+    zone.addEventListener('drop',e=>{
+      e.preventDefault(); zone.classList.remove('drag-over');
+      const f=e.dataTransfer.files[0];
+      if(f&&f.type.startsWith('image/')) openCrop(f,id,aspect);
+    });
+    // Clear button
+    const cb=zone.querySelector('.img-zone-clear');
+    cb&&cb.addEventListener('click',e=>{ e.stopPropagation(); setImageByUploadId(id,null); updateImgZone(id,null); });
+  });
+}
+
+/* ================================================================
+   EDITOR — BUILD UI
+================================================================ */
+let activeEditorTab='hero';
+
+function openEditor(){ editData=structuredClone(C); renderEditorTab(activeEditorTab); document.getElementById('editor-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeEditor(){ document.getElementById('editor-overlay').classList.remove('open'); document.body.style.overflow=''; }
+function switchEditorTab(tab){ activeEditorTab=tab; document.querySelectorAll('.ed-tab').forEach(b=>b.classList.toggle('active',b.dataset.etab===tab)); renderEditorTab(tab); }
+
+document.getElementById('nav-logo').addEventListener('dblclick', openEditor);
+document.getElementById('ed-close').addEventListener('click', closeEditor);
+document.getElementById('editor-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('editor-overlay')) closeEditor(); });
+document.getElementById('ed-tabs').addEventListener('click',e=>{
+  const btn=e.target.closest('.ed-tab'); if(!btn) return;
+  collectTab(); switchEditorTab(btn.dataset.etab);
+});
+
+let editData={};
+
+function renderEditorTab(tab){
+  const body=document.getElementById('ed-body');
+  switch(tab){
+    case 'hero':       body.innerHTML=buildHeroEd();        break;
+    case 'about':      body.innerHTML=buildAboutEd();       break;
+    case 'ux':         body.innerHTML=buildProjEd('ux');    break;
+    case 'industrial': body.innerHTML=buildProjEd('industrial'); break;
+    case 'other':      body.innerHTML=buildProjEd('other'); break;
+    case 'cv':         body.innerHTML=buildCVEd();          break;
+    case 'contact':    body.innerHTML=buildContactEd();     break;
+  }
+  wireImgZones();
+  wireAddRemove();
+}
+
+function buildHeroEd(){return `
+  <div class="ed-sec"><div class="ed-sec-title">Hero text</div>
+    <div class="field"><label>Eyebrow label</label><input type="text" data-p="hero.eyebrow" value="${esc(editData.hero.eyebrow)}"></div>
+    <div class="field"><label>Name</label><input type="text" data-p="hero.name" value="${esc(editData.hero.name)}"></div>
+    <div class="field"><label>Subtitle</label><input type="text" data-p="hero.subtitle" value="${esc(editData.hero.subtitle)}"></div>
+    <div class="field"><label>Tagline</label><textarea data-p="hero.tagline">${esc(editData.hero.tagline)}</textarea></div>
+  </div>
+  <div class="ed-sec"><div class="ed-sec-title">Portrait photo (3:4)</div>
+    ${imgZoneHTML('hero-photo',3/4,'Portrait · drag or click')}
+  </div>`;}
+
+function buildAboutEd(){return `<div class="ed-sec"><div class="ed-sec-title">About cards</div>
+  ${editData.about.map((c,i)=>`<div class="ed-card">
+    <div class="ed-card-title">Card ${i+1}</div>
+    <div class="field"><label>Heading (include trailing dot)</label><input type="text" data-p="about[${i}].heading" value="${esc(c.heading)}"></div>
+    <div class="field"><label>Body</label><textarea data-p="about[${i}].body">${esc(c.body)}</textarea></div>
+  </div>`).join('')}
+</div>`;}
+
+function buildProjEd(tab){
+  const ps=editData.projects[tab]||[];
+  return ps.map((p,i)=>`
+  <div class="ed-sec">
+    <div class="ed-sec-title">${esc(p.title)||'Project '+(i+1)}</div>
+    <div class="ed-card">
+      <div class="ed-card-title">Grid card</div>
+      <div class="field"><label>Title</label><input type="text" data-p="projects.${tab}[${i}].title" value="${esc(p.title)}"></div>
+      <div class="field"><label>One-line description</label><input type="text" data-p="projects.${tab}[${i}].desc" value="${esc(p.desc)}"></div>
+      <div class="field"><label>Role</label><input type="text" data-p="projects.${tab}[${i}].role" value="${esc(p.role)}"></div>
+      ${imgZoneHTML(`proj-${tab}-${i}-thumb`,16/9,'Thumbnail · 16:9 · drag or click')}
+    </div>
+    <div class="ed-card">
+      <div class="ed-card-title">Detail page — hero image (16:6)</div>
+      ${imgZoneHTML(`proj-${tab}-${i}-hero`,16/6,'Hero banner · drag or click')}
+    </div>
+    <div class="ed-card">
+      <div class="ed-card-title">Result</div>
+      <div class="field"><textarea data-p="projects.${tab}[${i}].detail.result" rows="4">${esc((p.detail||{}).result||'')}</textarea></div>
+    </div>
+    <div class="ed-card">
+      <div class="ed-card-title">Timeline phases</div>
+      ${(p.detail&&p.detail.timeline||[]).map((t,ti)=>`<div class="ed-card" data-tl-group="${tab}-${i}">
+        <button class="ed-remove-btn" data-rm="tl" data-tab="${tab}" data-pi="${i}" data-si="${ti}">Remove</button>
+        <div class="field"><label>Phase name</label><input type="text" data-p="projects.${tab}[${i}].detail.timeline[${ti}].phase" value="${esc(t.phase)}"></div>
+        <div class="field"><label>Date / Duration</label><input type="text" data-p="projects.${tab}[${i}].detail.timeline[${ti}].date" value="${esc(t.date)}"></div>
+      </div>`).join('')}
+      <button class="ed-add-btn" data-add="tl" data-tab="${tab}" data-pi="${i}">+ Add phase</button>
+    </div>
+    <div class="ed-card">
+      <div class="ed-card-title">Process steps</div>
+      ${(p.detail&&p.detail.process||[]).map((s,si)=>`<div class="ed-card">
+        <button class="ed-remove-btn" data-rm="step" data-tab="${tab}" data-pi="${i}" data-si="${si}">Remove</button>
+        <div class="ed-card-title">Step ${si+1}</div>
+        <div class="field"><label>Title</label><input type="text" data-p="projects.${tab}[${i}].detail.process[${si}].title" value="${esc(s.title)}"></div>
+        <div class="field"><label>Description</label><textarea data-p="projects.${tab}[${i}].detail.process[${si}].body">${esc(s.body)}</textarea></div>
+        ${imgZoneHTML(`proj-${tab}-${i}-step-${si}`,16/9,'Step image · optional')}
+      </div>`).join('')}
+      <button class="ed-add-btn" data-add="step" data-tab="${tab}" data-pi="${i}">+ Add step</button>
+    </div>
+    <div class="ed-card">
+      <div class="ed-card-title">Future learning</div>
+      <div class="field"><textarea data-p="projects.${tab}[${i}].detail.futureLearning" rows="4">${esc((p.detail||{}).futureLearning||'')}</textarea></div>
+    </div>
+    <div class="ed-card">
+      <div class="ed-card-title">Live work link (optional)</div>
+      <div class="field"><input type="url" data-p="projects.${tab}[${i}].detail.liveLink" placeholder="https://..." value="${esc((p.detail||{}).liveLink||'')}"></div>
+    </div>
+  </div>`).join('');}
+
+function buildCVEd(){return `
+  <div class="ed-sec"><div class="ed-sec-title">Experience</div>
+    ${editData.experience.map((e,i)=>`<div class="ed-card">
+      <button class="ed-remove-btn" data-rm="exp" data-si="${i}">Remove</button>
+      <div class="field"><label>Job title</label><input type="text" data-p="experience[${i}].title" value="${esc(e.title)}"></div>
+      <div class="field"><label>Organisation</label><input type="text" data-p="experience[${i}].org" value="${esc(e.org)}"></div>
+      <div class="field"><label>Dates</label><input type="text" data-p="experience[${i}].date" value="${esc(e.date)}"></div>
+      <div class="field"><label>Role description (shown in modal)</label><textarea data-p="experience[${i}].desc" rows="5">${esc(e.desc||'')}</textarea></div>
+    </div>`).join('')}
+    <button class="ed-add-btn" data-add="exp">+ Add experience entry</button>
+  </div>
+  <div class="ed-sec"><div class="ed-sec-title">Education</div>
+    ${editData.education.map((e,i)=>`<div class="ed-card">
+      <button class="ed-remove-btn" data-rm="edu" data-si="${i}">Remove</button>
+      <div class="field"><label>Qualification</label><input type="text" data-p="education[${i}].title" value="${esc(e.title)}"></div>
+      <div class="field"><label>Institution</label><input type="text" data-p="education[${i}].org" value="${esc(e.org)}"></div>
+      <div class="field"><label>Year</label><input type="text" data-p="education[${i}].date" value="${esc(e.date)}"></div>
+    </div>`).join('')}
+    <button class="ed-add-btn" data-add="edu">+ Add education entry</button>
+  </div>
+  <div class="ed-sec"><div class="ed-sec-title">Skills (comma-separated)</div>
+    <div class="field"><textarea data-p="skills-csv" rows="3">${esc(editData.skills.join(', '))}</textarea></div>
+  </div>`;}
+
+function buildContactEd(){const c=editData.contact; return `
+  <div class="ed-sec"><div class="ed-sec-title">Contact details</div>
+    <div class="field"><label>Email</label><input type="email" data-p="contact.email" value="${esc(c.email)}"></div>
+    <div class="field"><label>LinkedIn URL (no https://)</label><input type="text" data-p="contact.linkedin" value="${esc(c.linkedin)}"></div>
+    <div class="field"><label>Footer name</label><input type="text" data-p="contact.footerName" value="${esc(c.footerName)}"></div>
+  </div>`;}
+
+/* ── Add / Remove dynamic rows ── */
+function wireAddRemove(){
+  document.querySelectorAll('.ed-add-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      collectTab();
+      const add=btn.dataset.add, tab=btn.dataset.tab, pi=parseInt(btn.dataset.pi,10);
+      if(add==='tl'){ editData.projects[tab][pi].detail.timeline.push({phase:'New phase',date:''}); }
+      if(add==='step'){ editData.projects[tab][pi].detail.process.push({title:'New step',body:'',image:null}); }
+      if(add==='exp'){ editData.experience.push({title:'',org:'',date:'',desc:''}); }
+      if(add==='edu'){ editData.education.push({title:'',org:'',date:''}); }
+      renderEditorTab(activeEditorTab);
+    });
+  });
+  document.querySelectorAll('.ed-remove-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      collectTab();
+      const rm=btn.dataset.rm, tab=btn.dataset.tab, pi=parseInt(btn.dataset.pi,10), si=parseInt(btn.dataset.si,10);
+      if(rm==='tl')   editData.projects[tab][pi].detail.timeline.splice(si,1);
+      if(rm==='step') editData.projects[tab][pi].detail.process.splice(si,1);
+      if(rm==='exp')  editData.experience.splice(si,1);
+      if(rm==='edu')  editData.education.splice(si,1);
+      renderEditorTab(activeEditorTab);
+    });
+  });
+}
+
+/* ── Collect form values into editData ── */
+function collectTab(){
+  document.querySelectorAll('[data-p]').forEach(el=>{
+    const p=el.dataset.p, v=el.value;
+    if(p==='skills-csv'){ editData.skills=v.split(',').map(s=>s.trim()).filter(Boolean); return; }
+    setPath(editData,p,v);
+  });
+}
+function setPath(obj,path,val){
+  const parts=path.replace(/\[(\d+)\]/g,'.$1').split('.');
+  let cur=obj;
+  for(let i=0;i<parts.length-1;i++){ cur=cur[parts[i]]; if(cur==null) return; }
+  cur[parts[parts.length-1]]=val;
+}
+
+/* ── Save ── */
+document.getElementById('ed-save').addEventListener('click',()=>{
+  collectTab();
+  C=structuredClone(editData);
+  saveContent(C);
+  renderAll();
+  const msg=document.getElementById('ed-saved');
+  msg.classList.add('show');
+  setTimeout(()=>msg.classList.remove('show'),2000);
+});
+
+/* ── Reset ── */
+document.getElementById('ed-reset').addEventListener('click',async()=>{
+  if(!confirm('Reset all content to defaults? This will also remove all uploaded images.')) return;
+  localStorage.removeItem('aa-v4');
+  localStorage.removeItem('aa-v3');
+  // Clear IndexedDB images and revoke all object URLs
+  imageCache.forEach(url=>URL.revokeObjectURL(url));
+  imageCache.clear();
+  if(db) await idbClear();
+  C=structuredClone(DEFAULTS);
+  editData=structuredClone(C);
+  saveContent(C);
+  renderAll();
+  renderEditorTab(activeEditorTab);
+});
+
+/* ================================================================
+   NAV
+================================================================ */
+const navEl=document.getElementById('nav');
+window.addEventListener('scroll',()=>{ navEl.classList.toggle('scrolled',scrollY>40); },{passive:true});
+const navToggle=document.getElementById('nav-toggle');
+const navLinks=document.getElementById('nav-links');
+navToggle.addEventListener('click',()=>{
+  const o=navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded',o);
+  document.body.style.overflow=o?'hidden':'';
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ navLinks.classList.remove('open'); document.body.style.overflow=''; }));
+
+/* TABS */
+const tabBtns=document.querySelectorAll('.tab-btn');
+const tabPanels=document.querySelectorAll('.tab-panel');
+const mobileSelect=document.getElementById('tab-select-mobile');
+function switchTab(id){
+  tabBtns.forEach(b=>{const a=b.dataset.tab===id;b.classList.toggle('active',a);b.setAttribute('aria-selected',a);});
+  tabPanels.forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
+  mobileSelect.value=id;
+}
+tabBtns.forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+mobileSelect.addEventListener('change',e=>switchTab(e.target.value));
+
+/* ================================================================
+   DARK MODE
+================================================================ */
+const themeToggle=document.getElementById('theme-toggle');
+const themeIcon=document.getElementById('theme-icon');
+const MOON_PATH = 'M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z';
+const SUN_PATH  = 'M10 2v1m0 14v1M2 10h1m14 0h1M4.22 4.22l.7.7m10.16 10.16.7.7M4.22 15.78l.7-.7m10.16-10.16.7-.7M10 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z';
+
+function applyTheme(dark){
+  document.documentElement.dataset.theme=dark?'dark':'light';
+  themeIcon.querySelector('path')||themeIcon.querySelector('polyline');
+  themeIcon.innerHTML = dark
+    ? `<path d="${SUN_PATH}"/>`
+    : `<path d="${MOON_PATH}"/>`;
+  localStorage.setItem('aa-theme',dark?'dark':'light');
+}
+
+function initTheme(){
+  const saved=localStorage.getItem('aa-theme');
+  if(saved) applyTheme(saved==='dark');
+  else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+
+themeToggle.addEventListener('click',()=> applyTheme(document.documentElement.dataset.theme!=='dark'));
+initTheme();
+
+/* ================================================================
+   SCROLL REVEAL
+================================================================ */
+function initReveal(){
+  const els=document.querySelectorAll('.reveal');
+  els.forEach(el=>el.classList.remove('visible'));
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  els.forEach(el=>{
+    if(el.getBoundingClientRect().top<innerHeight) el.classList.add('visible');
+    else obs.observe(el);
+  });
+}
+
+/* ================================================================
+   BOOT — async so we open IndexedDB and load image cache first
+================================================================ */
+async function init(){
+  initTheme();
+  try{
+    await openDB();
+    // Migrate old localStorage base64 images → IndexedDB
+    const migrated = await migrateV3();
+    C = migrated || loadContent();
+    if(migrated) saveContent(C);
+    // Populate imageCache from IndexedDB
+    await loadImageCache();
+  }catch(e){
+    console.warn('IndexedDB unavailable, images will not persist:', e);
+    C = loadContent();
+  }
+  renderAll();
+}
+init();
+</script>
+</body>
+</html>

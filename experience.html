@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amran Ali — Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── Design Tokens ─── */
+:root {
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Inter', system-ui, sans-serif;
+
+  --bg:        #EDE8DF;
+  --surface:   #F5F1EA;
+  --offwhite:  #FAFAF7;
+  --border:    #D6CFC0;
+  --text:      #252525;
+  --text-muted:#6B6257;
+  --a1:        #17405f;
+  --a2:        #17e3c7;
+  --a1-lt:     rgba(23,64,95,.08);
+  --a2-dark:   #0d9b88;
+
+  --shadow:    #17405f;
+  --shadow-sm: 3px 3px 0;
+  --shadow-md: 5px 5px 0;
+  --shadow-lg: 8px 8px 0;
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 18px;
+
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --bg:        #0d1b26;
+  --surface:   #132233;
+  --offwhite:  #1a2e42;
+  --border:    #243d52;
+  --text:      #f0ece3;
+  --text-muted:#8fa8bb;
+  --a1:        #17e3c7;
+  --a2:        #17405f;
+  --a1-lt:     rgba(23,227,199,.1);
+  --shadow:    #0a111a;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  transition: background .3s, color .3s;
+}
+
+/* ─── Navigation ─── */
+nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 5vw, 48px);
+  height: 60px;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -.02em;
+}
+.nav-logo span { color: var(--a1); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: var(--r-sm);
+  transition: color .2s, background .2s;
+}
+.nav-link:hover { color: var(--a1); background: var(--a1-lt); }
+.nav-link.active { color: var(--a1); font-weight: 600; }
+.theme-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--r-sm);
+  border: 2px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 16px;
+  transition: border-color .2s, box-shadow .2s;
+  color: var(--text);
+}
+.theme-btn:hover { border-color: var(--a1); box-shadow: var(--shadow-sm) var(--shadow); }
+
+/* ─── Hero ─── */
+.hero {
+  padding: clamp(48px, 8vw, 96px) clamp(16px, 8vw, 96px) clamp(32px, 6vw, 64px);
+  max-width: 960px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--a1);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.hero h1 em { font-style: italic; color: var(--a1); }
+.hero-sub {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--text-muted);
+  max-width: 540px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.pill-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 600;
+  color: var(--a1);
+  border: 2px solid var(--a1);
+  padding: 8px 18px;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  background: transparent;
+  box-shadow: var(--shadow-sm) var(--shadow);
+  transition: box-shadow .15s, transform .15s;
+}
+.pill-link:hover { box-shadow: var(--shadow-md) var(--shadow); transform: translate(-1px, -1px); }
+.pill-link.filled { background: var(--a1); color: var(--offwhite); }
+[data-theme="dark"] .pill-link.filled { color: var(--bg); }
+
+/* ─── Layout ─── */
+.page-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 8vw, 96px) 96px;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 720px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* ─── Section headings ─── */
+.sec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--a1);
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--a1);
+  display: inline-block;
+}
+
+/* ─── Experience Timeline ─── */
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+  position: relative;
+  padding: 28px 28px 28px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .2s;
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 36px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--bg);
+  transition: background .2s;
+}
+.exp-item:hover::before, .exp-item.active::before { background: var(--a1); }
+.exp-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.exp-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+  transition: color .2s;
+}
+.exp-item:hover .exp-title { color: var(--a1); }
+.exp-badge {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  background: var(--a1-lt); color: var(--a1); border: 1.5px solid var(--a1);
+  border-radius: 100px; padding: 3px 11px;
+  white-space: nowrap;
+}
+.exp-badge.current { background: var(--a1); color: var(--offwhite); }
+[data-theme="dark"] .exp-badge.current { color: var(--bg); }
+.exp-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.exp-meta strong { color: var(--a1); font-weight: 600; }
+.exp-body {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, opacity .3s;
+  opacity: 0;
+}
+.exp-item.open .exp-body {
+  max-height: 600px;
+  opacity: 1;
+}
+.exp-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 14px;
+}
+.exp-tag {
+  font-size: 11px; font-weight: 500;
+  background: var(--surface); color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 3px 9px;
+}
+.exp-chevron {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: auto;
+  transition: transform .3s;
+  flex-shrink: 0;
+}
+.exp-item.open .exp-chevron { transform: rotate(180deg); }
+
+/* Timeline spine */
+.exp-spine {
+  position: relative;
+  padding-left: 28px;
+}
+.exp-spine::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 46px; bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+/* ─── Sidebar Cards ─── */
+.sidebar { display: flex; flex-direction: column; gap: 28px; }
+.card {
+  background: var(--surface);
+  border: 2px solid var(--text);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md) var(--shadow);
+}
+.card-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--a1);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Education */
+.edu-item {
+  padding: 14px 0 14px 16px;
+  border-left: 3px solid var(--a1);
+  margin-bottom: 16px;
+}
+.edu-item:last-child { margin-bottom: 0; }
+.edu-degree { font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+.edu-place { font-size: 13px; color: var(--a1); font-weight: 600; margin-bottom: 2px; }
+.edu-date { font-size: 12px; color: var(--text-muted); }
+
+/* Skills */
+.skills-grid { display: flex; flex-direction: column; gap: 12px; }
+.skill-row { display: flex; flex-direction: column; gap: 4px; }
+.skill-label { font-size: 12px; font-weight: 600; color: var(--text); }
+.skill-bar-wrap { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.skill-bar {
+  height: 100%;
+  background: var(--a1);
+  border-radius: 100px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform .8s cubic-bezier(.23,1,.32,1);
+}
+.skill-bar.animate { transform: scaleX(1); }
+
+/* Tags cloud */
+.tags-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag {
+  font-size: 12px; font-weight: 500;
+  border: 1.5px solid var(--a1);
+  border-radius: var(--r-sm);
+  padding: 4px 10px;
+  color: var(--a1);
+  background: transparent;
+}
+
+/* Profile card */
+.profile-card { text-align: center; }
+.profile-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--a1);
+  background: var(--border);
+  margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 28px; font-weight: 900; color: var(--a1);
+  box-shadow: var(--shadow-md) var(--shadow);
+}
+.profile-name { font-family: var(--serif); font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+.profile-role { font-size: 13px; color: var(--a1); font-weight: 600; margin-bottom: 10px; }
+.profile-loc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+.profile-btns { display: flex; flex-direction: column; gap: 8px; }
+.profile-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 10px 16px;
+  font-size: 13px; font-weight: 600;
+  border: 2px solid var(--a1);
+  border-radius: var(--r-sm);
+  text-decoration: none; color: var(--a1);
+  background: transparent;
+  box-shadow: var(--shadow-sm) var(--shadow);
+  transition: box-shadow .15s, transform .15s;
+}
+.profile-btn:hover { box-shadow: var(--shadow-md) var(--shadow); transform: translate(-1px,-1px); }
+.profile-btn.filled { background: var(--a1); color: var(--offwhite); }
+[data-theme="dark"] .profile-btn.filled { color: var(--bg); }
+
+/* Sub-roles (Blue Yonder progression) */
+.exp-subroles {
+  display: flex; flex-direction: column; gap: 6px;
+  margin: 0 0 4px;
+  padding: 10px 14px;
+  background: var(--a1-lt);
+  border-left: 3px solid var(--a1);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.exp-subrole {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
+}
+.exp-subrole-title { font-size: 13px; font-weight: 700; color: var(--a1); }
+.exp-subrole-date { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+/* Stats row */
+.stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; }
+.stat { text-align: center; }
+.stat-num { font-family: var(--serif); font-size: 22px; font-weight: 900; color: var(--a1); }
+.stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+/* ─── Footer ─── */
+footer {
+  margin-top: 48px;
+  padding: 28px clamp(16px, 8vw, 96px);
+  border-top: 2px solid var(--border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+footer a { color: var(--a1); text-decoration: none; }
+
+/* ─── Scroll reveal ─── */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .05s; }
+.d2 { transition-delay: .12s; }
+.d3 { transition-delay: .2s; }
+
+@media (max-width: 500px) {
+  .hero h1 { font-size: 36px; }
+  .exp-item-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">AA<span>.</span></a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Portfolio</a>
+    <a href="#" class="nav-link active">Experience</a>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow reveal d1">Curriculum Vitae</div>
+  <h1 class="reveal d2">Amran <em>Ali</em></h1>
+  <p class="hero-sub reveal d3">
+    Designer working at the intersection of physical and digital — UX, industrial design, and the spaces in between. Based in London.
+  </p>
+  <div class="hero-links reveal d3">
+    <a href="mailto:amran.a.ali@gmail.com" class="pill-link filled">Email me</a>
+    <a href="https://www.linkedin.com/in/amran-ali-719b3842/" class="pill-link" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="index.html" class="pill-link">View Portfolio</a>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrap">
+  <div class="two-col">
+
+    <!-- LEFT: Experience -->
+    <div>
+      <div class="sec-label reveal">Work Experience</div>
+      <div class="exp-spine">
+        <div class="exp-list" id="exp-list"><!-- JS rendered --></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Sidebar -->
+    <div class="sidebar">
+
+      <!-- Profile card -->
+      <div class="card profile-card reveal d1">
+        <div class="profile-avatar">AA</div>
+        <div class="profile-name">Amran Ali</div>
+        <div class="profile-role">UX Designer · Industrial Designer</div>
+        <div class="profile-loc">📍 London, United Kingdom</div>
+        <div class="profile-btns">
+          <a href="mailto:amran.a.ali@gmail.com" class="profile-btn filled">Email me</a>
+          <a href="https://www.linkedin.com/in/amran-ali-719b3842/" class="profile-btn" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Years exp.</div></div>
+          <div class="stat"><div class="stat-num">5</div><div class="stat-label">Roles held</div></div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="card reveal d2">
+        <div class="card-label">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">Diploma — Product Design, UX &amp; UI</div>
+          <div class="edu-place">Experience Haus</div>
+          <div class="edu-date">2021</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">BA (Hons) Product &amp; Furniture Design — 2:1</div>
+          <div class="edu-place">Kingston University</div>
+          <div class="edu-date">2009 – 2012</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Foundation in Art &amp; Design — Distinction</div>
+          <div class="edu-place">Leeds College of Art</div>
+          <div class="edu-date">2008 – 2009</div>
+        </div>
+      </div>
+
+      <!-- Core skills -->
+      <div class="card reveal d3">
+        <div class="card-label">Core Skills</div>
+        <div class="skills-grid" id="skills-grid"><!-- JS rendered --></div>
+      </div>
+
+      <!-- Tools & methods -->
+      <div class="card reveal">
+        <div class="card-label">Tools &amp; Methods</div>
+        <div class="tags-cloud" id="tags-cloud"><!-- JS rendered --></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© <span id="cy"></span> Amran Ali. <a href="index.html">Portfolio</a> · <a href="mailto:amran.a.ali@gmail.com">amran.a.ali@gmail.com</a></p>
+</footer>
+
+<script>
+// ─── Data ───────────────────────────────────────────────────────────────────
+
+const EXPERIENCE = [
+  {
+    title: 'Blue Yonder',
+    org: 'Blue Yonder',
+    orgDetail: 'Full-time · London, UK (Remote)',
+    location: 'London, UK',
+    date: 'Apr 2024 — Present',
+    current: true,
+    isCompany: true,
+    roles: [
+      { title: 'UX Designer II', date: 'Aug 2026 – Present · 3 mos' },
+      { title: 'UX Designer',    date: 'Jul 2025 – Aug 2026 · 1 yr 1 mo' },
+      { title: 'Associate UX Designer', date: 'Apr 2024 – Jul 2025 · 1 yr 4 mos' },
+    ],
+    tags: ['UX Research', 'Product Design', 'Digital Strategy', 'Logistics Tech', 'Hardware & Software', 'Usability Testing', 'Stakeholder Management'],
+    body: `Working within the UX team at Blue Yonder, one of the world's leading end-to-end logistics and supply chain technology firms — working on both physical and digital product design.
+
+UX Designer II (Aug 2026 – Present)
+Driving impact through design to expand Blue Yonder's client network for returns globally. Working on strategy, research and implementation of key KPIs to offer value to clients and the consumer. Working with global teams across Product, Engineering, Project, Sales and Operations to create a cohesive product offering fit for markets across LSP (logistics) and Retail.
+
+UX Designer (Jul 2025 – Aug 2026)
+Working with global brands to deliver reverse logistics solutions that offer business impact whilst meeting the needs of everyday users. Leading design on the kiosk offering, creating both hardware and software products and partnering with multifunctional teams and vendors.
+
+Associate UX Designer (Apr 2024 – Jul 2025)
+Discovery: Conducting initial research and usability testing both at prototype stage and live in the field with clients. Design & Development: Focusing on solving problems and proposing design solutions to meet client and business needs. Implementation: Working with internal stakeholders and the technology team to deliver solutions in readiness to support project rollout.`
+  },
+  {
+    title: 'UX Designer · Project Manager · Facilitator',
+    org: 'Freelance',
+    orgDetail: 'Self-employed',
+    location: 'London, UK',
+    date: 'Nov 2022 — Present',
+    current: true,
+    tags: ['Industrial Design', 'UX Design', 'Project Management', 'Design for Manufacture', 'Wireframing', 'User Testing', 'Concept Strategy'],
+    body: `Working with businesses and charities developing physical and digital solutions.
+
+Industrial Design: Design for manufacture, concept strategy, 3D design, detailing and drafting.
+
+Project Management: Strategy, planning, facilitation, execution and stakeholder management.
+
+User Experience: Persona development, task analysis, user flows, wireframes, user testing and prototyping.`
+  },
+  {
+    title: 'Workshop Instructor',
+    org: 'Experience Haus',
+    orgDetail: 'Freelance · Hybrid',
+    location: 'Greater London, UK',
+    date: 'Jan 2024 — Oct 2025 · 1 yr 10 mos',
+    current: false,
+    tags: ['Product Design', 'Workshop Facilitation', 'User-Centred Design', 'Education', 'Project Management'],
+    body: `Running workshops as a Design Advocate and Educator focused on User Centred Design principles and solving business problems.
+
+Delivered product design thinking sessions to students across the UK — including college students aged 16–19 — helping the next generation of designers tackle real-world challenges through design thinking methodologies.`
+  },
+  {
+    title: 'Industrial Product Designer',
+    org: 'Furnitubes International Ltd',
+    orgDetail: 'Street Furniture · Public Realm',
+    location: 'London, UK',
+    date: 'Mar 2015 — Jan 2024 · 8 yrs 11 mos',
+    current: false,
+    tags: ['Industrial Design', 'Design for Manufacture', '3D Modelling', 'SolidWorks', 'Client Liaison', 'Project Management', 'Technical Detailing'],
+    body: `Led the design development of multiple street furniture and public realm product ranges from concept through to manufacture. Full design process ownership across a client base spanning local authorities, housing associations, and transport operators.
+
+Notable projects:
+
+• FERN Planter Range — freestanding planter system for public spaces, designed for flexible deployment
+• Arca Bin Redesign — modular bin redesigned for improved manufacturability and easier maintenance
+• Veeva Seating — modular street seating range for varied public realm configurations
+• Kings Crescent, Hackney — bespoke public seating as part of an estate regeneration project`
+  },
+  {
+    title: 'Design Assistant',
+    org: 'Astudio',
+    orgDetail: 'Architecture & Interior Design Studio',
+    location: 'London, UK',
+    date: 'Sep 2013 — Mar 2015 · 1 yr 7 mos',
+    current: false,
+    tags: ['3D Visualisation', 'Model Making', 'Detailing', 'Studio Practice', 'Project Management'],
+    body: `Designing, model making, detailing and general studio practice within a multi-disciplinary architecture and interior design studio.
+
+Worked across multiple scales — from bespoke furniture and interior fit-outs through to larger architectural projects — developing skills in collaborative design processes and client-facing delivery.`
+  }
+];
+
+const SKILLS = [
+  { label: 'UX Design',            pct: 0.92 },
+  { label: 'Industrial Design',    pct: 0.90 },
+  { label: 'User Research',        pct: 0.85 },
+  { label: 'Design Project Mgmt',  pct: 0.80 },
+  { label: 'Prototyping',          pct: 0.88 },
+];
+
+const TOOLS = [
+  'Figma', 'SolidWorks', 'Autodesk Inventor', 'Adobe Suite',
+  'User Research', 'Usability Testing', 'Design Sprints',
+  'Workshop Facilitation', 'Design for Manufacture',
+  'Service Design', 'Systems Thinking', 'Phygital Design'
+];
+
+// ─── Render ──────────────────────────────────────────────────────────────────
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderExp() {
+  const list = document.getElementById('exp-list');
+  list.innerHTML = EXPERIENCE.map((e, i) => {
+    const subroles = e.roles ? `
+      <div class="exp-subroles">
+        ${e.roles.map(r => `
+          <div class="exp-subrole">
+            <span class="exp-subrole-title">${esc(r.title)}</span>
+            <span class="exp-subrole-date">${esc(r.date)}</span>
+          </div>
+        `).join('')}
+      </div>` : '';
+    return `
+    <div class="exp-item reveal" data-idx="${i}">
+      <div class="exp-item-header">
+        <div class="exp-title">${esc(e.title)}</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+          ${e.current ? '<span class="exp-badge current">Current</span>' : ''}
+          <span class="exp-chevron">▼</span>
+        </div>
+      </div>
+      <div class="exp-meta">
+        <span><strong>${esc(e.org)}</strong>${e.orgDetail !== e.org ? ' — ' + e.orgDetail : ''}</span>
+        <span>📍 ${esc(e.location)}</span>
+        <span>🗓 ${esc(e.date)}</span>
+      </div>
+      ${subroles}
+      <div class="exp-body">
+        <div style="white-space:pre-line;margin-bottom:14px">${esc(e.body)}</div>
+        <div class="exp-tags">
+          ${e.tags.map(t => `<span class="exp-tag">${esc(t)}</span>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Click to expand
+  list.querySelectorAll('.exp-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const wasOpen = el.classList.contains('open');
+      list.querySelectorAll('.exp-item').forEach(x => x.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    });
+  });
+
+  // Auto-open first
+  const first = list.querySelector('.exp-item');
+  if (first) first.classList.add('open');
+}
+
+function renderSkills() {
+  const grid = document.getElementById('skills-grid');
+  grid.innerHTML = SKILLS.map(s => `
+    <div class="skill-row">
+      <div class="skill-label">${esc(s.label)}</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar" style="transform:scaleX(${s.pct})"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTags() {
+  const cloud = document.getElementById('tags-cloud');
+  cloud.innerHTML = TOOLS.map(t => `<span class="tag">${esc(t)}</span>`).join('');
+}
+
+// ─── Theme ───────────────────────────────────────────────────────────────────
+
+function initTheme() {
+  const saved = localStorage.getItem('aa-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const dark = saved ? saved === 'dark' : prefersDark;
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  document.getElementById('theme-btn').textContent = dark ? '☀️' : '🌙';
+}
+
+document.getElementById('theme-btn').addEventListener('click', () => {
+  const isDark = document.documentElement.dataset.theme === 'dark';
+  document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+  localStorage.setItem('aa-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-btn').textContent = isDark ? '🌙' : '☀️';
+});
+
+// ─── Scroll Reveal ───────────────────────────────────────────────────────────
+
+function initReveal() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+// Animate skill bars when visible
+function initSkillBars() {
+  const bars = document.querySelectorAll('.skill-bar');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('animate'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(b => { b.style.transform = 'scaleX(0)'; io.observe(b); });
+}
+
+// ─── Init ────────────────────────────────────────────────────────────────────
+
+document.getElementById('cy').textContent = new Date().getFullYear();
+initTheme();
+renderExp();
+renderSkills();
+renderTags();
+// Slight delay so DOM is painted before reveal check
+requestAnimationFrame(() => { initReveal(); initSkillBars(); });
+</script>
+</body>
+</html>
