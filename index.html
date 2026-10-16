@@ -895,7 +895,7 @@ function saveContent(d){
 
 /* Migrate old aa-v3 format (base64 images in content) to IndexedDB */
 async function migrateV3(){
-  const raw=localStorage.getItem('aa-v3');
+  let raw; try{ raw=localStorage.getItem('aa-v3'); }catch(e){ return null; }
   if(!raw) return null;
   let content; try{ content=JSON.parse(raw); }catch(e){ return null; }
 
@@ -922,7 +922,7 @@ async function migrateV3(){
       }
     }
   }
-  localStorage.removeItem('aa-v3');
+  try{ localStorage.removeItem('aa-v3'); }catch(e){}
   return content;
 }
 
@@ -1646,8 +1646,7 @@ document.getElementById('ed-save').addEventListener('click',()=>{
 /* ── Reset ── */
 document.getElementById('ed-reset').addEventListener('click',async()=>{
   if(!confirm('Reset all content to defaults? This will also remove all uploaded images.')) return;
-  localStorage.removeItem('aa-v4');
-  localStorage.removeItem('aa-v3');
+  try{ localStorage.removeItem('aa-v4'); localStorage.removeItem('aa-v3'); }catch(e){}
   // Clear IndexedDB images and revoke all object URLs
   imageCache.forEach(url=>URL.revokeObjectURL(url));
   imageCache.clear();
@@ -1699,13 +1698,15 @@ function applyTheme(dark){
   themeIcon.innerHTML = dark
     ? `<path d="${SUN_PATH}"/>`
     : `<path d="${MOON_PATH}"/>`;
-  localStorage.setItem('aa-theme',dark?'dark':'light');
+  try{ localStorage.setItem('aa-theme',dark?'dark':'light'); }catch(e){}
 }
 
 function initTheme(){
-  const saved=localStorage.getItem('aa-theme');
-  if(saved) applyTheme(saved==='dark');
-  else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  try{
+    const saved=localStorage.getItem('aa-theme');
+    if(saved){ applyTheme(saved==='dark'); return; }
+  }catch(e){}
+  applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
 }
 
 themeToggle.addEventListener('click',()=> applyTheme(document.documentElement.dataset.theme!=='dark'));
