@@ -1513,7 +1513,15 @@ function openEditor(){ editData=structuredClone(C); renderEditorTab(activeEditor
 function closeEditor(){ document.getElementById('editor-overlay').classList.remove('open'); document.body.style.overflow=''; }
 function switchEditorTab(tab){ activeEditorTab=tab; document.querySelectorAll('.ed-tab').forEach(b=>b.classList.toggle('active',b.dataset.etab===tab)); renderEditorTab(tab); }
 
-// CMS editor access removed from nav logo
+// Press backtick (`) to open the content / image editor
+document.addEventListener('keydown', e => {
+  if(e.key === '`' && !e.ctrlKey && !e.metaKey && !e.altKey){
+    const tag = document.activeElement.tagName;
+    if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+    document.getElementById('editor-overlay').classList.contains('open') ? closeEditor() : openEditor();
+  }
+  if(e.key === 'Escape') closeEditor();
+});
 document.getElementById('ed-close').addEventListener('click', closeEditor);
 document.getElementById('editor-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('editor-overlay')) closeEditor(); });
 document.getElementById('ed-tabs').addEventListener('click',e=>{
