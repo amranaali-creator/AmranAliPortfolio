@@ -404,7 +404,7 @@ input[type="file"]{display:none}
    PRINT / PDF STYLESHEET
 ================================================================ */
 /* CV print area — always-on styles (html2pdf renders these; @media print kept for manual print fallback) */
-#cv-print-area{display:none;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#F5F2EC;padding:0;margin:0;font-size:10pt;line-height:1.5;width:210mm}
+#cv-print-area{display:none;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#F5F2EC;padding:0;margin:0;font-size:10pt;line-height:1.5;width:794px}
 .cvp-header{display:flex;align-items:center;gap:24pt;padding:24pt 24pt 18pt;border-bottom:2pt solid #17405f;background:#F5F2EC}
 .cvp-photo{width:72pt;height:96pt;object-fit:cover;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f}
 .cvp-photo-ph{width:72pt;height:96pt;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:#17405f}
@@ -1187,17 +1187,16 @@ function downloadCV(){
     </div>`;
 
   const area = document.getElementById('cv-print-area');
-  // Must be in-viewport for html2canvas to capture (off-screen = blank render)
-  area.style.cssText = 'display:block;position:fixed;top:0;left:0;width:210mm;z-index:9999;background:#F5F2EC;overflow:visible';
+  // 794px = A4 width at 96dpi; must match windowWidth below so layout is consistent
+  area.style.cssText = 'display:block;position:fixed;top:0;left:0;width:794px;z-index:9999;background:#F5F2EC;overflow:visible';
 
   function doExport(){
     html2pdf().set({
       margin: 0,
       filename: 'Amran-Ali-CV.pdf',
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#F5F2EC', windowWidth: 794 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: 'avoid-all' }
+      html2canvas: { scale: 2, useCORS: true, allowTaint: true, logging: false, backgroundColor: '#F5F2EC', windowWidth: 794 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(area).save().then(()=>{
       area.style.cssText = '';
     });
