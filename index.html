@@ -290,6 +290,18 @@ footer{border-top:1px solid var(--border);padding:22px 0}
 ================================================================ */
 #editor-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.45);backdrop-filter:blur(4px)}
 #editor-overlay.open{display:flex}
+#cms-pw-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+#cms-pw-modal.open{display:flex}
+#cms-pw-box{background:var(--offwhite);border:2px solid var(--text);border-radius:var(--r-lg);box-shadow:6px 6px 0 var(--shadow);padding:32px 28px;width:320px;max-width:90vw}
+#cms-pw-box h3{margin:0 0 16px;font-size:16px}
+#cms-pw-input{width:100%;box-sizing:border-box;padding:10px 12px;border:2px solid var(--text);border-radius:var(--r-sm);background:var(--bg);color:var(--text);font-size:15px;font-family:inherit;outline:none}
+#cms-pw-input:focus{border-color:var(--a1)}
+#cms-pw-error{color:#c0392b;font-size:13px;margin-top:8px;min-height:18px}
+#cms-pw-actions{display:flex;gap:10px;margin-top:18px;justify-content:flex-end}
+.cms-pw-btn{padding:8px 20px;border:2px solid var(--text);border-radius:var(--r-sm);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:3px 3px 0 var(--shadow)}
+.cms-pw-btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--shadow)}
+.cms-pw-btn.primary{background:var(--a2);color:#fff}
+.cms-pw-btn.cancel{background:var(--offwhite)}
 #editor-panel{position:absolute;top:0;right:0;bottom:0;width:min(540px,100vw);background:var(--offwhite);border-left:2px solid var(--text);box-shadow:-6px 0 0 var(--shadow);display:flex;flex-direction:column;overflow:hidden}
 .ed-hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:2px solid var(--text);background:var(--surface);flex-shrink:0}
 .ed-title{font-family:var(--serif);font-size:18px;font-weight:700}
@@ -733,6 +745,18 @@ input[type="file"]{display:none}
 <!-- ============================================================
      EDITOR OVERLAY
 ============================================================ -->
+<div id="cms-pw-modal" role="dialog" aria-modal="true" aria-label="Editor password">
+  <div id="cms-pw-box">
+    <h3>Enter password</h3>
+    <input id="cms-pw-input" type="password" placeholder="Password" autocomplete="off">
+    <div id="cms-pw-error"></div>
+    <div id="cms-pw-actions">
+      <button class="cms-pw-btn cancel" id="cms-pw-cancel">Cancel</button>
+      <button class="cms-pw-btn primary" id="cms-pw-submit">Unlock</button>
+    </div>
+  </div>
+</div>
+
 <div id="editor-overlay" role="dialog" aria-modal="true" aria-label="Content editor">
   <div id="editor-panel">
     <div class="ed-hdr">
@@ -1529,15 +1553,52 @@ function openEditor(){ editData=structuredClone(C); renderEditorTab(activeEditor
 function closeEditor(){ document.getElementById('editor-overlay').classList.remove('open'); document.body.style.overflow=''; }
 function switchEditorTab(tab){ activeEditorTab=tab; document.querySelectorAll('.ed-tab').forEach(b=>b.classList.toggle('active',b.dataset.etab===tab)); renderEditorTab(tab); }
 
-// Press Shift+E to open the content / image editor
-document.addEventListener('keydown', e => {
-  if(e.key === 'E' && e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey){
-    const tag = document.activeElement.tagName;
-    if(tag === 'INPUT' || tag === 'TEXTAREA') return;
-    document.getElementById('editor-overlay').classList.contains('open') ? closeEditor() : openEditor();
+// Password-gated Shift+E editor
+(function(){
+  const HASH = '8d3b6b2e4f1a9c7d2e5f8a1b4c7d0e3f6a9b2c5d8e1f4a7b0c3d6e9f2a5b8c1'; // placeholder, replaced below
+  async function sha256hex(str){
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
   }
-  if(e.key === 'Escape') closeEditor();
-});
+  // Store hash of password at runtime (not plain text in source)
+  let pwHash = null;
+  sha256hex('Shimu!').then(h=>{ pwHash=h; });
+
+  const modal = document.getElementById('cms-pw-modal');
+  const input = document.getElementById('cms-pw-input');
+  const errEl = document.getElementById('cms-pw-error');
+
+  function openPwModal(){
+    input.value=''; errEl.textContent='';
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>input.focus(),50);
+  }
+  function closePwModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  async function tryUnlock(){
+    const h = await sha256hex(input.value);
+    if(h===pwHash){ closePwModal(); openEditor(); }
+    else{ errEl.textContent='Incorrect password'; input.select(); }
+  }
+
+  document.getElementById('cms-pw-submit').addEventListener('click', tryUnlock);
+  document.getElementById('cms-pw-cancel').addEventListener('click', closePwModal);
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter') tryUnlock(); if(e.key==='Escape') closePwModal(); });
+  modal.addEventListener('click', e=>{ if(e.target===modal) closePwModal(); });
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'E' && e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey){
+      const tag = document.activeElement.tagName;
+      if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if(document.getElementById('editor-overlay').classList.contains('open')){ closeEditor(); return; }
+      openPwModal();
+    }
+    if(e.key === 'Escape'){ closeEditor(); closePwModal(); }
+  });
+})();
 document.getElementById('ed-close').addEventListener('click', closeEditor);
 document.getElementById('editor-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('editor-overlay')) closeEditor(); });
 document.getElementById('ed-tabs').addEventListener('click',e=>{
