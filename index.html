@@ -86,7 +86,6 @@ h4{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.3}
 #nav.scrolled{background:var(--bg);border-color:var(--border);padding:12px 0}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .nav-logo{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--a1);cursor:pointer;user-select:none;line-height:1}
-.nav-logo-hint{display:block;font-size:9px;font-family:var(--sans);color:var(--text-muted);font-weight:500;letter-spacing:.06em;margin-top:2px}
 .nav-right{display:flex;align-items:center;gap:24px}
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{font-size:14px;font-weight:600;color:var(--text);position:relative;transition:color .2s;letter-spacing:.01em}
@@ -337,6 +336,87 @@ input[type="file"]{display:none}
 .ed-saved.show{opacity:1}
 
 /* ================================================================
+   COMING SOON MODAL
+================================================================ */
+#soon-modal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
+#soon-modal.open{display:flex}
+.soon-inner{background:var(--offwhite);border-radius:var(--r-lg);border:2px solid var(--text);box-shadow:var(--shadow-lg) var(--shadow);width:min(480px,100%);padding:48px 40px;text-align:center;position:relative}
+.soon-icon{font-size:36px;color:var(--a1);margin-bottom:16px;display:block}
+.soon-inner h3{margin-bottom:14px;font-size:clamp(22px,3vw,28px)}
+.soon-inner p{font-size:16px;line-height:1.75;color:var(--text-muted);margin-bottom:28px;max-width:340px;margin-left:auto;margin-right:auto}
+.soon-cta{margin:0 auto}
+
+/* ================================================================
+   ACCORDION EXPERIENCE
+================================================================ */
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.acc-item{background:var(--offwhite);border-radius:var(--r-md);border:2px solid var(--text);box-shadow:var(--shadow-sm) var(--shadow);overflow:hidden}
+.acc-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px;cursor:pointer;user-select:none;transition:background .15s}
+.acc-header:hover{background:var(--a1-lt)}
+.acc-header-left{flex:1;min-width:0}
+.acc-title{font-weight:700;font-size:14px;margin-bottom:2px;line-height:1.3}
+.acc-sub{font-size:12px;color:var(--a1);font-weight:600;margin-bottom:2px}
+.acc-date{font-size:11px;color:var(--text-muted);font-weight:500}
+.acc-chevron{flex-shrink:0;width:20px;height:20px;border-radius:4px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-muted);transition:transform .25s,border-color .2s;margin-top:2px}
+.acc-item.open .acc-chevron{transform:rotate(180deg);border-color:var(--a1);color:var(--a1)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.acc-item.open .acc-body{max-height:600px}
+.acc-body-inner{padding:14px 20px 18px;font-size:13px;line-height:1.75;color:var(--text-muted);border-top:1px solid var(--border);white-space:pre-wrap}
+
+/* ================================================================
+   EDUCATION GRID
+================================================================ */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.edu-card{background:var(--offwhite);border-radius:var(--r-md);border:2px solid var(--text);box-shadow:var(--shadow-sm) var(--shadow);padding:20px;border-left:4px solid var(--a1)}
+.edu-card-title{font-weight:700;font-size:14px;margin-bottom:4px;line-height:1.35}
+.edu-card-org{font-size:13px;color:var(--a1);font-weight:600;margin-bottom:3px}
+.edu-card-date{font-size:12px;color:var(--text-muted)}
+
+/* CV block layout */
+.cv-block{margin-top:56px}
+.cv-block-heading{margin-bottom:0;padding-bottom:14px;border-bottom:2px solid var(--text)}
+
+/* Download CV button row */
+.cv-download-row{margin-top:28px;display:flex;justify-content:flex-end}
+.cv-download-btn{display:inline-flex;align-items:center;gap:8px}
+
+/* ================================================================
+   PRINT / PDF STYLESHEET
+================================================================ */
+#cv-print-area{display:none}
+
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body>*:not(#cv-print-area){display:none!important}
+  #cv-print-area{display:block;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#252525;background:#fff;padding:0;margin:0;font-size:10pt;line-height:1.5}
+  .cvp-header{display:flex;align-items:center;gap:24pt;padding:24pt 24pt 18pt;border-bottom:2pt solid #17405f;background:#EDE8DF}
+  .cvp-photo{width:72pt;height:96pt;object-fit:cover;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f}
+  .cvp-photo-ph{width:72pt;height:96pt;border-radius:6pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:24pt;font-weight:700;color:#17405f}
+  .cvp-header-info{flex:1}
+  .cvp-name{font-size:26pt;font-weight:900;color:#17405f;line-height:1.05;margin-bottom:4pt}
+  .cvp-tagline{font-size:10pt;color:#6B6257;margin-bottom:6pt;line-height:1.5}
+  .cvp-label{font-size:7pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#17405f;margin-bottom:2pt}
+  .cvp-section{padding:14pt 24pt}
+  .cvp-section+.cvp-section{border-top:1pt solid #D6CFC0}
+  .cvp-section h2{font-size:13pt;font-weight:700;color:#17405f;margin-bottom:10pt;padding-bottom:4pt;border-bottom:1.5pt solid #17405f}
+  .cvp-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
+  .cvp-exp-item{padding-left:8pt;border-left:2pt solid #17405f;margin-bottom:6pt}
+  .cvp-exp-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
+  .cvp-exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+  .cvp-exp-date{font-size:7pt;color:#6B6257;margin-bottom:3pt}
+  .cvp-exp-desc{font-size:8pt;color:#444;line-height:1.55}
+  .cvp-edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+  .cvp-edu-item{padding-left:8pt;border-left:2pt solid #17405f}
+  .cvp-edu-title{font-weight:700;font-size:9pt;margin-bottom:1pt}
+  .cvp-edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+  .cvp-edu-date{font-size:7pt;color:#6B6257}
+  .cvp-skills{display:flex;flex-wrap:wrap;gap:5pt}
+  .cvp-skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:2pt 8pt}
+  .cvp-contact{display:flex;gap:16pt;margin-top:4pt}
+  .cvp-contact a{font-size:8pt;color:#17405f;text-decoration:none}
+}
+
+/* ================================================================
    SCROLL REVEAL
 ================================================================ */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
@@ -349,6 +429,8 @@ input[type="file"]{display:none}
 @media(max-width:900px){
   .about-grid{grid-template-columns:1fr;gap:20px}
   .cv-grid{grid-template-columns:1fr;gap:36px}
+  .acc-grid{grid-template-columns:1fr}
+  .edu-grid{grid-template-columns:1fr}
 }
 @media(max-width:768px){
   :root{--shadow-sm:3px 3px 0;--shadow-md:4px 4px 0;--shadow-lg:5px 5px 0}
@@ -378,9 +460,8 @@ input[type="file"]{display:none}
 ============================================================ -->
 <nav id="nav" aria-label="Main navigation">
   <div class="container nav-inner">
-    <div class="nav-logo" id="nav-logo" title="Double-click to edit content">
+    <div class="nav-logo" id="nav-logo">
       AA<span class="a1">.</span>
-      <span class="nav-logo-hint">dbl-click to edit</span>
     </div>
     <div class="nav-right">
       <ul class="nav-links" id="nav-links">
@@ -418,7 +499,7 @@ input[type="file"]{display:none}
           <p class="hero-subtitle reveal d1" id="h-subtitle"></p>
           <p class="hero-tagline reveal d2" id="h-tagline"></p>
           <div class="hero-ctas reveal d3">
-            <a href="#work" class="btn btn-primary">View my work</a>
+            <a href="#cv" class="btn btn-primary">View my CV</a>
             <a href="#contact" class="btn btn-secondary">Get in touch</a>
           </div>
         </div>
@@ -437,7 +518,7 @@ input[type="file"]{display:none}
     <div class="container">
       <div class="divider"></div>
       <p class="section-label">About</p>
-      <h2>A bit about me<span class="a1">.</span></h2>
+      <h2>About me<span class="a1">.</span></h2>
       <div class="about-grid" id="about-grid"></div>
     </div>
   </section>
@@ -448,7 +529,7 @@ input[type="file"]{display:none}
       <div class="work-header">
         <div>
           <div class="divider"></div>
-          <p class="section-label">Selected work</p>
+          <p class="section-label">Work</p>
           <h2>Projects<span class="a1">.</span></h2>
         </div>
         <div class="tab-nav" role="tablist">
@@ -472,21 +553,28 @@ input[type="file"]{display:none}
   <section id="cv" class="section" aria-label="CV">
     <div class="container">
       <div class="divider"></div>
-      <p class="section-label">Experience &amp; Education</p>
+      <p class="section-label">CV</p>
       <h2>Background<span class="a1">.</span></h2>
-      <div class="cv-grid">
-        <div class="cv-column reveal">
-          <h3>Experience<span class="a1">.</span></h3>
-          <div class="timeline" id="timeline-exp"></div>
-        </div>
-        <div class="cv-column reveal d1">
-          <h3>Education<span class="a1">.</span></h3>
-          <div class="timeline" id="timeline-edu"></div>
-        </div>
+
+      <div class="cv-block reveal">
+        <h3 class="cv-block-heading">Experience<span class="a1">.</span></h3>
+        <div class="acc-grid" id="acc-exp"></div>
       </div>
-      <div class="skills-section reveal">
+
+      <div class="cv-block reveal d1">
+        <h3 class="cv-block-heading">Education<span class="a1">.</span></h3>
+        <div class="edu-grid" id="edu-grid"></div>
+      </div>
+
+      <div class="skills-section reveal d2">
         <h3>Key skills<span class="a1">.</span></h3>
         <div class="tag-cloud" id="tag-cloud"></div>
+        <div class="cv-download-row">
+          <button class="btn btn-secondary cv-download-btn" id="cv-download-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -509,6 +597,9 @@ input[type="file"]{display:none}
   </div>
 </footer>
 </div><!-- /home-view -->
+
+<!-- CV PRINT AREA (hidden; shown only in @media print) -->
+<div id="cv-print-area"></div>
 
 
 <!-- ============================================================
@@ -574,6 +665,17 @@ input[type="file"]{display:none}
 <!-- ============================================================
      EXPERIENCE MODAL
 ============================================================ -->
+<!-- Coming soon modal -->
+<div id="soon-modal" role="dialog" aria-modal="true" aria-label="Project coming soon">
+  <div class="soon-inner">
+    <button class="exp-modal-close" id="soon-close">✕</button>
+    <div class="soon-icon">✦</div>
+    <h3>Coming soon<span class="a1">.</span></h3>
+    <p>These project pages are coming soon. If you are interested to know more, feel free to reach out.</p>
+    <a href="mailto:amran.a.ali@gmail.com" class="btn btn-primary soon-cta">Get in touch</a>
+  </div>
+</div>
+
 <div id="exp-modal" role="dialog" aria-modal="true" aria-label="Role details">
   <div class="exp-modal-inner">
     <div class="exp-modal-header">
@@ -729,33 +831,34 @@ const DEFAULTS = {
     eyebrow: 'Portfolio — 2025',
     name: 'Amran Ali',
     subtitle: 'Designer. Problem solver. Phygital thinker.',
-    tagline: 'I solve problems for people in meaningful ways — from initial concept to final product.',
+    tagline: 'I solve problems for people in meaningful ways: from initial concepts to final product.',
     photo: null,
+    staticPhoto: 'images/hero-photo.jpg',
   },
   about: [
-    { heading: 'Who I am.', body: "I'm Amran — a designer shaped by two cultures. Growing up in a Bengali community in Yorkshire gave me an early and intimate understanding of empathy, diversity, and the gaps that exist between people and the systems meant to serve them. That lived experience is the foundation of everything I design." },
-    { heading: 'Why I do it.', body: "Being an outsider gives you a perspective that insiders can't always access. I've spent my career using that vantage point to design with both sympathy and empathy — not just understanding what people need, but feeling why it matters. Good design isn't decoration. It's problem-solving with heart." },
-    { heading: 'Where I\'m going.', body: "The boundary between physical and digital is dissolving, and I'm building my practice right at that intersection. Phygital thinking — designing experiences that exist seamlessly across the material and the virtual — is where I see the most exciting, most necessary work of the next decade." },
+    { heading: 'Who I am.', body: "I'm Amran, I grew up in the Bengali community in Yorkshire. It taught me the importance of empathy and diversity. We help each other with everyday challenges, bringing people together." },
+    { heading: 'Why I do it.', body: "I have always been a bit of an outsider, I know what it feels like to have different needs. To have assumptions made on my behalf, and to not fit the mould. This is why I design with sympathy and empathy. Building solutions that meet the needs of real people." },
+    { heading: 'Where I\'m going.', body: "The world has become more digital in nature. Solutions also need to sit both in the physical and digital world: phygital if you will. I'm building my practice right at that intersection. And have spent the last few years working this way." },
   ],
   projects: {
     ux: [
-      { title:'Women in Action', desc:'A digital community for social change', role:'UX Lead', link:'#', image:null,
+      { title:'Women in Action', desc:'A digital community for social change', role:'UX Lead', link:'#', image:null, staticImage:'images/women-in-action.png',
         detail:{ heroImage:null, result:'Add the project result here — the key outcome, impact, or deliverable achieved.', timeline:[{phase:'Discovery',date:'Week 1–2'},{phase:'Define',date:'Week 3'},{phase:'Ideate',date:'Week 4–5'},{phase:'Prototype',date:'Week 6'},{phase:'Test',date:'Week 7–8'}], process:[{title:'Research & Discovery',body:'Describe the research methods, user interviews, and insights gathered at this stage.',image:null},{title:'Define & Synthesise',body:'Explain how you synthesised research into clear problem statements and user needs.',image:null},{title:'Ideation',body:'Describe the ideation process, workshops, and how concepts were generated and refined.',image:null},{title:'Prototype & Test',body:'Detail the prototyping approach and what was learned from user testing.',image:null}], futureLearning:'Add reflections on what you would do differently, next iterations, and future opportunities.', liveLink:'' } },
-      { title:'Empact Chicago', desc:'Clinical trial access for minority women', role:'UX Lead & Research', link:'#', image:null,
+      { title:'Empact Chicago', desc:'Clinical trial access for minority women', role:'UX Lead & Research', link:'#', image:null, staticImage:'images/empact-chicago.gif',
         detail:{ heroImage:null, result:'Add the project result here.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 3–4'},{phase:'Test',date:'Month 5'}], process:[{title:'Research & Discovery',body:'Describe the research methods and insights.',image:null},{title:'Define',body:'How insights shaped the design direction.',image:null},{title:'Design & Prototype',body:'The design process and decisions made.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
     ],
     industrial: [
-      { title:'FERN Planter', desc:'Freestanding planter range for Furnitubes', role:'Design Project Lead', link:'#', image:null,
+      { title:'FERN Planter', desc:'Freestanding planter range for Furnitubes', role:'Design Project Lead', link:'#', image:null, staticImage:'images/fern-planter.jpg',
         detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Brief',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Development',date:'Month 3–4'},{phase:'Production',date:'Month 5–6'}], process:[{title:'Brief & Research',body:'Initial brief analysis and material/manufacturing research.',image:null},{title:'Concept Development',body:'Concept generation and initial design direction.',image:null},{title:'Detailing',body:'Technical drawings, prototyping, and refinement.',image:null},{title:'Sign-off',body:'Client presentation and production approval.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-      { title:'Arca Redesign', desc:'Modular bin redesign for manufacturability', role:'Project Lead', link:'#', image:null,
+      { title:'Arca Redesign', desc:'Modular bin redesign for manufacturability', role:'Project Lead', link:'#', image:null, staticImage:'images/arca-redesign.png',
         detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Audit',date:'Week 1'},{phase:'Concept',date:'Week 2–3'},{phase:'Develop',date:'Week 4–6'},{phase:'Handoff',date:'Week 7'}], process:[{title:'Existing Product Audit',body:'Analysis of current product for manufacturability issues.',image:null},{title:'Redesign Concepts',body:'Exploring design options that improve production efficiency.',image:null},{title:'Final Design',body:'Resolved design ready for manufacture.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-      { title:'Veeva Seating', desc:'Modular street seating range', role:'Designer', link:'#', image:null,
+      { title:'Veeva Seating', desc:'Modular street seating range', role:'Designer', link:'#', image:null, staticImage:'images/veeva-seating.jpg',
         detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Detail',date:'Month 3'},{phase:'Delivery',date:'Month 4'}], process:[{title:'Site & User Research',body:'Understanding the context of use and existing street furniture.',image:null},{title:'Concept Development',body:'Modular seating concepts and configurations.',image:null},{title:'Detail Design',body:'Final design and technical documentation.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-      { title:'Kings Crescent', desc:'Bespoke public seating, Hackney', role:'Designer', link:'#', image:null,
+      { title:'Kings Crescent', desc:'Bespoke public seating, Hackney', role:'Designer', link:'#', image:null, staticImage:'images/kings-crescent.png',
         detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Brief',date:'Week 1'},{phase:'Design',date:'Week 2–4'},{phase:'Approval',date:'Week 5'},{phase:'Install',date:'Week 8'}], process:[{title:'Client Brief',body:'Understanding the site context and community requirements.',image:null},{title:'Bespoke Design',body:'Creating a seating solution unique to Kings Crescent.',image:null},{title:'Installation',body:'Coordinating production and site installation.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
     ],
     other: [
-      { title:'Model Making & Earlier Work', desc:'Physical prototypes and university projects', role:'Designer', link:'#', image:null,
+      { title:'Model Making & Earlier Work', desc:'Physical prototypes and university projects', role:'Designer', link:'#', image:null, staticImage:'images/model-making.png',
         detail:{ heroImage:null, result:'A collection of physical prototypes, model-making work, and earlier design projects from university and early career.', timeline:[{phase:'Foundation',date:'2009'},{phase:'University',date:'2009–2012'},{phase:'Early Career',date:'2012–2015'}], process:[{title:'University Projects',body:'Product and furniture design projects from Kingston University.',image:null},{title:'Physical Prototyping',body:'Model-making work demonstrating craft and technical skills.',image:null}], futureLearning:'Early work that shaped my design thinking and approach to problem-solving.', liveLink:'' } },
     ],
   },
@@ -773,7 +876,7 @@ const DEFAULTS = {
     { title:'BA (Hons) Product & Furniture Design — 2:1', org:'Kingston University', date:'2012' },
     { title:'Foundation in Art & Design — Distinction', org:'Leeds College of Art', date:'2009' },
   ],
-  skills: ['Facilitation','Project Management','Creative Thinking','Problem Solving','Prototyping','User Research','Wireframing','Figma / FigJam / Miro','Adobe CC','3D Modelling'],
+  skills: ['Facilitation','Project Management','Creative Thinking','Problem Solving','Prototyping','User Research','Wireframing','Figma / FigJam / Miro','Adobe CC','3D Modelling','AI Prompting','V0','Claude','VS Code'],
   contact: { email:'amran.a.ali@gmail.com', linkedin:'linkedin.com/in/amran-ali-719b3842', footerName:'Amran Ali' },
 };
 
@@ -840,7 +943,7 @@ function renderHero(){
   const ph=document.getElementById('portrait-ph');
   const existImg=card.querySelector('img');
   if(existImg) existImg.remove();
-  const photoUrl = imageCache.get('hero-photo');
+  const photoUrl = imageCache.get('hero-photo') || h.staticPhoto || null;
   if(photoUrl){ ph.style.display='none'; const img=document.createElement('img'); img.src=photoUrl; img.alt='Amran Ali'; card.appendChild(img); }
   else{ ph.style.display=''; }
 }
@@ -860,7 +963,7 @@ function dotify(s){
 }
 
 function renderProjectCard(p, tab, idx){
-  const url = imageCache.get(`proj-${tab}-${idx}-thumb`);
+  const url = imageCache.get(`proj-${tab}-${idx}-thumb`) || p.staticImage || null;
   const thumb = url
     ? `<img src="${url}" alt="${esc(p.title)}">`
     : `<div class="ph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 16l5-4 4 3 3-2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>[Project: ${esc(p.title)}]</span></div>`;
@@ -871,7 +974,7 @@ function renderProjectCard(p, tab, idx){
       <p class="project-desc">${esc(p.desc)}</p>
       <div class="project-footer">
         <span class="role-badge">${esc(p.role)}</span>
-        <span class="project-link">View project →</span>
+        <span class="project-link">Learn more →</span>
       </div>
     </div>
   </article>`;
@@ -882,28 +985,121 @@ function renderProjects(){
     document.getElementById('grid-'+tab).innerHTML = (C.projects[tab]||[]).map((p,i)=>renderProjectCard(p,tab,i)).join('');
   });
   document.querySelectorAll('.project-card').forEach(card=>{
-    card.addEventListener('click',()=> openProject(card.dataset.tab, parseInt(card.dataset.idx,10)));
+    card.addEventListener('click', openSoonModal);
   });
 }
 
+/* Coming soon modal */
+function openSoonModal(){
+  document.getElementById('soon-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSoonModal(){
+  document.getElementById('soon-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('soon-close').addEventListener('click', closeSoonModal);
+document.getElementById('soon-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('soon-modal')) closeSoonModal(); });
+
 function renderCV(){
-  document.getElementById('timeline-exp').innerHTML = C.experience.map((e,i)=>`
-    <div class="timeline-item clickable" data-exp="${i}">
-      <div class="timeline-title">${esc(e.title)}</div>
-      <div class="timeline-sub">${esc(e.org)}</div>
-      <div class="timeline-date">${esc(e.date)}</div>
+  // Experience accordion (2-col grid)
+  const accGrid = document.getElementById('acc-exp');
+  if(accGrid){
+    accGrid.innerHTML = C.experience.map((e,i)=>`
+      <div class="acc-item" data-acc="${i}">
+        <div class="acc-header">
+          <div class="acc-header-left">
+            <div class="acc-title">${esc(e.title)}</div>
+            <div class="acc-sub">${esc(e.org)}</div>
+            <div class="acc-date">${esc(e.date)}</div>
+          </div>
+          <div class="acc-chevron">▼</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">${esc(e.desc||'')}</div>
+        </div>
+      </div>`).join('');
+    accGrid.querySelectorAll('.acc-item').forEach(item=>{
+      item.querySelector('.acc-header').addEventListener('click',()=>{
+        const wasOpen = item.classList.contains('open');
+        accGrid.querySelectorAll('.acc-item').forEach(x=>x.classList.remove('open'));
+        if(!wasOpen) item.classList.add('open');
+      });
+    });
+  }
+
+  // Education cards (2-col grid)
+  const eduGrid = document.getElementById('edu-grid');
+  if(eduGrid){
+    eduGrid.innerHTML = C.education.map(e=>`
+      <div class="edu-card">
+        <div class="edu-card-title">${esc(e.title)}</div>
+        <div class="edu-card-org">${esc(e.org)}</div>
+        <div class="edu-card-date">${esc(e.date)}</div>
+      </div>`).join('');
+  }
+
+  // Skills
+  const tc = document.getElementById('tag-cloud');
+  if(tc) tc.innerHTML = C.skills.map(s=>`<span class="skill-tag">${esc(s)}</span>`).join('');
+
+  // Download CV button
+  const dlBtn = document.getElementById('cv-download-btn');
+  if(dlBtn) dlBtn.addEventListener('click', downloadCV);
+}
+
+function downloadCV(){
+  const h = C.hero;
+  const photoUrl = imageCache.get('hero-photo') || h.staticPhoto || null;
+  const photoHtml = photoUrl
+    ? `<img class="cvp-photo" src="${esc(photoUrl)}" alt="Amran Ali">`
+    : `<div class="cvp-photo-ph">AA</div>`;
+
+  const expHtml = C.experience.map(e=>`
+    <div class="cvp-exp-item">
+      <div class="cvp-exp-title">${esc(e.title)}</div>
+      <div class="cvp-exp-org">${esc(e.org)}</div>
+      <div class="cvp-exp-date">${esc(e.date)}</div>
+      <div class="cvp-exp-desc">${esc(e.desc||'')}</div>
     </div>`).join('');
-  document.getElementById('timeline-edu').innerHTML = C.education.map(e=>`
-    <div class="timeline-item static">
-      <div class="timeline-title">${esc(e.title)}</div>
-      <div class="timeline-sub">${esc(e.org)}</div>
-      <div class="timeline-date">${esc(e.date)}</div>
+
+  const eduHtml = C.education.map(e=>`
+    <div class="cvp-edu-item">
+      <div class="cvp-edu-title">${esc(e.title)}</div>
+      <div class="cvp-edu-org">${esc(e.org)}</div>
+      <div class="cvp-edu-date">${esc(e.date)}</div>
     </div>`).join('');
-  document.getElementById('tag-cloud').innerHTML = C.skills.map(s=>`<span class="skill-tag">${esc(s)}</span>`).join('');
-  // Bind experience click
-  document.querySelectorAll('.timeline-item.clickable').forEach(el=>{
-    el.addEventListener('click',()=> openExpModal(parseInt(el.dataset.exp,10)));
-  });
+
+  const skillsHtml = C.skills.map(s=>`<span class="cvp-skill">${esc(s)}</span>`).join('');
+  const c = C.contact;
+
+  document.getElementById('cv-print-area').innerHTML = `
+    <div class="cvp-header">
+      ${photoHtml}
+      <div class="cvp-header-info">
+        <div class="cvp-name">${esc(h.name)}</div>
+        <div class="cvp-tagline">${esc(h.tagline)}</div>
+        <div class="cvp-label">CV</div>
+        <div class="cvp-contact">
+          <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>
+          <a href="https://${esc(c.linkedin)}">${esc(c.linkedin)}</a>
+        </div>
+      </div>
+    </div>
+    <div class="cvp-section">
+      <h2>Experience</h2>
+      <div class="cvp-exp-grid">${expHtml}</div>
+    </div>
+    <div class="cvp-section">
+      <h2>Education</h2>
+      <div class="cvp-edu-grid">${eduHtml}</div>
+    </div>
+    <div class="cvp-section">
+      <h2>Key Skills</h2>
+      <div class="cvp-skills">${skillsHtml}</div>
+    </div>`;
+
+  window.print();
 }
 
 function renderContact(){
@@ -1270,7 +1466,7 @@ function openEditor(){ editData=structuredClone(C); renderEditorTab(activeEditor
 function closeEditor(){ document.getElementById('editor-overlay').classList.remove('open'); document.body.style.overflow=''; }
 function switchEditorTab(tab){ activeEditorTab=tab; document.querySelectorAll('.ed-tab').forEach(b=>b.classList.toggle('active',b.dataset.etab===tab)); renderEditorTab(tab); }
 
-document.getElementById('nav-logo').addEventListener('dblclick', openEditor);
+// CMS editor access removed from nav logo
 document.getElementById('ed-close').addEventListener('click', closeEditor);
 document.getElementById('editor-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('editor-overlay')) closeEditor(); });
 document.getElementById('ed-tabs').addEventListener('click',e=>{
