@@ -1186,12 +1186,36 @@ function downloadCV(){
       References available upon request.
     </div>`;
 
-  window.print();
+  const area = document.getElementById('cv-print-area');
+  area.style.cssText = 'display:block;position:fixed;top:0;left:0;width:794px;z-index:9999;background:#F5F2EC;overflow:visible';
 
-  window.addEventListener('afterprint', function cleanup(){
-    document.getElementById('cv-print-area').innerHTML = '';
-    window.removeEventListener('afterprint', cleanup);
-  }, { once: true });
+  // Disable backdrop-filter globally during capture — html2canvas blanks out when it encounters it
+  const noBackdrop = document.createElement('style');
+  noBackdrop.textContent = '*{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}';
+  document.head.appendChild(noBackdrop);
+
+  function doExport(){
+    html2pdf().set({
+      margin: 0,
+      filename: 'Amran-Ali-CV.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, allowTaint: true, logging: false, backgroundColor: '#F5F2EC', windowWidth: 794 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(area).save().then(()=>{
+      noBackdrop.remove();
+      area.style.cssText = '';
+    });
+  }
+
+  // Give the browser one frame to render the newly visible element before capturing
+  requestAnimationFrame(()=> requestAnimationFrame(()=>{
+    if(window.html2pdf){ doExport(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    s.onload = doExport;
+    s.onerror = ()=>{ noBackdrop.remove(); area.style.cssText=''; };
+    document.head.appendChild(s);
+  }));
 }
 
 function renderContact(){
