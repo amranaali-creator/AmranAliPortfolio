@@ -113,7 +113,10 @@ h4{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.3}
    HERO
 ================================================================ */
 #hero{padding:152px 0 88px}
-.hero-grid{display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1fr 340px;grid-template-rows:auto auto;gap:40px 56px;align-items:start}
+.hero-text{grid-column:1;grid-row:1}
+.portrait-card{grid-column:2;grid-row:1/3;align-self:center}
+.hero-actions{grid-column:1;grid-row:2}
 .hero-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:18px}
 .hero-name{margin-bottom:14px}
 .hero-subtitle{font-size:clamp(16px,2.4vw,22px);color:var(--text-muted);margin-bottom:22px}
@@ -464,8 +467,10 @@ input[type="file"]{display:none}
   :root{--shadow-sm:3px 3px 0;--shadow-md:4px 4px 0;--shadow-lg:5px 5px 0}
   .section{padding:60px 0}
   #hero{padding:120px 0 60px}
-  .hero-grid{grid-template-columns:1fr;gap:36px}
-  .portrait-card{max-width:260px;margin:0 auto;order:-1}
+  .hero-grid{display:flex;flex-direction:column;gap:28px}
+  .hero-text{order:1}
+  .portrait-card{order:2;max-width:240px;margin:0 auto;aspect-ratio:3/4}
+  .hero-actions{order:3}
   .project-grid{grid-template-columns:1fr}
   .tab-nav{display:none}.tab-select{display:block}
   .work-header{flex-direction:column;align-items:flex-start}
@@ -521,20 +526,22 @@ input[type="file"]{display:none}
   <section id="hero" aria-label="Introduction">
     <div class="container">
       <div class="hero-grid">
-        <div>
+        <div class="hero-text">
           <p class="hero-eyebrow" id="h-eyebrow"></p>
           <h1 class="hero-name reveal" id="h-name"></h1>
           <p class="hero-subtitle reveal d1" id="h-subtitle"></p>
           <p class="hero-tagline reveal d2" id="h-tagline"></p>
-          <div class="hero-ctas reveal d3">
-            <a href="#cv" class="btn btn-primary">View my CV</a>
-            <a href="#contact" class="btn btn-secondary">Get in touch</a>
-          </div>
         </div>
         <div class="portrait-card reveal d2" id="portrait-card">
           <div class="ph" id="portrait-ph">
             <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>[Photo: Amran Ali]</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <div class="hero-ctas reveal d3">
+            <a href="#cv" class="btn btn-primary">View my CV</a>
+            <a href="#contact" class="btn btn-secondary">Get in touch</a>
           </div>
         </div>
       </div>
