@@ -1202,8 +1202,8 @@ body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F2EC;
 p{font-size:13px;text-align:center;color:#6B6257;padding:40px 0}
 </style></head>
 <body>
-<p>Generating your CV, please wait…</p>
-<div class="cv-wrap" id="cv" style="position:absolute;left:-9999px;top:0">
+<div id="status" style="font-family:sans-serif;font-size:13px;text-align:center;color:#6B6257;padding:30px 0">Generating your CV…</div>
+<div class="cv-wrap" id="cv">
   <div class="cv-page">
     <div class="header">
       ${photoHtml}
@@ -1226,7 +1226,8 @@ p{font-size:13px;text-align:center;color:#6B6257;padding:40px 0}
   </div>
 </div>
 <script>
-window.onload=function(){
+function generate(){
+  if(typeof html2pdf==='undefined'){setTimeout(generate,100);return;}
   var el=document.getElementById('cv');
   var opt={
     margin:0,
@@ -1236,8 +1237,11 @@ window.onload=function(){
     jsPDF:{unit:'px',format:[794,1123],orientation:'portrait'},
     pagebreak:{before:'.cv-page + .cv-page'}
   };
-  html2pdf().set(opt).from(el).save().then(function(){window.close();});
-};
+  html2pdf().set(opt).from(el).save().then(function(){window.close();}).catch(function(e){
+    document.getElementById('status').textContent='Download failed — use Ctrl+P to print as PDF.';
+  });
+}
+setTimeout(generate,300);
 <\/script>
 </body></html>`);
   win.document.close();
