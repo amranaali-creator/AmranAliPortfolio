@@ -1124,7 +1124,7 @@ function renderCV(){
 }
 
 function downloadCV(){
-  const h = C.hero, c = C.contact;
+  const h = C.hero, c = C.contact, as = C.aboutSection||{};
 
   let photoUrl = imageCache.get('hero-photo') || null;
   if(!photoUrl && h.staticPhoto) photoUrl = new URL(h.staticPhoto, location.href).href;
@@ -1133,9 +1133,17 @@ function downloadCV(){
     ? `<img class="photo" src="${esc(photoUrl)}" crossorigin="anonymous" alt="${esc(h.name)}">`
     : `<div class="photo-ph">${esc(h.name).split(' ').map(w=>w[0]).join('')}</div>`;
 
-  const aboutHtml = C.about.map(a=>`
+  const skillsHtml = C.skills.map(s=>`<span class="skill">${esc(s)}</span>`).join('');
+
+  const aboutIntroHtml = (as.heading||as.sub) ? `
+    <div class="about-intro">
+      ${as.heading?`<div class="about-intro-h">${esc(as.heading)}</div>`:''}
+      ${as.sub?`<p>${esc(as.sub)}</p>`:''}
+    </div>` : '';
+
+  const aboutCardsHtml = C.about.map(a=>`
     <div class="about-item">
-      <b>${esc(a.heading)}</b>
+      <div class="about-item-h">${esc(a.heading)}</div>
       <p>${esc(a.body)}</p>
     </div>`).join('');
 
@@ -1154,90 +1162,97 @@ function downloadCV(){
       <div class="edu-date">${esc(e.date)}</div>
     </div>`).join('');
 
-  const skillsHtml = C.skills.map(s=>`<span class="skill">${esc(s)}</span>`).join('');
-  const as = C.aboutSection||{};
-  const whatIdoHtml = (as.heading||as.sub) ? `
-    <div class="section">
-      <h2>${esc(as.heading||'What I do')}</h2>
-      ${as.sub?`<p class="what-sub">${esc(as.sub)}</p>`:''}
-    </div>` : '';
-
   const win = window.open('', '_blank', 'width=900,height=800');
   if(!win){ alert('Please allow popups for this site to download the CV.'); return; }
   win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(h.name)} — CV</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F2EC;color:#252525;font-size:9pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-@page{size:A4;margin:10mm 12mm}
-@media print{
-  body{background:#F5F2EC}
-  .no-print{display:none}
-  .page-break{page-break-before:always}
-}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#fff;color:#252525;font-size:9pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{size:A4;margin:10mm 14mm}
+@media print{.no-print{display:none}.page-break{page-break-before:always}}
 
-/* Print bar */
 .no-print{position:fixed;top:0;left:0;right:0;background:#17405f;color:#fff;font-size:11px;text-align:center;padding:10px;font-family:sans-serif;z-index:9}
-.no-print button{background:#F5F2EC;color:#17405f;border:none;border-radius:4px;padding:5px 14px;font-weight:700;font-size:11px;cursor:pointer;margin-left:12px}
-.wrap{padding-top:38px}
+.no-print button{background:#fff;color:#17405f;border:none;border-radius:4px;padding:5px 14px;font-weight:700;font-size:11px;cursor:pointer;margin-left:12px}
+.wrap{padding-top:42px}
 
 /* Header */
-.header{display:flex;align-items:flex-start;gap:18pt;padding-bottom:12pt;border-bottom:2pt solid #17405f;margin-bottom:12pt}
-.photo{width:90pt;height:115pt;object-fit:cover;border-radius:4pt;flex-shrink:0;border:1.5pt solid #17405f}
-.photo-ph{width:90pt;height:115pt;border-radius:4pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:26pt;font-weight:700;color:#17405f}
-.name{font-size:22pt;font-weight:900;color:#17405f;line-height:1.1;margin-bottom:4pt}
-.tagline{font-size:9pt;color:#6B6257;margin-bottom:6pt;line-height:1.4}
-.contacts{display:flex;gap:16pt;flex-wrap:wrap}
+.header{display:flex;align-items:flex-start;gap:16pt;margin-bottom:14pt}
+.photo{width:100pt;height:128pt;object-fit:cover;border-radius:3pt;flex-shrink:0}
+.photo-ph{width:100pt;height:128pt;border-radius:3pt;flex-shrink:0;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:28pt;font-weight:700;color:#17405f}
+.hinfo{flex:1}
+.name{font-size:24pt;font-weight:900;color:#17405f;line-height:1.1;margin-bottom:4pt}
+.tagline{font-size:9pt;color:#555;margin-bottom:5pt;line-height:1.4}
+.contacts{display:flex;gap:18pt;margin-bottom:8pt}
 .contacts span{font-size:8.5pt;color:#17405f}
+.skills-lbl{font-size:8.5pt;font-weight:700;color:#252525;margin-bottom:4pt}
+.skills{display:flex;flex-wrap:wrap;gap:4pt}
+.skill{font-size:7.5pt;color:#252525;border:1pt solid #252525;border-radius:100pt;padding:1.5pt 7pt;white-space:nowrap}
 
 /* Sections */
-.section{margin-bottom:12pt;page-break-inside:avoid}
-.section h2{font-size:10pt;font-weight:700;color:#17405f;padding-bottom:2pt;border-bottom:1.5pt solid #17405f;margin-bottom:8pt}
-.what-sub{font-size:8.5pt;color:#444;line-height:1.6}
+.section{margin-bottom:11pt}
+.sec-h{font-size:10pt;font-weight:700;color:#17405f;padding-bottom:2pt;border-bottom:1.5pt solid #17405f;margin-bottom:8pt}
 
-/* About */
+/* About intro (full-width) */
+.about-intro{border-left:3pt solid #17405f;padding-left:8pt;margin-bottom:8pt;page-break-inside:avoid}
+.about-intro-h{font-size:8.5pt;font-weight:700;color:#17405f;margin-bottom:2pt}
+.about-intro p{font-size:8pt;color:#444;line-height:1.6}
+
+/* About cards */
 .about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
-.about-item{padding-left:7pt;border-left:2pt solid #17405f;page-break-inside:avoid}
-.about-item b{display:block;font-size:8pt;color:#17405f;margin-bottom:2pt}
+.about-item{border-left:2pt solid #17405f;padding-left:7pt;page-break-inside:avoid}
+.about-item-h{font-size:8.5pt;font-weight:700;color:#17405f;margin-bottom:2pt}
 .about-item p{font-size:8pt;color:#444;line-height:1.5}
 
 /* Experience */
 .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
-.exp-item{padding-left:7pt;border-left:2pt solid #17405f;page-break-inside:avoid}
+.exp-item{border-left:2pt solid #17405f;padding-left:7pt;page-break-inside:avoid}
 .exp-title{font-weight:700;font-size:8.5pt;margin-bottom:1pt}
-.exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
-.exp-date{font-size:7.5pt;color:#6B6257;margin-bottom:2pt}
+.exp-org{font-size:8pt;color:#C17B2A;font-weight:600;margin-bottom:1pt}
+.exp-date{font-size:7.5pt;color:#777;margin-bottom:3pt}
 .exp-desc{font-size:8pt;color:#444;line-height:1.5}
 
 /* Education */
 .edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
-.edu-item{padding-left:7pt;border-left:2pt solid #17405f;page-break-inside:avoid}
+.edu-item{border-left:2pt solid #17405f;padding-left:7pt;page-break-inside:avoid}
 .edu-title{font-weight:700;font-size:8.5pt;margin-bottom:1pt}
-.edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
-.edu-date{font-size:7.5pt;color:#6B6257}
+.edu-org{font-size:8pt;color:#C17B2A;font-weight:600;margin-bottom:1pt}
+.edu-date{font-size:7.5pt;color:#777}
 
-/* Skills */
-.skills{display:flex;flex-wrap:wrap;gap:4pt}
-.skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:1.5pt 7pt;white-space:nowrap}
-
-.references{text-align:center;font-size:8pt;color:#6B6257;font-style:italic;margin-top:14pt;padding-top:10pt;border-top:1pt solid #D6CFC0}
+.references{text-align:center;font-size:8pt;color:#888;font-style:italic;margin-top:14pt}
 </style></head>
 <body>
 <div class="no-print">Your CV is ready — <button onclick="window.print()">Save as PDF</button> then choose "Save as PDF" as the printer.</div>
 <div class="wrap">
+
 <div class="header">
   ${photoHtml}
-  <div>
+  <div class="hinfo">
     <div class="name">${esc(h.name)}</div>
     <div class="tagline">${esc(h.tagline)}</div>
     <div class="contacts"><span>${esc(c.email)}</span><span>${esc(c.linkedin)}</span></div>
+    <div class="skills-lbl">Key Skills</div>
+    <div class="skills">${skillsHtml}</div>
   </div>
 </div>
-${whatIdoHtml}
-<div class="section"><h2>About</h2><div class="about-grid">${aboutHtml}</div></div>
-<div class="section"><h2>Experience</h2><div class="exp-grid">${expHtml}</div></div>
+
+<div class="section">
+  <div class="sec-h">About me.</div>
+  ${aboutIntroHtml}
+  <div class="about-grid">${aboutCardsHtml}</div>
+</div>
+
+<div class="section">
+  <div class="sec-h">Experience</div>
+  <div class="exp-grid">${expHtml}</div>
+</div>
+
 <div class="page-break"></div>
-<div class="section"><h2>Education</h2><div class="edu-grid">${eduHtml}</div></div>
-<div class="section"><h2>Key Skills</h2><div class="skills">${skillsHtml}</div></div>
+
+<div class="section">
+  <div class="sec-h">Education</div>
+  <div class="edu-grid">${eduHtml}</div>
+</div>
+
 <div class="references">References available upon request.</div>
 </div>
 <script>setTimeout(function(){window.print();},600);<\/script>
