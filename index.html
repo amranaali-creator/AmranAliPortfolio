@@ -1126,12 +1126,11 @@ function renderCV(){
 function downloadCV(){
   const h = C.hero, c = C.contact;
 
-  // Convert relative staticPhoto path to absolute so it loads in the popup
   let photoUrl = imageCache.get('hero-photo') || null;
   if(!photoUrl && h.staticPhoto) photoUrl = new URL(h.staticPhoto, location.href).href;
 
   const photoHtml = photoUrl
-    ? `<img class="photo" src="${esc(photoUrl)}" alt="${esc(h.name)}">`
+    ? `<img class="photo" src="${esc(photoUrl)}" crossorigin="anonymous" alt="${esc(h.name)}">`
     : `<div class="photo-ph">${esc(h.name).split(' ').map(w=>w[0]).join('')}</div>`;
 
   const aboutHtml = C.about.map(a=>`
@@ -1157,77 +1156,91 @@ function downloadCV(){
 
   const skillsHtml = C.skills.map(s=>`<span class="skill">${esc(s)}</span>`).join('');
 
-  const win = window.open('', '_blank', 'width=860,height=800');
+  const win = window.open('', '_blank', 'width=900,height=700');
   if(!win){ alert('Please allow popups for this site to download the CV.'); return; }
   win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Amran Ali - CV</title>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"><\/script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F2EC;color:#252525;font-size:8.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-@page{margin:14mm 16mm;size:A4}
-@media print{body{background:#F5F2EC}}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F2EC;color:#252525;line-height:1.5}
+.cv-wrap{width:794px;margin:0 auto;background:#F5F2EC}
+.cv-page{width:794px;min-height:1123px;padding:36px 44px;background:#F5F2EC;overflow:hidden}
 
-/* Header */
-.header{display:flex;align-items:center;gap:18pt;padding-bottom:14pt;border-bottom:2pt solid #17405f;margin-bottom:12pt}
-.photo{width:62pt;height:80pt;object-fit:cover;border-radius:5pt;flex-shrink:0;border:1.5pt solid #17405f}
-.photo-ph{width:62pt;height:80pt;border-radius:5pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:20pt;font-weight:700;color:#17405f}
-.name{font-size:22pt;font-weight:900;color:#17405f;line-height:1.1;margin-bottom:3pt}
-.tagline{font-size:8.5pt;color:#6B6257;margin-bottom:5pt;line-height:1.5}
-.contact{display:flex;gap:14pt}
-.contact span{font-size:8pt;color:#17405f}
+.header{display:flex;align-items:flex-start;gap:22px;padding-bottom:16px;border-bottom:2px solid #17405f;margin-bottom:16px}
+.photo{width:100px;height:128px;object-fit:cover;border-radius:6px;flex-shrink:0;border:2px solid #17405f}
+.photo-ph{width:100px;height:128px;border-radius:6px;flex-shrink:0;border:2px solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#17405f}
+.name{font-size:28px;font-weight:900;color:#17405f;line-height:1.1;margin-bottom:5px}
+.tagline{font-size:11px;color:#6B6257;margin-bottom:8px;line-height:1.5}
+.contact{display:flex;gap:18px}
+.contact span{font-size:10px;color:#17405f}
 
-/* Sections */
-.section{margin-bottom:10pt}
-.section h2{font-size:10.5pt;font-weight:700;color:#17405f;padding-bottom:3pt;border-bottom:1.5pt solid #17405f;margin-bottom:8pt}
+.section{margin-bottom:16px}
+.section h2{font-size:13px;font-weight:700;color:#17405f;padding-bottom:4px;border-bottom:2px solid #17405f;margin-bottom:12px}
 
-/* About */
-.about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
-.about-item{padding-left:7pt;border-left:2pt solid #17405f}
-.about-item b{display:block;font-size:7.5pt;color:#17405f;margin-bottom:2pt}
-.about-item p{font-size:7.5pt;color:#444;line-height:1.5}
+.about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.about-item{padding-left:9px;border-left:2px solid #17405f}
+.about-item b{display:block;font-size:10px;color:#17405f;margin-bottom:3px}
+.about-item p{font-size:10px;color:#444;line-height:1.5}
 
-/* Experience */
-.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
-.exp-item{padding-left:7pt;border-left:2pt solid #17405f}
-.exp-title{font-weight:700;font-size:8.5pt}
-.exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
-.exp-date{font-size:7pt;color:#6B6257;margin-bottom:2pt}
-.exp-desc{font-size:7.5pt;color:#444;line-height:1.5}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.exp-item{padding-left:9px;border-left:2px solid #17405f}
+.exp-title{font-weight:700;font-size:11px;margin-bottom:2px}
+.exp-org{font-size:10px;color:#17405f;font-weight:600;margin-bottom:2px}
+.exp-date{font-size:9px;color:#6B6257;margin-bottom:4px}
+.exp-desc{font-size:10px;color:#444;line-height:1.5}
 
-/* Education */
-.edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
-.edu-item{padding-left:7pt;border-left:2pt solid #17405f}
-.edu-title{font-weight:700;font-size:8.5pt;margin-bottom:1pt}
-.edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
-.edu-date{font-size:7pt;color:#6B6257}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.edu-item{padding-left:9px;border-left:2px solid #17405f}
+.edu-title{font-weight:700;font-size:11px;margin-bottom:2px}
+.edu-org{font-size:10px;color:#17405f;font-weight:600;margin-bottom:2px}
+.edu-date{font-size:9px;color:#6B6257}
 
-/* Skills */
-.skills{display:flex;flex-wrap:wrap;gap:4pt}
-.skill{font-size:7.5pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:1.5pt 7pt;white-space:nowrap}
+.skills{display:flex;flex-wrap:wrap;gap:6px}
+.skill{font-size:10px;font-weight:600;color:#17405f;border:1px solid #17405f;border-radius:100px;padding:3px 10px;white-space:nowrap}
 
-/* References */
-.references{text-align:center;font-size:8pt;color:#6B6257;font-style:italic;margin-top:14pt;padding-top:10pt;border-top:1pt solid #D6CFC0}
+.references{text-align:center;font-size:10px;color:#6B6257;font-style:italic;margin-top:24px;padding-top:14px;border-top:1px solid #D6CFC0}
+p{font-size:13px;text-align:center;color:#6B6257;padding:40px 0}
 </style></head>
 <body>
-<div class="header">
-  ${photoHtml}
-  <div>
-    <div class="name">${esc(h.name)}</div>
-    <div class="tagline">${esc(h.tagline)}</div>
-    <div class="contact">
-      <span>${esc(c.email)}</span>
-      <span>${esc(c.linkedin)}</span>
+<p>Generating your CV, please wait…</p>
+<div class="cv-wrap" id="cv" style="position:absolute;left:-9999px;top:0">
+  <div class="cv-page">
+    <div class="header">
+      ${photoHtml}
+      <div>
+        <div class="name">${esc(h.name)}</div>
+        <div class="tagline">${esc(h.tagline)}</div>
+        <div class="contact">
+          <span>${esc(c.email)}</span>
+          <span>${esc(c.linkedin)}</span>
+        </div>
+      </div>
     </div>
+    <div class="section"><h2>About</h2><div class="about-grid">${aboutHtml}</div></div>
+    <div class="section"><h2>Experience</h2><div class="exp-grid">${expHtml}</div></div>
+  </div>
+  <div class="cv-page">
+    <div class="section"><h2>Education</h2><div class="edu-grid">${eduHtml}</div></div>
+    <div class="section"><h2>Key Skills</h2><div class="skills">${skillsHtml}</div></div>
+    <div class="references">References available upon request.</div>
   </div>
 </div>
-<div class="section"><h2>About</h2><div class="about-grid">${aboutHtml}</div></div>
-<div class="section"><h2>Experience</h2><div class="exp-grid">${expHtml}</div></div>
-<div class="section"><h2>Education</h2><div class="edu-grid">${eduHtml}</div></div>
-<div class="section"><h2>Key Skills</h2><div class="skills">${skillsHtml}</div></div>
-<div class="references">References available upon request.</div>
+<script>
+window.onload=function(){
+  var el=document.getElementById('cv');
+  var opt={
+    margin:0,
+    filename:'Amran_Ali_CV.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#F5F2EC',logging:false},
+    jsPDF:{unit:'px',format:[794,1123],orientation:'portrait'},
+    pagebreak:{before:'.cv-page + .cv-page'}
+  };
+  html2pdf().set(opt).from(el).save().then(function(){window.close();});
+};
+<\/script>
 </body></html>`);
   win.document.close();
-  win.focus();
-  setTimeout(()=>win.print(), 400);
 }
 
 // legacy — kept so @media print fallback still works if popup is blocked
