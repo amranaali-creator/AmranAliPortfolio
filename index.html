@@ -1159,97 +1159,88 @@ function downloadCV(){
   const whatIdoHtml = (as.heading||as.sub) ? `
     <div class="section">
       <h2>${esc(as.heading||'What I do')}</h2>
-      ${as.sub ? `<p class="what-sub">${esc(as.sub)}</p>` : ''}
+      ${as.sub?`<p class="what-sub">${esc(as.sub)}</p>`:''}
     </div>` : '';
 
-  const win = window.open('', '_blank', 'width=900,height=700');
+  const win = window.open('', '_blank', 'width=900,height=800');
   if(!win){ alert('Please allow popups for this site to download the CV.'); return; }
-  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Amran Ali - CV</title>
-<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"><\/script>
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(h.name)} — CV</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F2EC;color:#252525;line-height:1.5}
-.cv-wrap{width:794px;margin:0 auto;background:#F5F2EC}
-.cv-page{width:794px;height:1123px;padding:36px 44px;background:#F5F2EC;overflow:hidden}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#F5F2EC;color:#252525;font-size:9pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{size:A4;margin:10mm 12mm}
+@media print{
+  body{background:#F5F2EC}
+  .no-print{display:none}
+  .page-break{page-break-before:always}
+}
 
-.header{display:flex;align-items:flex-start;gap:22px;padding-bottom:16px;border-bottom:2px solid #17405f;margin-bottom:16px}
-.photo{width:120px;height:154px;object-fit:cover;border-radius:6px;flex-shrink:0;border:2px solid #17405f}
-.photo-ph{width:120px;height:154px;border-radius:6px;flex-shrink:0;border:2px solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#17405f}
-.name{font-size:26px;font-weight:900;color:#17405f;line-height:1.1;margin-bottom:5px}
-.tagline{font-size:10px;color:#6B6257;margin-bottom:8px;line-height:1.5}
-.contact{display:flex;gap:18px}
-.contact span{font-size:10px;color:#17405f}
+/* Print bar */
+.no-print{position:fixed;top:0;left:0;right:0;background:#17405f;color:#fff;font-size:11px;text-align:center;padding:10px;font-family:sans-serif;z-index:9}
+.no-print button{background:#F5F2EC;color:#17405f;border:none;border-radius:4px;padding:5px 14px;font-weight:700;font-size:11px;cursor:pointer;margin-left:12px}
+.wrap{padding-top:38px}
 
-.section{margin-bottom:14px}
-.section h2{font-size:12px;font-weight:700;color:#17405f;padding-bottom:3px;border-bottom:2px solid #17405f;margin-bottom:10px;text-align:left}
-.what-sub{font-size:10px;color:#444;line-height:1.6;text-align:left}
+/* Header */
+.header{display:flex;align-items:flex-start;gap:18pt;padding-bottom:12pt;border-bottom:2pt solid #17405f;margin-bottom:12pt}
+.photo{width:90pt;height:115pt;object-fit:cover;border-radius:4pt;flex-shrink:0;border:1.5pt solid #17405f}
+.photo-ph{width:90pt;height:115pt;border-radius:4pt;flex-shrink:0;border:1.5pt solid #17405f;background:#D4CFCA;display:flex;align-items:center;justify-content:center;font-size:26pt;font-weight:700;color:#17405f}
+.name{font-size:22pt;font-weight:900;color:#17405f;line-height:1.1;margin-bottom:4pt}
+.tagline{font-size:9pt;color:#6B6257;margin-bottom:6pt;line-height:1.4}
+.contacts{display:flex;gap:16pt;flex-wrap:wrap}
+.contacts span{font-size:8.5pt;color:#17405f}
 
-.about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.about-item{padding-left:8px;border-left:2px solid #17405f;text-align:left}
-.about-item b{display:block;font-size:9px;color:#17405f;margin-bottom:2px;text-align:left}
-.about-item p{font-size:9px;color:#444;line-height:1.5;text-align:left}
+/* Sections */
+.section{margin-bottom:12pt;page-break-inside:avoid}
+.section h2{font-size:10pt;font-weight:700;color:#17405f;padding-bottom:2pt;border-bottom:1.5pt solid #17405f;margin-bottom:8pt}
+.what-sub{font-size:8.5pt;color:#444;line-height:1.6}
 
-.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.exp-item{padding-left:8px;border-left:2px solid #17405f}
-.exp-title{font-weight:700;font-size:10px;margin-bottom:2px}
-.exp-org{font-size:9px;color:#17405f;font-weight:600;margin-bottom:2px}
-.exp-date{font-size:8px;color:#6B6257;margin-bottom:3px}
-.exp-desc{font-size:9px;color:#444;line-height:1.5}
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+.about-item{padding-left:7pt;border-left:2pt solid #17405f;page-break-inside:avoid}
+.about-item b{display:block;font-size:8pt;color:#17405f;margin-bottom:2pt}
+.about-item p{font-size:8pt;color:#444;line-height:1.5}
 
-.edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.edu-item{padding-left:8px;border-left:2px solid #17405f}
-.edu-title{font-weight:700;font-size:10px;margin-bottom:2px}
-.edu-org{font-size:9px;color:#17405f;font-weight:600;margin-bottom:2px}
-.edu-date{font-size:8px;color:#6B6257}
+/* Experience */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
+.exp-item{padding-left:7pt;border-left:2pt solid #17405f;page-break-inside:avoid}
+.exp-title{font-weight:700;font-size:8.5pt;margin-bottom:1pt}
+.exp-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+.exp-date{font-size:7.5pt;color:#6B6257;margin-bottom:2pt}
+.exp-desc{font-size:8pt;color:#444;line-height:1.5}
 
-.skills{display:flex;flex-wrap:wrap;gap:5px}
-.skill{font-size:9px;font-weight:600;color:#17405f;border:1px solid #17405f;border-radius:100px;padding:2px 8px;white-space:nowrap}
+/* Education */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8pt}
+.edu-item{padding-left:7pt;border-left:2pt solid #17405f;page-break-inside:avoid}
+.edu-title{font-weight:700;font-size:8.5pt;margin-bottom:1pt}
+.edu-org{font-size:8pt;color:#17405f;font-weight:600;margin-bottom:1pt}
+.edu-date{font-size:7.5pt;color:#6B6257}
 
-.references{text-align:center;font-size:9px;color:#6B6257;font-style:italic;margin-top:20px;padding-top:12px;border-top:1px solid #D6CFC0}
+/* Skills */
+.skills{display:flex;flex-wrap:wrap;gap:4pt}
+.skill{font-size:8pt;font-weight:600;color:#17405f;border:1pt solid #17405f;border-radius:100pt;padding:1.5pt 7pt;white-space:nowrap}
+
+.references{text-align:center;font-size:8pt;color:#6B6257;font-style:italic;margin-top:14pt;padding-top:10pt;border-top:1pt solid #D6CFC0}
 </style></head>
 <body>
-<div id="status" style="font-family:sans-serif;font-size:13px;text-align:center;color:#6B6257;padding:30px 0">Generating your CV…</div>
-<div class="cv-wrap" id="cv">
-  <div class="cv-page">
-    <div class="header">
-      ${photoHtml}
-      <div>
-        <div class="name">${esc(h.name)}</div>
-        <div class="tagline">${esc(h.tagline)}</div>
-        <div class="contact">
-          <span>${esc(c.email)}</span>
-          <span>${esc(c.linkedin)}</span>
-        </div>
-      </div>
-    </div>
-    ${whatIdoHtml}
-    <div class="section"><h2>About</h2><div class="about-grid">${aboutHtml}</div></div>
-    <div class="section"><h2>Experience</h2><div class="exp-grid">${expHtml}</div></div>
-  </div>
-  <div class="cv-page">
-    <div class="section"><h2>Education</h2><div class="edu-grid">${eduHtml}</div></div>
-    <div class="section"><h2>Key Skills</h2><div class="skills">${skillsHtml}</div></div>
-    <div class="references">References available upon request.</div>
+<div class="no-print">Your CV is ready — <button onclick="window.print()">Save as PDF</button> then choose "Save as PDF" as the printer.</div>
+<div class="wrap">
+<div class="header">
+  ${photoHtml}
+  <div>
+    <div class="name">${esc(h.name)}</div>
+    <div class="tagline">${esc(h.tagline)}</div>
+    <div class="contacts"><span>${esc(c.email)}</span><span>${esc(c.linkedin)}</span></div>
   </div>
 </div>
-<script>
-function generate(){
-  if(typeof html2pdf==='undefined'){setTimeout(generate,100);return;}
-  var el=document.getElementById('cv');
-  var opt={
-    margin:0,
-    filename:'Amran_Ali_CV.pdf',
-    image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,backgroundColor:'#F5F2EC',logging:false},
-    jsPDF:{unit:'px',format:[794,1123],orientation:'portrait'},
-    pagebreak:{before:'.cv-page + .cv-page'}
-  };
-  html2pdf().set(opt).from(el).save().then(function(){window.close();}).catch(function(e){
-    document.getElementById('status').textContent='Download failed — use Ctrl+P to print as PDF.';
-  });
-}
-setTimeout(generate,300);
-<\/script>
+${whatIdoHtml}
+<div class="section"><h2>About</h2><div class="about-grid">${aboutHtml}</div></div>
+<div class="section"><h2>Experience</h2><div class="exp-grid">${expHtml}</div></div>
+<div class="page-break"></div>
+<div class="section"><h2>Education</h2><div class="edu-grid">${eduHtml}</div></div>
+<div class="section"><h2>Key Skills</h2><div class="skills">${skillsHtml}</div></div>
+<div class="references">References available upon request.</div>
+</div>
+<script>setTimeout(function(){window.print();},600);<\/script>
 </body></html>`);
   win.document.close();
 }
