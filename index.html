@@ -1106,8 +1106,9 @@ function renderCV(){
   const leftCol = document.getElementById('acc-exp-left');
   const rightCol = document.getElementById('acc-exp-right');
   if(leftCol && rightCol){
-    leftCol.innerHTML  = C.experience.filter((_,i)=>i%2===0).map((e,i)=>makeAccItem(e, i*2)).join('');
-    rightCol.innerHTML = C.experience.filter((_,i)=>i%2===1).map((e,i)=>makeAccItem(e, i*2+1)).join('');
+    const half=Math.ceil(C.experience.length/2);
+    leftCol.innerHTML  = C.experience.slice(0,half).map((e,i)=>makeAccItem(e,i)).join('');
+    rightCol.innerHTML = C.experience.slice(half).map((e,i)=>makeAccItem(e,half+i)).join('');
     wireAccordion(leftCol);
     wireAccordion(rightCol);
   }
