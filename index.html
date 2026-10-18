@@ -2475,11 +2475,13 @@ async function pushContentToGitHub(content){
     const newJson=JSON.stringify(cleanContent,null,2);
 
     // Replace content between AA-CONTENT-START and AA-CONTENT-END markers
+    // Use a function replacement so $ signs in JSON aren't treated as backreferences
+    let markerFound=false;
     const updated=rawHtml.replace(
       /(<!-- AA-CONTENT-START -->\s*<script id="aa-content" type="application\/json">)[^]*?(<\/script>\s*<!-- AA-CONTENT-END -->)/,
-      `$1\n${newJson}\n$2`
+      (_,open,close)=>{ markerFound=true; return `${open}\n${newJson}\n${close}`; }
     );
-    if(updated===rawHtml) return {ok:false,err:'Markers not found in file'};
+    if(!markerFound) return {ok:false,err:'Markers not found in file'};
 
     // Encode UTF-8 back to base64 (chunked to avoid call stack overflow on large files)
     const utf8=new TextEncoder().encode(updated);
