@@ -785,6 +785,8 @@ input[type="file"]{display:none}
     <div class="ed-ftr">
       <button class="ed-save" id="ed-save">Save changes</button>
       <button class="ed-reset" id="ed-reset">Reset all</button>
+      <button class="ed-reset" id="ed-export">Export</button>
+      <label class="ed-reset" id="ed-import-label" style="cursor:pointer">Import<input type="file" id="ed-import-file" accept=".json" style="display:none"></label>
       <span class="ed-saved" id="ed-saved">Saved ✓</span>
     </div>
   </div>
@@ -1879,6 +1881,36 @@ document.getElementById('ed-reset').addEventListener('click',async()=>{
   saveContent(C);
   renderAll();
   renderEditorTab(activeEditorTab);
+});
+
+/* ── Export ── */
+document.getElementById('ed-export').addEventListener('click',()=>{
+  collectTab();
+  const blob=new Blob([JSON.stringify(editData,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='amranali-content.json'; a.click();
+});
+
+/* ── Import ── */
+document.getElementById('ed-import-file').addEventListener('change',e=>{
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      C=Object.assign(structuredClone(DEFAULTS),data);
+      editData=structuredClone(C);
+      saveContent(C);
+      renderAll();
+      renderEditorTab(activeEditorTab);
+      const msg=document.getElementById('ed-saved');
+      msg.textContent='Imported ✓';
+      msg.classList.add('show');
+      setTimeout(()=>{ msg.classList.remove('show'); msg.textContent='Saved ✓'; },2500);
+    }catch(err){ alert('Invalid content file.'); }
+  };
+  reader.readAsText(file);
+  e.target.value='';
 });
 
 /* ================================================================
