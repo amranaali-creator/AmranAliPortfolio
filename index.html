@@ -494,9 +494,11 @@ input[type="file"]{display:none}
 /* ── HERO VIDEO MORPH — experiment/hero-animation ───────────────── */
 .sa-video {
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;z-index:1;pointer-events:none;
-  transition:opacity 0.35s ease-in-out;
+  object-fit:cover;object-position:center top;
+  z-index:1;pointer-events:none;
 }
+/* Hide the static photo — video is the only content */
+#portrait-card:has(.sa-video) img { display:none; }
 /* ── end hero morph ─────────────────────────────────────────────── */
   </style>
 </head>
@@ -2697,20 +2699,15 @@ init();
 (function(){
   const vid = document.getElementById('hero-morph-vid');
   if(!vid) return;
-  const FADE = 0.35; // seconds to fade at each boundary
+  const FADE = 0.35;
   vid.addEventListener('timeupdate', function(){
-    const t = vid.currentTime, d = vid.duration;
+    const d = vid.duration;
     if(!d) return;
-    if(t < FADE){
-      vid.style.opacity = (t / FADE).toFixed(3);
-    } else if(d - t < FADE){
-      vid.style.opacity = ((d - t) / FADE).toFixed(3);
-    } else {
-      vid.style.opacity = '1';
-    }
+    const remaining = d - vid.currentTime;
+    vid.style.opacity = remaining < FADE ? (remaining / FADE).toFixed(3) : '1';
   });
-  // Restart cleanly after the fade-out
   vid.addEventListener('ended', function(){
+    vid.style.opacity = '1';
     vid.currentTime = 0;
     vid.play();
   });
