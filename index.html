@@ -1873,52 +1873,66 @@ function updateGhButton(){
 
 async function pushContentToGitHub(content){
   const token=ghToken();
-  if(!token) return false;
-  const msg=document.getElementById('ed-saved');
-
-  // Fetch current file (need SHA + raw content)
-  const metaRes=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`,{
-    headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json'}
-  });
-  if(!metaRes.ok) return false;
-  const meta=await metaRes.json();
-  const sha=meta.sha;
-  const rawHtml=atob(meta.content.replace(/\n/g,''));
-
-  // Strip images (blobs can't be committed; keep static refs only)
-  function stripImages(obj){
-    if(Array.isArray(obj)) return obj.map(stripImages);
-    if(obj&&typeof obj==='object'){
-      const r={};
-      for(const k of Object.keys(obj)){
-        r[k]= (k==='photo'||k==='image'||k==='heroImage') ? null : stripImages(obj[k]);
-      }
-      return r;
+  if(!token) return {ok:false,err:'No token'};
+  try{
+    // Fetch current file (need SHA + raw content)
+    const metaRes=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`,{
+      headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json'}
+    });
+    if(!metaRes.ok){
+      const e=await metaRes.json().catch(()=>({}));
+      return {ok:false,err:`API ${metaRes.status}: ${e.message||metaRes.statusText}`};
     }
-    return obj;
+    const meta=await metaRes.json();
+    const sha=meta.sha;
+    // Decode base64 as UTF-8 bytes
+    const b64=meta.content.replace(/\n/g,'');
+    const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+    const rawHtml=new TextDecoder().decode(bytes);
+
+    // Strip images (blobs can't be committed; keep static refs only)
+    function stripImages(obj){
+      if(Array.isArray(obj)) return obj.map(stripImages);
+      if(obj&&typeof obj==='object'){
+        const r={};
+        for(const k of Object.keys(obj)){
+          r[k]= (k==='photo'||k==='image'||k==='heroImage') ? null : stripImages(obj[k]);
+        }
+        return r;
+      }
+      return obj;
+    }
+    const cleanContent=stripImages(structuredClone(content));
+    const newJson=JSON.stringify(cleanContent,null,2);
+
+    // Replace content between AA-CONTENT-START and AA-CONTENT-END markers
+    const updated=rawHtml.replace(
+      /(<!-- AA-CONTENT-START -->\s*<script id="aa-content" type="application\/json">)[^]*?(<\/script>\s*<!-- AA-CONTENT-END -->)/,
+      `$1\n${newJson}\n$2`
+    );
+    if(updated===rawHtml) return {ok:false,err:'Markers not found in file'};
+
+    // Encode UTF-8 back to base64
+    const encoded=btoa(String.fromCharCode(...new TextEncoder().encode(updated)));
+    const body=JSON.stringify({
+      message:'Update portfolio content via CMS',
+      content:encoded,
+      sha,
+      branch:GH_BRANCH
+    });
+    const putRes=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
+      method:'PUT',
+      headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
+      body
+    });
+    if(!putRes.ok){
+      const e=await putRes.json().catch(()=>({}));
+      return {ok:false,err:`PUT ${putRes.status}: ${e.message||putRes.statusText}`};
+    }
+    return {ok:true};
+  }catch(e){
+    return {ok:false,err:e.message||String(e)};
   }
-  const cleanContent=stripImages(structuredClone(content));
-  const newJson=JSON.stringify(cleanContent,null,2);
-
-  // Replace content between AA-CONTENT-START and AA-CONTENT-END markers
-  const updated=rawHtml.replace(
-    /(<!-- AA-CONTENT-START -->\s*<script id="aa-content" type="application\/json">)[^]*?(<\/script>\s*<!-- AA-CONTENT-END -->)/,
-    `$1\n${newJson}\n$2`
-  );
-  if(updated===rawHtml) return false; // markers not found
-
-  const body=JSON.stringify({
-    message:'Update portfolio content via CMS',
-    content:btoa(unescape(encodeURIComponent(updated))),
-    sha,
-    branch:GH_BRANCH
-  });
-  const putRes=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
-    method:'PUT',
-    headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
-    body
-  });
-  return putRes.ok;
 }
 
 /* ── GitHub connect button ── */
@@ -1948,12 +1962,18 @@ document.getElementById('ed-save').addEventListener('click',async()=>{
   msg.textContent='Saving…';
   msg.classList.add('show');
   if(ghToken()){
-    const ok=await pushContentToGitHub(C);
-    msg.textContent=ok ? 'Saved & pushed ✓' : 'Saved locally (push failed)';
+    const result=await pushContentToGitHub(C);
+    if(result.ok){
+      msg.textContent='Saved & pushed ✓';
+    } else {
+      msg.textContent='Saved locally ✓';
+      console.warn('GitHub push failed:',result.err);
+      setTimeout(()=>alert('GitHub push failed: '+result.err),100);
+    }
   } else {
     msg.textContent='Saved ✓';
   }
-  setTimeout(()=>{ msg.classList.remove('show'); msg.textContent='Saved ✓'; },3000);
+  setTimeout(()=>{ msg.classList.remove('show'); msg.textContent='Saved ✓'; },4000);
 });
 
 /* ── Reset ── */
