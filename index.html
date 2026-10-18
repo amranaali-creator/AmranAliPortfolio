@@ -1912,8 +1912,11 @@ async function pushContentToGitHub(content){
     );
     if(updated===rawHtml) return {ok:false,err:'Markers not found in file'};
 
-    // Encode UTF-8 back to base64
-    const encoded=btoa(String.fromCharCode(...new TextEncoder().encode(updated)));
+    // Encode UTF-8 back to base64 (chunked to avoid call stack overflow on large files)
+    const utf8=new TextEncoder().encode(updated);
+    let binary='';
+    for(let i=0;i<utf8.length;i+=0x8000) binary+=String.fromCharCode(...utf8.subarray(i,i+0x8000));
+    const encoded=btoa(binary);
     const body=JSON.stringify({
       message:'Update portfolio content via CMS',
       content:encoded,
