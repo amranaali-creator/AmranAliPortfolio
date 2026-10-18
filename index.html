@@ -492,87 +492,70 @@ input[type="file"]{display:none}
 }
 
 /* ── HERO STYLE MORPH — experiment/hero-animation ────────────────── */
-/* 20s loop: Original → Anime → 3D Illustration → Futuristic → Original */
+/* 24s loop: Original → Anime → 3D → Futuristic → Original (real images) */
 
-@keyframes hero-filter {
-  0%,  18%  { filter: none; }
-  24%, 44%  { filter: contrast(2.8) saturate(5) brightness(1.15) hue-rotate(-10deg); }
-  50%, 68%  { filter: contrast(1.4) saturate(0.45) brightness(1.3) sepia(0.25); }
-  74%, 90%  { filter: saturate(2.5) hue-rotate(200deg) contrast(2.2) brightness(0.6); }
-  96%, 100% { filter: none; }
+/* Styled images crossfade in/out over the original photo */
+@keyframes sa-img-anime {
+  0%,19%  { opacity:0; }
+  25%,44% { opacity:1; }
+  50%,100%{ opacity:0; }
 }
-@keyframes sa-anime-show {
-  0%,21%,47%,100% { opacity:0; }
-  24%,44%         { opacity:1; }
+@keyframes sa-img-3d {
+  0%,44%  { opacity:0; }
+  50%,69% { opacity:1; }
+  75%,100%{ opacity:0; }
 }
-@keyframes sa-3d-show {
-  0%,47%,71%,100% { opacity:0; }
-  50%,68%         { opacity:1; }
+@keyframes sa-img-futuristic {
+  0%,69%  { opacity:0; }
+  75%,94% { opacity:1; }
+  100%    { opacity:0; }
 }
-@keyframes sa-future-show {
-  0%,71%,93%,100% { opacity:0; }
-  74%,90%         { opacity:1; }
-}
-@keyframes sa-scanlines-show {
-  0%,71%,93%,100% { opacity:0; }
-  74%,90%         { opacity:.35; }
-}
+
+/* Style name label timing */
 @keyframes sl-original {
-  0%,18%,96%,100% { opacity:1; transform:translateY(0); }
-  21%,94%         { opacity:0; transform:translateY(6px); }
+  0%,15%  { opacity:1; transform:translateY(0); }
+  21%,97% { opacity:0; transform:translateY(5px); }
+  100%    { opacity:1; transform:translateY(0); }
 }
 @keyframes sl-anime {
-  0%,21%,47%,100% { opacity:0; transform:translateY(6px); }
-  24%,44%         { opacity:1; transform:translateY(0); }
+  0%,21%  { opacity:0; transform:translateY(5px); }
+  27%,42% { opacity:1; transform:translateY(0); }
+  48%,100%{ opacity:0; transform:translateY(5px); }
 }
 @keyframes sl-3d {
-  0%,47%,71%,100% { opacity:0; transform:translateY(6px); }
-  50%,68%         { opacity:1; transform:translateY(0); }
+  0%,48%  { opacity:0; transform:translateY(5px); }
+  54%,67% { opacity:1; transform:translateY(0); }
+  73%,100%{ opacity:0; transform:translateY(5px); }
 }
 @keyframes sl-futuristic {
-  0%,71%,93%,100% { opacity:0; transform:translateY(6px); }
-  74%,90%         { opacity:1; transform:translateY(0); }
+  0%,73%  { opacity:0; transform:translateY(5px); }
+  79%,92% { opacity:1; transform:translateY(0); }
+  98%,100%{ opacity:0; transform:translateY(5px); }
 }
 
-#portrait-card img { animation: hero-filter 20s ease-in-out infinite; }
-#portrait-card:hover img,
-#portrait-card:hover .sa-overlay,
-#portrait-card:hover .sa-scanlines,
-#portrait-card:hover .sa-label { animation-play-state:paused; }
+/* Styled images sit on top of the base photo */
+.sa-img {
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;pointer-events:none;z-index:1;
+}
+.sa-img[data-style="anime"]      { animation:sa-img-anime      24s ease-in-out infinite; }
+.sa-img[data-style="3d"]         { animation:sa-img-3d         24s ease-in-out infinite; }
+.sa-img[data-style="futuristic"] { animation:sa-img-futuristic 24s ease-in-out infinite; }
 
-.sa-overlay,.sa-scanlines {
-  position:absolute;inset:0;pointer-events:none;
-}
-.sa-anime {
-  background:linear-gradient(135deg,rgba(255,90,140,.45) 0%,rgba(70,170,255,.35) 100%);
-  mix-blend-mode:screen;
-  animation:sa-anime-show 20s ease-in-out infinite;opacity:0;z-index:1;
-}
-.sa-3d {
-  background:radial-gradient(ellipse at 75% 5%,rgba(255,240,210,.65) 0%,rgba(40,60,120,.3) 65%);
-  mix-blend-mode:overlay;
-  animation:sa-3d-show 20s ease-in-out infinite;opacity:0;z-index:1;
-}
-.sa-futuristic {
-  background:linear-gradient(135deg,rgba(0,240,255,.4) 0%,rgba(200,0,255,.3) 100%);
-  mix-blend-mode:screen;
-  animation:sa-future-show 20s ease-in-out infinite;opacity:0;z-index:1;
-}
-.sa-scanlines {
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px);
-  animation:sa-scanlines-show 20s ease-in-out infinite;opacity:0;z-index:2;
-}
 .sa-label {
   position:absolute;bottom:14px;left:0;right:0;text-align:center;
   font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.85);
+  color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.9),0 0 20px rgba(0,0,0,.5);
   pointer-events:none;z-index:3;opacity:0;
-  transition:none;
 }
-.sa-label[data-l="original"]   { animation:sl-original   20s ease-in-out infinite; }
-.sa-label[data-l="anime"]      { animation:sl-anime      20s ease-in-out infinite; }
-.sa-label[data-l="3d"]         { animation:sl-3d         20s ease-in-out infinite; }
-.sa-label[data-l="futuristic"] { animation:sl-futuristic 20s ease-in-out infinite; }
+.sa-label[data-l="original"]   { animation:sl-original   24s ease-in-out infinite; }
+.sa-label[data-l="anime"]      { animation:sl-anime      24s ease-in-out infinite; }
+.sa-label[data-l="3d"]         { animation:sl-3d         24s ease-in-out infinite; }
+.sa-label[data-l="futuristic"] { animation:sl-futuristic 24s ease-in-out infinite; }
+
+/* Pause everything on hover */
+#portrait-card:hover .sa-img,
+#portrait-card:hover .sa-label { animation-play-state:paused; }
 /* ── end hero morph ─────────────────────────────────────────────── */
   </style>
 </head>
@@ -627,11 +610,10 @@ input[type="file"]{display:none}
             <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>[Photo: Amran Ali]</span>
           </div>
-          <!-- Style morph overlays — experiment/hero-animation -->
-          <div class="sa-overlay sa-anime"></div>
-          <div class="sa-overlay sa-3d"></div>
-          <div class="sa-overlay sa-futuristic"></div>
-          <div class="sa-scanlines"></div>
+          <!-- Style morph images — experiment/hero-animation -->
+          <img class="sa-img" data-style="anime"      src="images/hero-anime.webp"      alt="Anime style">
+          <img class="sa-img" data-style="3d"         src="images/hero-3d.webp"         alt="3D illustration">
+          <img class="sa-img" data-style="futuristic" src="images/hero-futuristic.webp" alt="Futuristic">
           <span class="sa-label" data-l="original">Original</span>
           <span class="sa-label" data-l="anime">Anime</span>
           <span class="sa-label" data-l="3d">3D Illustration</span>
@@ -1675,7 +1657,7 @@ function renderHero(){
   document.getElementById('h-tagline').textContent = h.tagline;
   const card=document.getElementById('portrait-card');
   const ph=document.getElementById('portrait-ph');
-  const existImg=card.querySelector('img');
+  const existImg=card.querySelector('img:not(.sa-img)');
   if(existImg) existImg.remove();
   const photoUrl = imageCache.get('hero-photo') || h.staticPhoto || null;
   if(photoUrl){ ph.style.display='none'; const img=document.createElement('img'); img.src=photoUrl; img.alt='Amran Ali'; card.appendChild(img); }
