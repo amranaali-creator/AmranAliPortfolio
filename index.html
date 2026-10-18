@@ -491,71 +491,12 @@ input[type="file"]{display:none}
   .process-step-num{width:36px;height:36px;font-size:15px}
 }
 
-/* ── HERO STYLE MORPH — experiment/hero-animation ────────────────── */
-/* 24s loop: Original → Anime → 3D → Futuristic → Original (real images) */
-
-/* Styled images crossfade in/out over the original photo */
-@keyframes sa-img-anime {
-  0%,19%  { opacity:0; }
-  25%,44% { opacity:1; }
-  50%,100%{ opacity:0; }
+/* ── HERO VIDEO MORPH — experiment/hero-animation ───────────────── */
+.sa-video {
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:1;pointer-events:none;
+  transition:opacity 0.35s ease-in-out;
 }
-@keyframes sa-img-3d {
-  0%,44%  { opacity:0; }
-  50%,69% { opacity:1; }
-  75%,100%{ opacity:0; }
-}
-@keyframes sa-img-futuristic {
-  0%,69%  { opacity:0; }
-  75%,94% { opacity:1; }
-  100%    { opacity:0; }
-}
-
-/* Style name label timing */
-@keyframes sl-original {
-  0%,15%  { opacity:1; transform:translateY(0); }
-  21%,97% { opacity:0; transform:translateY(5px); }
-  100%    { opacity:1; transform:translateY(0); }
-}
-@keyframes sl-anime {
-  0%,21%  { opacity:0; transform:translateY(5px); }
-  27%,42% { opacity:1; transform:translateY(0); }
-  48%,100%{ opacity:0; transform:translateY(5px); }
-}
-@keyframes sl-3d {
-  0%,48%  { opacity:0; transform:translateY(5px); }
-  54%,67% { opacity:1; transform:translateY(0); }
-  73%,100%{ opacity:0; transform:translateY(5px); }
-}
-@keyframes sl-futuristic {
-  0%,73%  { opacity:0; transform:translateY(5px); }
-  79%,92% { opacity:1; transform:translateY(0); }
-  98%,100%{ opacity:0; transform:translateY(5px); }
-}
-
-/* Styled images sit on top of the base photo */
-.sa-img {
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;pointer-events:none;z-index:1;
-}
-.sa-img[data-style="anime"]      { animation:sa-img-anime      24s ease-in-out infinite; }
-.sa-img[data-style="3d"]         { animation:sa-img-3d         24s ease-in-out infinite; }
-.sa-img[data-style="futuristic"] { animation:sa-img-futuristic 24s ease-in-out infinite; }
-
-.sa-label {
-  position:absolute;bottom:14px;left:0;right:0;text-align:center;
-  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.9),0 0 20px rgba(0,0,0,.5);
-  pointer-events:none;z-index:3;opacity:0;
-}
-.sa-label[data-l="original"]   { animation:sl-original   24s ease-in-out infinite; }
-.sa-label[data-l="anime"]      { animation:sl-anime      24s ease-in-out infinite; }
-.sa-label[data-l="3d"]         { animation:sl-3d         24s ease-in-out infinite; }
-.sa-label[data-l="futuristic"] { animation:sl-futuristic 24s ease-in-out infinite; }
-
-/* Pause everything on hover */
-#portrait-card:hover .sa-img,
-#portrait-card:hover .sa-label { animation-play-state:paused; }
 /* ── end hero morph ─────────────────────────────────────────────── */
   </style>
 </head>
@@ -610,14 +551,10 @@ input[type="file"]{display:none}
             <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>[Photo: Amran Ali]</span>
           </div>
-          <!-- Style morph images — experiment/hero-animation -->
-          <img class="sa-img" data-style="anime"      src="images/hero-anime.webp"      alt="Anime style">
-          <img class="sa-img" data-style="3d"         src="images/hero-3d.webp"         alt="3D illustration">
-          <img class="sa-img" data-style="futuristic" src="images/hero-futuristic.webp" alt="Futuristic">
-          <span class="sa-label" data-l="original">Original</span>
-          <span class="sa-label" data-l="anime">Anime</span>
-          <span class="sa-label" data-l="3d">3D Illustration</span>
-          <span class="sa-label" data-l="futuristic">Futuristic</span>
+          <!-- Video morph — experiment/hero-animation -->
+          <video class="sa-video" id="hero-morph-vid" autoplay muted playsinline>
+            <source src="images/hero-morph.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="hero-actions">
           <div class="hero-ctas reveal d3">
@@ -1657,7 +1594,7 @@ function renderHero(){
   document.getElementById('h-tagline').textContent = h.tagline;
   const card=document.getElementById('portrait-card');
   const ph=document.getElementById('portrait-ph');
-  const existImg=card.querySelector('img:not(.sa-img)');
+  const existImg=card.querySelector('img');
   if(existImg) existImg.remove();
   const photoUrl = imageCache.get('hero-photo') || h.staticPhoto || null;
   if(photoUrl){ ph.style.display='none'; const img=document.createElement('img'); img.src=photoUrl; img.alt='Amran Ali'; card.appendChild(img); }
@@ -2755,6 +2692,30 @@ async function init(){
   renderAll();
 }
 init();
+
+/* ── Hero video smooth loop — experiment/hero-animation ── */
+(function(){
+  const vid = document.getElementById('hero-morph-vid');
+  if(!vid) return;
+  const FADE = 0.35; // seconds to fade at each boundary
+  vid.addEventListener('timeupdate', function(){
+    const t = vid.currentTime, d = vid.duration;
+    if(!d) return;
+    if(t < FADE){
+      vid.style.opacity = (t / FADE).toFixed(3);
+    } else if(d - t < FADE){
+      vid.style.opacity = ((d - t) / FADE).toFixed(3);
+    } else {
+      vid.style.opacity = '1';
+    }
+  });
+  // Restart cleanly after the fade-out
+  vid.addEventListener('ended', function(){
+    vid.currentTime = 0;
+    vid.play();
+  });
+})();
+/* ── end video loop ── */
 </script>
 </body>
 </html>
