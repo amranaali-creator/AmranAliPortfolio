@@ -1885,8 +1885,7 @@ document.getElementById('ed-reset').addEventListener('click',async()=>{
 
 /* ── Export ── */
 document.getElementById('ed-export').addEventListener('click',()=>{
-  collectTab();
-  const blob=new Blob([JSON.stringify(editData,null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify(C,null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='amranali-content.json'; a.click();
 });
