@@ -350,6 +350,10 @@ input[type="file"]{display:none}
 .ed-save:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--a1-dk)}
 .ed-reset{padding:11px 16px;border-radius:var(--r-md);border:2px solid var(--border);background:none;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);transition:color .15s,border-color .15s}
 .ed-reset:hover{color:var(--text);border-color:var(--text)}
+.ed-gh{padding:8px 12px;border-radius:var(--r-md);border:2px solid var(--text);background:transparent;color:var(--text);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.ed-gh:hover{background:var(--text);color:var(--bg)}
+.ed-gh.connected{border-color:var(--a1);color:var(--a1)}
+.ed-gh.connected:hover{background:var(--a1);color:var(--offwhite)}
 .ed-saved{font-size:12px;font-weight:700;color:var(--a1);opacity:0;transition:opacity .3s}
 .ed-saved.show{opacity:1}
 
@@ -787,11 +791,70 @@ input[type="file"]{display:none}
       <button class="ed-reset" id="ed-reset">Reset all</button>
       <button class="ed-reset" id="ed-export">Export</button>
       <label class="ed-reset" id="ed-import-label" style="cursor:pointer">Import<input type="file" id="ed-import-file" accept=".json" style="display:none"></label>
+      <button class="ed-gh" id="ed-gh-connect">⚡ Connect GitHub</button>
       <span class="ed-saved" id="ed-saved">Saved ✓</span>
     </div>
   </div>
 </div>
 
+
+<!-- AA-CONTENT-START -->
+<script id="aa-content" type="application/json">
+{
+  "hero": {
+    "eyebrow": "Portfolio",
+    "name": "Amran Ali",
+    "subtitle": "Designer. Problem solver. Phygital thinker.",
+    "tagline": "I solve problems for people in meaningful ways: from initial concepts to final product.",
+    "photo": null,
+    "staticPhoto": "images/hero-photo.jpg"
+  },
+  "aboutSection": {
+    "heading": "What I do.",
+    "sub": "I drive design led product thinking. Working with teams across product, engineering and sales to ensure; products solve real problems at scale."
+  },
+  "about": [
+    { "heading": "Who I am.", "body": "I'm Amran, I grew up in the Bengali community in Yorkshire. It taught me the importance of empathy and diversity. We help each other with everyday challenges, bringing people together." },
+    { "heading": "Why I do it.", "body": "I have always been a bit of an outsider, I know what it feels like to have different needs. To have assumptions made on my behalf, and to not fit the mould. This is why I design with sympathy and empathy. Building solutions that meet the needs of real people." },
+    { "heading": "Where I'm going.", "body": "The world has become more digital in nature. Solutions also need to sit both in the physical and digital world: phygital if you will. I'm building my practice right at that intersection. And have spent the last few years working this way." }
+  ],
+  "projects": {
+    "ux": [
+      { "title": "The Compact Kiosk", "desc": "A 0-1 product that doubled the returns network and landed a $14M deal", "role": "UX Lead", "link": "#", "image": null, "staticImage": "images/compact-kiosk.png", "detail": { "heroImage": null, "result": "A 0-1 physical and digital product that doubled the returns network and landed the biggest deal for the department at $14M+.", "timeline": [{"phase":"Discovery","date":"Month 1"},{"phase":"Concept","date":"Month 2"},{"phase":"Design","date":"Month 3–4"},{"phase":"Test","date":"Month 5"},{"phase":"Launch","date":"Month 6"}], "process": [{"title":"Research & Discovery","body":"Identifying user and business needs for a compact self-service kiosk.","image":null},{"title":"Hardware & Software Design","body":"Designing both the physical enclosure and the kiosk software interface.","image":null},{"title":"Prototype & Test","body":"Iterative testing with real users at live sites.","image":null}], "futureLearning": "", "liveLink": "" } },
+      { "title": "Reducing Parcel Processing Time", "desc": "66% reduction in staff processing time driving network expansion", "role": "UX Lead", "link": "#", "image": null, "staticImage": "images/reduce-staff-time.png", "detail": { "heroImage": null, "result": "Achieved a 66% reduction in staff processing time, enabling faster network expansion for reverse logistics operations.", "timeline": [{"phase":"Research","date":"Month 1"},{"phase":"Define","date":"Month 2"},{"phase":"Design","date":"Month 3"},{"phase":"Test","date":"Month 4"}], "process": [{"title":"Process Mapping","body":"Mapping existing staff workflows to identify bottlenecks.","image":null},{"title":"Design & Iteration","body":"Redesigning the processing interface to reduce steps and cognitive load.","image":null},{"title":"Validation","body":"Measuring time-on-task before and after with real staff.","image":null}], "futureLearning": "", "liveLink": "" } },
+      { "title": "New User Confusion", "desc": "Taking users through every step of the drop-off kiosk experience. Driving adoption.", "role": "UX Lead", "link": "#", "image": null, "staticImage": "images/new-user-confusion.gif", "detail": { "heroImage": null, "result": "Improved first-time user success rate and increased kiosk adoption by guiding users through every step of the drop-off experience.", "timeline": [{"phase":"Research","date":"Month 1"},{"phase":"Define","date":"Month 2"},{"phase":"Design","date":"Month 2–3"},{"phase":"Test","date":"Month 4"}], "process": [{"title":"User Research","body":"Observing first-time users at live kiosks to identify pain points.","image":null},{"title":"Onboarding Design","body":"Designing step-by-step guidance flows for new users.","image":null},{"title":"Testing & Rollout","body":"A/B testing with new vs returning users to measure adoption uplift.","image":null}], "futureLearning": "", "liveLink": "" } },
+      { "title": "Women in Action", "desc": "A digital community for social change", "role": "UX Lead", "link": "#", "image": null, "staticImage": "images/women-in-action.png", "contain": true, "detail": { "heroImage": null, "result": "Add the project result here — the key outcome, impact, or deliverable achieved.", "timeline": [{"phase":"Discovery","date":"Week 1–2"},{"phase":"Define","date":"Week 3"},{"phase":"Ideate","date":"Week 4–5"},{"phase":"Prototype","date":"Week 6"},{"phase":"Test","date":"Week 7–8"}], "process": [{"title":"Research & Discovery","body":"Describe the research methods, user interviews, and insights gathered at this stage.","image":null},{"title":"Define & Synthesise","body":"Explain how you synthesised research into clear problem statements and user needs.","image":null},{"title":"Ideation","body":"Describe the ideation process, workshops, and how concepts were generated and refined.","image":null},{"title":"Prototype & Test","body":"Detail the prototyping approach and what was learned from user testing.","image":null}], "futureLearning": "Add reflections on what you would do differently, next iterations, and future opportunities.", "liveLink": "" } },
+      { "title": "Empact Chicago", "desc": "Clinical trial access for minority women", "role": "UX Lead & Research", "link": "#", "image": null, "staticImage": "images/empact-chicago.gif", "contain": true, "detail": { "heroImage": null, "result": "Add the project result here.", "timeline": [{"phase":"Research","date":"Month 1"},{"phase":"Define","date":"Month 2"},{"phase":"Design","date":"Month 3–4"},{"phase":"Test","date":"Month 5"}], "process": [{"title":"Research & Discovery","body":"Describe the research methods and insights.","image":null},{"title":"Define","body":"How insights shaped the design direction.","image":null},{"title":"Design & Prototype","body":"The design process and decisions made.","image":null}], "futureLearning": "Add future learning here.", "liveLink": "" } }
+    ],
+    "industrial": [
+      { "title": "FERN Planter", "desc": "Freestanding planter range for Furnitubes", "role": "Design Project Lead", "link": "#", "image": null, "staticImage": "images/fern-planter.jpg", "detail": { "heroImage": null, "result": "Add result here.", "timeline": [{"phase":"Brief","date":"Month 1"},{"phase":"Concept","date":"Month 2"},{"phase":"Development","date":"Month 3–4"},{"phase":"Production","date":"Month 5–6"}], "process": [{"title":"Brief & Research","body":"Initial brief analysis and material/manufacturing research.","image":null},{"title":"Concept Development","body":"Concept generation and initial design direction.","image":null},{"title":"Detailing","body":"Technical drawings, prototyping, and refinement.","image":null},{"title":"Sign-off","body":"Client presentation and production approval.","image":null}], "futureLearning": "Add future learning here.", "liveLink": "" } },
+      { "title": "Arca Redesign", "desc": "Modular bin redesign for manufacturability", "role": "Project Lead", "link": "#", "image": null, "staticImage": "images/arca-redesign.png", "detail": { "heroImage": null, "result": "Add result here.", "timeline": [{"phase":"Audit","date":"Week 1"},{"phase":"Concept","date":"Week 2–3"},{"phase":"Develop","date":"Week 4–6"},{"phase":"Handoff","date":"Week 7"}], "process": [{"title":"Existing Product Audit","body":"Analysis of current product for manufacturability issues.","image":null},{"title":"Redesign Concepts","body":"Exploring design options that improve production efficiency.","image":null},{"title":"Final Design","body":"Resolved design ready for manufacture.","image":null}], "futureLearning": "Add future learning here.", "liveLink": "" } },
+      { "title": "Veeva Seating", "desc": "Modular street seating range", "role": "Designer", "link": "#", "image": null, "staticImage": "images/veeva-seating.jpg", "detail": { "heroImage": null, "result": "Add result here.", "timeline": [{"phase":"Research","date":"Month 1"},{"phase":"Concept","date":"Month 2"},{"phase":"Detail","date":"Month 3"},{"phase":"Delivery","date":"Month 4"}], "process": [{"title":"Site & User Research","body":"Understanding the context of use and existing street furniture.","image":null},{"title":"Concept Development","body":"Modular seating concepts and configurations.","image":null},{"title":"Detail Design","body":"Final design and technical documentation.","image":null}], "futureLearning": "Add future learning here.", "liveLink": "" } },
+      { "title": "Kings Crescent", "desc": "Bespoke public seating, Hackney", "role": "Designer", "link": "#", "image": null, "staticImage": "images/kings-crescent.png", "detail": { "heroImage": null, "result": "Add result here.", "timeline": [{"phase":"Brief","date":"Week 1"},{"phase":"Design","date":"Week 2–4"},{"phase":"Approval","date":"Week 5"},{"phase":"Install","date":"Week 8"}], "process": [{"title":"Client Brief","body":"Understanding the site context and community requirements.","image":null},{"title":"Bespoke Design","body":"Creating a seating solution unique to Kings Crescent.","image":null},{"title":"Installation","body":"Coordinating production and site installation.","image":null}], "futureLearning": "Add future learning here.", "liveLink": "" } }
+    ],
+    "other": [
+      { "title": "Model Making & Earlier Work", "desc": "Physical prototypes and university projects", "role": "Designer", "link": "#", "image": null, "staticImage": "images/model-making.png", "detail": { "heroImage": null, "result": "A collection of physical prototypes, model-making work, and earlier design projects from university and early career.", "timeline": [{"phase":"Foundation","date":"2009"},{"phase":"University","date":"2009–2012"},{"phase":"Early Career","date":"2012–2015"}], "process": [{"title":"University Projects","body":"Product and furniture design projects from Kingston University.","image":null},{"title":"Physical Prototyping","body":"Model-making work demonstrating craft and technical skills.","image":null}], "futureLearning": "Early work that shaped my design thinking and approach to problem-solving.", "liveLink": "" } }
+    ]
+  },
+  "experience": [
+    { "title": "UX Designer II", "org": "Blue Yonder", "date": "Aug 2026 — Present", "desc": "Driving impact through design at scale. Designing products across 6 countries in 2 regions. Working on strategy, research and implementation of key KPIs to offer value to clients and consumers. Collaborating with global teams across Product, Engineering, Project, Sales and Operations to create a cohesive product offering fit for markets across LSP (logistics) and Retail." },
+    { "title": "UX Designer I", "org": "Blue Yonder", "date": "Jul 2025 — Aug 2026", "desc": "Taking products from 0-1 and doubling network expansion landing the biggest deal for the department ($14M+). Working with global brands to deliver reverse logistics solutions that offer business impact whilst meeting the needs of everyday users. Leading design on the kiosk offering, creating both hardware and software products and partnering with multifunctional teams and vendors." },
+    { "title": "Associate UX Designer", "org": "Blue Yonder", "date": "Apr 2024 — Jul 2025", "desc": "Working as part of a global end-to-end logistics technology firm on both physical and digital product design. Discovery: conducting initial research and usability testing at prototype stage and live in the field. Design & Development: solving problems and proposing solutions to meet client and business needs. Implementation: working with internal stakeholders and the technology team to deliver solutions in readiness for project rollout." },
+    { "title": "UX Designer · Project Manager · Facilitator", "org": "Freelance", "date": "Nov 2022 — Present", "desc": "Working with businesses and charities developing physical and digital solutions. Industrial Design: design for manufacture, concept strategy, 3D design, detailing and drafting. Project Management: strategy, planning, facilitation, execution and stakeholder management. User Experience: persona development, task analysis, user flows, wireframes, user testing and prototyping." },
+    { "title": "Workshop Instructor", "org": "Experience Haus", "date": "Jan 2024 — Oct 2025", "desc": "Running workshops as a Design Advocate and Educator focused on User Centred Design principles and solving business problems. Delivered product design thinking sessions to students across the UK, helping the next generation of designers tackle real-world challenges through design thinking methodologies." },
+    { "title": "Industrial Product Designer", "org": "Furnitubes International Ltd", "date": "Mar 2015 — Jan 2024", "desc": "Led the design development of multiple street furniture and public realm product ranges from concept through to manufacture. Full design process ownership across local authorities, housing associations, and transport operators. Notable projects include the FERN planter range, Arca bin redesign, Veeva seating, and the Kings Crescent bespoke installation." },
+    { "title": "Design Assistant", "org": "Astudio", "date": "Sep 2013 — Mar 2015", "desc": "Designing, model making, detailing and general studio practice within a multi-disciplinary architecture and interior design studio. Worked across multiple scales — from bespoke furniture and interior fit-outs through to larger architectural projects." }
+  ],
+  "education": [
+    { "title": "Diploma in Product Design — UX & UI", "org": "Experience Haus", "date": "2021" },
+    { "title": "BA (Hons) Product & Furniture Design — 2:1", "org": "Kingston University", "date": "2012" },
+    { "title": "Foundation in Art & Design — Distinction", "org": "Leeds College of Art", "date": "2009" }
+  ],
+  "skills": ["Facilitation","Project Management","Creative Thinking","Problem Solving","Prototyping","User Research","Wireframing","Figma / FigJam / Miro","Adobe CC","3D Modelling","AI Prompting","V0","Claude","VS Code"],
+  "contact": { "email": "amran.a.ali@gmail.com", "linkedin": "linkedin.com/in/amran-ali-719b3842", "footerName": "Amran Ali" }
+}
+</script>
+<!-- AA-CONTENT-END -->
 
 <!-- ============================================================
      JAVASCRIPT
@@ -879,71 +942,9 @@ async function setImageByUploadId(id, blobOrNull){
 function getImageByUploadId(id){ return imageCache.get(id)||null; }
 
 /* ================================================================
-   DEFAULT CONTENT
+   DEFAULT CONTENT  (source of truth: #aa-content JSON tag above)
 ================================================================ */
-const DEFAULTS = {
-  hero: {
-    eyebrow: 'Portfolio',
-    name: 'Amran Ali',
-    subtitle: 'Designer. Problem solver. Phygital thinker.',
-    tagline: 'I solve problems for people in meaningful ways: from initial concepts to final product.',
-    photo: null,
-    staticPhoto: 'images/hero-photo.jpg',
-  },
-  aboutSection: {
-    heading: 'What I do.',
-    sub: 'I drive design led product thinking. Working with teams across product, engineering and sales to ensure; products solve real problems at scale.',
-  },
-  about: [
-    { heading: 'Who I am.', body: "I'm Amran, I grew up in the Bengali community in Yorkshire. It taught me the importance of empathy and diversity. We help each other with everyday challenges, bringing people together." },
-    { heading: 'Why I do it.', body: "I have always been a bit of an outsider, I know what it feels like to have different needs. To have assumptions made on my behalf, and to not fit the mould. This is why I design with sympathy and empathy. Building solutions that meet the needs of real people." },
-    { heading: 'Where I\'m going.', body: "The world has become more digital in nature. Solutions also need to sit both in the physical and digital world: phygital if you will. I'm building my practice right at that intersection. And have spent the last few years working this way." },
-  ],
-  projects: {
-    ux: [
-      { title:'The Compact Kiosk', desc:'A 0-1 product that doubled the returns network and landed a $14M deal', role:'UX Lead', link:'#', image:null, staticImage:'images/compact-kiosk.png',
-        detail:{ heroImage:null, result:'A 0-1 physical and digital product that doubled the returns network and landed the biggest deal for the department at $14M+.', timeline:[{phase:'Discovery',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Design',date:'Month 3–4'},{phase:'Test',date:'Month 5'},{phase:'Launch',date:'Month 6'}], process:[{title:'Research & Discovery',body:'Identifying user and business needs for a compact self-service kiosk.',image:null},{title:'Hardware & Software Design',body:'Designing both the physical enclosure and the kiosk software interface.',image:null},{title:'Prototype & Test',body:'Iterative testing with real users at live sites.',image:null}], futureLearning:'', liveLink:'' } },
-      { title:'Reducing Parcel Processing Time', desc:'66% reduction in staff processing time driving network expansion', role:'UX Lead', link:'#', image:null, staticImage:'images/reduce-staff-time.png',
-        detail:{ heroImage:null, result:'Achieved a 66% reduction in staff processing time, enabling faster network expansion for reverse logistics operations.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 3'},{phase:'Test',date:'Month 4'}], process:[{title:'Process Mapping',body:'Mapping existing staff workflows to identify bottlenecks.',image:null},{title:'Design & Iteration',body:'Redesigning the processing interface to reduce steps and cognitive load.',image:null},{title:'Validation',body:'Measuring time-on-task before and after with real staff.',image:null}], futureLearning:'', liveLink:'' } },
-      { title:'New User Confusion', desc:'Taking users through every step of the drop-off kiosk experience. Driving adoption.', role:'UX Lead', link:'#', image:null, staticImage:'images/new-user-confusion.gif',
-        detail:{ heroImage:null, result:'Improved first-time user success rate and increased kiosk adoption by guiding users through every step of the drop-off experience.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 2–3'},{phase:'Test',date:'Month 4'}], process:[{title:'User Research',body:'Observing first-time users at live kiosks to identify pain points.',image:null},{title:'Onboarding Design',body:'Designing step-by-step guidance flows for new users.',image:null},{title:'Testing & Rollout',body:'A/B testing with new vs returning users to measure adoption uplift.',image:null}], futureLearning:'', liveLink:'' } },
-      { title:'Women in Action', desc:'A digital community for social change', role:'UX Lead', link:'#', image:null, staticImage:'images/women-in-action.png', contain:true,
-        detail:{ heroImage:null, result:'Add the project result here — the key outcome, impact, or deliverable achieved.', timeline:[{phase:'Discovery',date:'Week 1–2'},{phase:'Define',date:'Week 3'},{phase:'Ideate',date:'Week 4–5'},{phase:'Prototype',date:'Week 6'},{phase:'Test',date:'Week 7–8'}], process:[{title:'Research & Discovery',body:'Describe the research methods, user interviews, and insights gathered at this stage.',image:null},{title:'Define & Synthesise',body:'Explain how you synthesised research into clear problem statements and user needs.',image:null},{title:'Ideation',body:'Describe the ideation process, workshops, and how concepts were generated and refined.',image:null},{title:'Prototype & Test',body:'Detail the prototyping approach and what was learned from user testing.',image:null}], futureLearning:'Add reflections on what you would do differently, next iterations, and future opportunities.', liveLink:'' } },
-      { title:'Empact Chicago', desc:'Clinical trial access for minority women', role:'UX Lead & Research', link:'#', image:null, staticImage:'images/empact-chicago.gif', contain:true,
-        detail:{ heroImage:null, result:'Add the project result here.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Define',date:'Month 2'},{phase:'Design',date:'Month 3–4'},{phase:'Test',date:'Month 5'}], process:[{title:'Research & Discovery',body:'Describe the research methods and insights.',image:null},{title:'Define',body:'How insights shaped the design direction.',image:null},{title:'Design & Prototype',body:'The design process and decisions made.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-    ],
-    industrial: [
-      { title:'FERN Planter', desc:'Freestanding planter range for Furnitubes', role:'Design Project Lead', link:'#', image:null, staticImage:'images/fern-planter.jpg',
-        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Brief',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Development',date:'Month 3–4'},{phase:'Production',date:'Month 5–6'}], process:[{title:'Brief & Research',body:'Initial brief analysis and material/manufacturing research.',image:null},{title:'Concept Development',body:'Concept generation and initial design direction.',image:null},{title:'Detailing',body:'Technical drawings, prototyping, and refinement.',image:null},{title:'Sign-off',body:'Client presentation and production approval.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-      { title:'Arca Redesign', desc:'Modular bin redesign for manufacturability', role:'Project Lead', link:'#', image:null, staticImage:'images/arca-redesign.png',
-        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Audit',date:'Week 1'},{phase:'Concept',date:'Week 2–3'},{phase:'Develop',date:'Week 4–6'},{phase:'Handoff',date:'Week 7'}], process:[{title:'Existing Product Audit',body:'Analysis of current product for manufacturability issues.',image:null},{title:'Redesign Concepts',body:'Exploring design options that improve production efficiency.',image:null},{title:'Final Design',body:'Resolved design ready for manufacture.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-      { title:'Veeva Seating', desc:'Modular street seating range', role:'Designer', link:'#', image:null, staticImage:'images/veeva-seating.jpg',
-        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Research',date:'Month 1'},{phase:'Concept',date:'Month 2'},{phase:'Detail',date:'Month 3'},{phase:'Delivery',date:'Month 4'}], process:[{title:'Site & User Research',body:'Understanding the context of use and existing street furniture.',image:null},{title:'Concept Development',body:'Modular seating concepts and configurations.',image:null},{title:'Detail Design',body:'Final design and technical documentation.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-      { title:'Kings Crescent', desc:'Bespoke public seating, Hackney', role:'Designer', link:'#', image:null, staticImage:'images/kings-crescent.png',
-        detail:{ heroImage:null, result:'Add result here.', timeline:[{phase:'Brief',date:'Week 1'},{phase:'Design',date:'Week 2–4'},{phase:'Approval',date:'Week 5'},{phase:'Install',date:'Week 8'}], process:[{title:'Client Brief',body:'Understanding the site context and community requirements.',image:null},{title:'Bespoke Design',body:'Creating a seating solution unique to Kings Crescent.',image:null},{title:'Installation',body:'Coordinating production and site installation.',image:null}], futureLearning:'Add future learning here.', liveLink:'' } },
-    ],
-    other: [
-      { title:'Model Making & Earlier Work', desc:'Physical prototypes and university projects', role:'Designer', link:'#', image:null, staticImage:'images/model-making.png',
-        detail:{ heroImage:null, result:'A collection of physical prototypes, model-making work, and earlier design projects from university and early career.', timeline:[{phase:'Foundation',date:'2009'},{phase:'University',date:'2009–2012'},{phase:'Early Career',date:'2012–2015'}], process:[{title:'University Projects',body:'Product and furniture design projects from Kingston University.',image:null},{title:'Physical Prototyping',body:'Model-making work demonstrating craft and technical skills.',image:null}], futureLearning:'Early work that shaped my design thinking and approach to problem-solving.', liveLink:'' } },
-    ],
-  },
-  experience: [
-    { title:'UX Designer II', org:'Blue Yonder', date:'Aug 2026 — Present', desc:'Driving impact through design at scale. Designing products across 6 countries in 2 regions. Working on strategy, research and implementation of key KPIs to offer value to clients and consumers. Collaborating with global teams across Product, Engineering, Project, Sales and Operations to create a cohesive product offering fit for markets across LSP (logistics) and Retail.' },
-    { title:'UX Designer I', org:'Blue Yonder', date:'Jul 2025 — Aug 2026', desc:'Taking products from 0-1 and doubling network expansion landing the biggest deal for the department ($14M+). Working with global brands to deliver reverse logistics solutions that offer business impact whilst meeting the needs of everyday users. Leading design on the kiosk offering, creating both hardware and software products and partnering with multifunctional teams and vendors.' },
-    { title:'Associate UX Designer', org:'Blue Yonder', date:'Apr 2024 — Jul 2025', desc:'Working as part of a global end-to-end logistics technology firm on both physical and digital product design. Discovery: conducting initial research and usability testing at prototype stage and live in the field. Design & Development: solving problems and proposing solutions to meet client and business needs. Implementation: working with internal stakeholders and the technology team to deliver solutions in readiness for project rollout.' },
-    { title:'UX Designer · Project Manager · Facilitator', org:'Freelance', date:'Nov 2022 — Present', desc:'Working with businesses and charities developing physical and digital solutions. Industrial Design: design for manufacture, concept strategy, 3D design, detailing and drafting. Project Management: strategy, planning, facilitation, execution and stakeholder management. User Experience: persona development, task analysis, user flows, wireframes, user testing and prototyping.' },
-    { title:'Workshop Instructor', org:'Experience Haus', date:'Jan 2024 — Oct 2025', desc:'Running workshops as a Design Advocate and Educator focused on User Centred Design principles and solving business problems. Delivered product design thinking sessions to students across the UK, helping the next generation of designers tackle real-world challenges through design thinking methodologies.' },
-    { title:'Industrial Product Designer', org:'Furnitubes International Ltd', date:'Mar 2015 — Jan 2024', desc:'Led the design development of multiple street furniture and public realm product ranges from concept through to manufacture. Full design process ownership across local authorities, housing associations, and transport operators. Notable projects include the FERN planter range, Arca bin redesign, Veeva seating, and the Kings Crescent bespoke installation.' },
-    { title:'Design Assistant', org:'Astudio', date:'Sep 2013 — Mar 2015', desc:'Designing, model making, detailing and general studio practice within a multi-disciplinary architecture and interior design studio. Worked across multiple scales — from bespoke furniture and interior fit-outs through to larger architectural projects.' },
-  ],
-  education: [
-    { title:'Diploma in Product Design — UX & UI', org:'Experience Haus', date:'2021' },
-    { title:'BA (Hons) Product & Furniture Design — 2:1', org:'Kingston University', date:'2012' },
-    { title:'Foundation in Art & Design — Distinction', org:'Leeds College of Art', date:'2009' },
-  ],
-  skills: ['Facilitation','Project Management','Creative Thinking','Problem Solving','Prototyping','User Research','Wireframing','Figma / FigJam / Miro','Adobe CC','3D Modelling','AI Prompting','V0','Claude','VS Code'],
-  contact: { email:'amran.a.ali@gmail.com', linkedin:'linkedin.com/in/amran-ali-719b3842', footerName:'Amran Ali' },
-};
+const DEFAULTS = JSON.parse(document.getElementById('aa-content').textContent);
 
 /* ================================================================
    CONTENT PERSISTENCE  (text only — images live in IndexedDB)
@@ -1857,15 +1858,102 @@ function setPath(obj,path,val){
   cur[parts[parts.length-1]]=val;
 }
 
+/* ── GitHub push ── */
+const GH_REPO='amranaali-creator/AmranAliPortfolio';
+const GH_FILE='index.html';
+const GH_BRANCH='main';
+
+function ghToken(){ return localStorage.getItem('aa-gh-token')||''; }
+
+function updateGhButton(){
+  const btn=document.getElementById('ed-gh-connect');
+  if(ghToken()){ btn.textContent='✓ GitHub connected'; btn.classList.add('connected'); }
+  else{ btn.textContent='⚡ Connect GitHub'; btn.classList.remove('connected'); }
+}
+
+async function pushContentToGitHub(content){
+  const token=ghToken();
+  if(!token) return false;
+  const msg=document.getElementById('ed-saved');
+
+  // Fetch current file (need SHA + raw content)
+  const metaRes=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`,{
+    headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json'}
+  });
+  if(!metaRes.ok) return false;
+  const meta=await metaRes.json();
+  const sha=meta.sha;
+  const rawHtml=atob(meta.content.replace(/\n/g,''));
+
+  // Strip images (blobs can't be committed; keep static refs only)
+  function stripImages(obj){
+    if(Array.isArray(obj)) return obj.map(stripImages);
+    if(obj&&typeof obj==='object'){
+      const r={};
+      for(const k of Object.keys(obj)){
+        r[k]= (k==='photo'||k==='image'||k==='heroImage') ? null : stripImages(obj[k]);
+      }
+      return r;
+    }
+    return obj;
+  }
+  const cleanContent=stripImages(structuredClone(content));
+  const newJson=JSON.stringify(cleanContent,null,2);
+
+  // Replace content between AA-CONTENT-START and AA-CONTENT-END markers
+  const updated=rawHtml.replace(
+    /(<!-- AA-CONTENT-START -->\s*<script id="aa-content" type="application\/json">)[^]*?(<\/script>\s*<!-- AA-CONTENT-END -->)/,
+    `$1\n${newJson}\n$2`
+  );
+  if(updated===rawHtml) return false; // markers not found
+
+  const body=JSON.stringify({
+    message:'Update portfolio content via CMS',
+    content:btoa(unescape(encodeURIComponent(updated))),
+    sha,
+    branch:GH_BRANCH
+  });
+  const putRes=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
+    method:'PUT',
+    headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
+    body
+  });
+  return putRes.ok;
+}
+
+/* ── GitHub connect button ── */
+document.getElementById('ed-gh-connect').addEventListener('click',()=>{
+  if(ghToken()){
+    if(confirm('Disconnect GitHub? You can reconnect any time.')){
+      localStorage.removeItem('aa-gh-token');
+      updateGhButton();
+    }
+  } else {
+    const t=prompt('Paste your GitHub Personal Access Token (needs repo write scope).\nIt is stored only in your browser and never sent anywhere except GitHub.');
+    if(t&&t.trim()){
+      localStorage.setItem('aa-gh-token',t.trim());
+      updateGhButton();
+    }
+  }
+});
+updateGhButton();
+
 /* ── Save ── */
-document.getElementById('ed-save').addEventListener('click',()=>{
+document.getElementById('ed-save').addEventListener('click',async()=>{
   collectTab();
   C=structuredClone(editData);
   saveContent(C);
   renderAll();
   const msg=document.getElementById('ed-saved');
+  msg.textContent='Saving…';
   msg.classList.add('show');
-  setTimeout(()=>msg.classList.remove('show'),2000);
+  if(ghToken()){
+    const ok=await pushContentToGitHub(C);
+    msg.textContent=ok ? 'Saved & pushed ✓' : 'Saved locally (push failed)';
+  } else {
+    msg.textContent='Saved ✓';
+  }
+  setTimeout(()=>{ msg.classList.remove('show'); msg.textContent='Saved ✓'; },3000);
 });
 
 /* ── Reset ── */
