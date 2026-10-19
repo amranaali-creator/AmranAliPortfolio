@@ -497,14 +497,14 @@ input[type="file"]{display:none}
   object-fit:contain;object-position:center top;
   z-index:1;pointer-events:none;
 }
-/* Remove card frame; match aspect ratio to video (640×720 = 8/9) */
+/* Remove card frame; match aspect ratio to video (960×720 = 4/3) */
 #portrait-card:has(.sa-video),
 #portrait-card:has(.sa-static){
   background:transparent;
   border-color:transparent;
   box-shadow:none;
   overflow:visible;
-  aspect-ratio:8/9;
+  aspect-ratio:4/3;
 }
 #portrait-card:has(.sa-video):hover,
 #portrait-card:has(.sa-static):hover{transform:none}
