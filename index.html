@@ -1584,7 +1584,7 @@ function renderHero(){
   const ph=document.getElementById('portrait-ph');
   const existImg=card.querySelector('img');
   if(existImg) existImg.remove();
-  const photoUrl = imageCache.get('hero-photo') || h.staticPhoto || null;
+  const photoUrl = imageCache.get('hero-photo') || h.photo || h.staticPhoto || null;
   if(photoUrl){ ph.style.display='none'; const img=document.createElement('img'); img.src=photoUrl; img.alt='Amran Ali'; card.appendChild(img); }
   else{ ph.style.display=''; }
 }
