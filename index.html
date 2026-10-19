@@ -508,10 +508,15 @@ input[type="file"]{display:none}
 }
 #portrait-card:has(.sa-video):hover,
 #portrait-card:has(.sa-static):hover{transform:none}
-/* Widen hero column to give animation room */
+/* Desktop: animation column = 45% of container, scales with viewport */
 .hero-grid:has(#portrait-card .sa-video),
 .hero-grid:has(#portrait-card .sa-static){
-  grid-template-columns:1fr 460px;
+  grid-template-columns:1fr 45%;
+}
+/* Mobile: give animation card more room */
+@media(max-width:768px){
+  #portrait-card:has(.sa-video),
+  #portrait-card:has(.sa-static){width:min(80vw,380px)}
 }
 /* Hide cms photo when experiment media is present */
 #portrait-card:has(.sa-video) img,
