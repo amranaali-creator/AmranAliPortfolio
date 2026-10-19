@@ -492,13 +492,20 @@ input[type="file"]{display:none}
 }
 
 /* ── HERO VIDEO MORPH — experiment/hero-animation ───────────────── */
-.sa-video {
+.sa-video,.sa-static{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:center top;
   z-index:1;pointer-events:none;
+  mix-blend-mode:multiply;
 }
-/* Hide the static photo — video is the only content */
-#portrait-card:has(.sa-video) img { display:none; }
+/* Dark mode: multiply would destroy colours — use white card bg instead */
+[data-theme="dark"] .sa-video,
+[data-theme="dark"] .sa-static{mix-blend-mode:normal}
+[data-theme="dark"] #portrait-card:has(.sa-video),
+[data-theme="dark"] #portrait-card:has(.sa-static){background:#fff;border-color:#ddd}
+/* Hide cms photo when experiment media is present */
+#portrait-card:has(.sa-video) img,
+#portrait-card:has(.sa-static) img:not(.sa-static){display:none}
 /* ── end hero morph ─────────────────────────────────────────────── */
   </style>
 </head>
@@ -553,10 +560,7 @@ input[type="file"]{display:none}
             <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>[Photo: Amran Ali]</span>
           </div>
-          <!-- Video morph — experiment/hero-animation -->
-          <video class="sa-video" id="hero-morph-vid" autoplay muted playsinline>
-            <source src="images/hero-morph.mp4" type="video/mp4">
-          </video>
+          <!-- experiment/hero-animation: video or static injected by JS below -->
         </div>
         <div class="hero-actions">
           <div class="hero-ctas reveal d3">
@@ -2695,24 +2699,44 @@ async function init(){
 }
 init();
 
-/* ── Hero video smooth loop — experiment/hero-animation ── */
+/* ── Hero first-visit video — experiment/hero-animation ── */
 (function(){
-  const vid = document.getElementById('hero-morph-vid');
-  if(!vid) return;
-  const FADE = 0.35;
-  vid.addEventListener('timeupdate', function(){
-    const d = vid.duration;
-    if(!d) return;
-    const remaining = d - vid.currentTime;
-    vid.style.opacity = remaining < FADE ? (remaining / FADE).toFixed(3) : '1';
-  });
-  vid.addEventListener('ended', function(){
-    vid.style.opacity = '1';
-    vid.currentTime = 0;
-    vid.play();
-  });
+  const card=document.getElementById('portrait-card');
+  if(!card) return;
+  const KEY='aa-hero-played';
+  if(!localStorage.getItem(KEY)){
+    const vid=document.createElement('video');
+    vid.className='sa-video';
+    vid.autoplay=true;
+    vid.muted=true;
+    vid.setAttribute('playsinline','');
+    vid.innerHTML='<source src="images/hero-morph.mp4" type="video/mp4">';
+    card.appendChild(vid);
+    const FADE=0.35;
+    vid.addEventListener('timeupdate',function(){
+      const d=vid.duration;
+      if(!d) return;
+      const left=d-vid.currentTime;
+      vid.style.opacity=left<FADE?(left/FADE).toFixed(3):'1';
+    });
+    vid.addEventListener('ended',function(){
+      vid.style.opacity='1';
+      vid.currentTime=0;
+      vid.play();
+    });
+    /* Flag after first play so next visit shows static */
+    vid.addEventListener('play',function(){
+      localStorage.setItem(KEY,'1');
+    },{once:true});
+  } else {
+    const img=document.createElement('img');
+    img.className='sa-static';
+    img.src='images/hero-static.jpg';
+    img.alt='Amran Ali';
+    card.appendChild(img);
+  }
 })();
-/* ── end video loop ── */
+/* ── end hero experiment ── */
 </script>
 </body>
 </html>
