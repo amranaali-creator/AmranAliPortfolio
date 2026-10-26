@@ -2719,16 +2719,10 @@ async function init(){
 }
 init();
 
-/* ── Hero animation — plays once, shakes, then scales into hero photo ── */
+/* ── Hero animation — plays once, crossfades into hero photo ── */
 (function(){
   const card=document.getElementById('portrait-card');
   if(!card) return;
-  if(!document.getElementById('aa-shake-kf')){
-    const s=document.createElement('style');
-    s.id='aa-shake-kf';
-    s.textContent='@keyframes aa-shake{0%{transform:scale(1) rotate(0deg)}12%{transform:scale(1.04) translateX(-6px) rotate(-3deg)}28%{transform:scale(1.07) translateX(6px) rotate(3.5deg)}44%{transform:scale(1.04) translateX(-5px) rotate(-2.5deg)}60%{transform:scale(1.05) translateX(5px) rotate(2deg)}78%{transform:scale(1.02) translateX(-2px) rotate(-0.8deg)}100%{transform:scale(1) rotate(0deg)}}';
-    document.head.appendChild(s);
-  }
   const vid=document.createElement('video');
   vid.className='sa-video';
   vid.autoplay=true;
@@ -2737,41 +2731,31 @@ init();
   vid.innerHTML='<source src="images/hero-morph.webm" type="video/webm"><source src="images/hero-morph.mp4" type="video/mp4">';
   card.appendChild(vid);
   vid.addEventListener('ended',function(){
-    /* Shake the last frame */
-    vid.style.animation='aa-shake 0.55s ease-in-out forwards';
+    var hero=document.createElement('img');
+    hero.src='images/hero-photo.png';
+    hero.alt='Amran Ali';
+    hero.className='sa-static';
+    hero.style.display='block';
+    hero.style.zIndex='2';
+    card.appendChild(hero);
+    /* Slow pure crossfade — no transforms */
+    hero.animate([{opacity:0},{opacity:1}],{duration:1400,easing:'ease',fill:'forwards'});
+    vid.animate([{opacity:1},{opacity:0}],{duration:1400,easing:'ease',fill:'forwards'});
+    /* After crossfade completes: briefly fade card to hide geometry snap */
     setTimeout(function(){
-      /* Create hero photo — stays wide (sa-static) during the crossfade */
-      var hero=document.createElement('img');
-      hero.src='images/hero-photo.png';
-      hero.alt='Amran Ali';
-      hero.className='sa-static';
-      hero.style.display='block'; /* override :has(.sa-video) img display:none */
-      hero.style.zIndex='2';
-      card.appendChild(hero);
-      /* Crossfade: hero fades in, video fades out */
-      hero.animate(
-        [{opacity:0,transform:'scale(1.04)'},{opacity:1,transform:'scale(1)'}],
-        {duration:1000,easing:'ease',fill:'forwards'}
-      );
-      vid.animate([{opacity:1},{opacity:0}],{duration:1000,easing:'ease',fill:'forwards'});
-      /* After crossfade: fade card out, snap geometry, fade back in */
+      card.style.transition='opacity 0.18s ease';
+      card.style.opacity='0';
       setTimeout(function(){
-        card.style.transition='opacity 0.2s ease';
-        card.style.opacity='0';
-        setTimeout(function(){
-          /* Geometry snap happens here while card is invisible */
-          card.querySelectorAll('img').forEach(function(el){ if(el!==hero) el.remove(); });
-          vid.remove();
-          hero.getAnimations().forEach(function(a){a.commitStyles();a.cancel();});
-          hero.className='';
-          hero.style.cssText='';
-          /* Fade card back in showing normal bordered 3:4 card */
-          card.style.transition='opacity 0.35s ease';
-          card.style.opacity='1';
-          setTimeout(function(){ card.style.transition=''; card.style.opacity=''; },380);
-        },220);
-      },1100);
-    },380);
+        card.querySelectorAll('img').forEach(function(el){ if(el!==hero) el.remove(); });
+        vid.remove();
+        hero.getAnimations().forEach(function(a){a.commitStyles();a.cancel();});
+        hero.className='';
+        hero.style.cssText='';
+        card.style.transition='opacity 0.35s ease';
+        card.style.opacity='1';
+        setTimeout(function(){ card.style.transition=''; card.style.opacity=''; },380);
+      },200);
+    },1450);
   });
 })();
 /* ── end hero experiment ── */
