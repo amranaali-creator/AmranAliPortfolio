@@ -2735,27 +2735,30 @@ init();
     /* Shake the last frame */
     vid.style.animation='aa-shake 0.55s ease-in-out forwards';
     setTimeout(function(){
-      /* Create hero photo fresh — bypasses any IndexedDB cache */
+      /* Create hero photo — explicit src bypasses any IndexedDB cache */
       var hero=document.createElement('img');
       hero.src='images/hero-photo.png';
       hero.alt='Amran Ali';
-      /* Start invisible, scaled up; display:block overrides the :has(.sa-video) hide rule */
-      hero.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);z-index:2';
+      /* Start invisible at scale(1) — display:block overrides :has(.sa-video) hide rule */
+      hero.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);z-index:2';
       card.appendChild(hero);
-      /* Double-rAF guarantees the browser paints opacity:0 before the transition starts */
+      /* Double-rAF: ensures initial opacity:0 is painted before transition starts */
       requestAnimationFrame(function(){
         requestAnimationFrame(function(){
-          hero.style.transition='opacity 0.9s ease,transform 0.9s ease';
+          /* Crossfade: hero fades in while video fades out simultaneously */
+          hero.style.transition='opacity 1s ease,transform 1s ease';
           hero.style.opacity='1';
           hero.style.transform='scale(1)';
+          vid.style.transition='opacity 1s ease';
+          vid.style.opacity='0';
         });
       });
-      /* After transition: remove video + old img, let hero settle into base CSS */
+      /* After crossfade: remove video + old imgs, let hero settle into base CSS */
       setTimeout(function(){
         card.querySelectorAll('img').forEach(function(el){ if(el!==hero) el.remove(); });
         vid.remove();
         hero.style.cssText='';
-      },950);
+      },1050);
     },380);
   });
 })();
