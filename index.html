@@ -2732,30 +2732,31 @@ init();
   vid.innerHTML='<source src="images/hero-morph.webm" type="video/webm"><source src="images/hero-morph.mp4" type="video/mp4">';
   card.appendChild(vid);
   vid.addEventListener('ended',function(){
-    const img=card.querySelector('img');
-    if(!img){ vid.remove(); return; }
-    /* Snap card back to its normal geometry NOW, while the video still
-       covers it — avoids a visible layout jump later when vid.remove() fires */
-    img.style.opacity='0';           /* keep img invisible during class change */
-    vid.className='';                /* releases :has(.sa-video) card CSS */
-    vid.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;z-index:1;pointer-events:none';
-    /* Shake */
+    /* Shake the last frame */
     vid.style.animation='aa-shake 0.55s ease-in-out forwards';
-    /* Start img crossfade before shake fully ends */
     setTimeout(function(){
-      /* Initial state — no transition yet so browser paints it at opacity:0 */
-      img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);z-index:2';
-      /* Double-rAF: ensures the initial state is painted before we add the transition */
+      /* Create hero photo fresh — bypasses any IndexedDB cache */
+      var hero=document.createElement('img');
+      hero.src='images/hero-photo.png';
+      hero.alt='Amran Ali';
+      /* Start invisible, scaled up; display:block overrides the :has(.sa-video) hide rule */
+      hero.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);z-index:2';
+      card.appendChild(hero);
+      /* Double-rAF guarantees the browser paints opacity:0 before the transition starts */
       requestAnimationFrame(function(){
         requestAnimationFrame(function(){
-          img.style.transition='opacity 0.85s ease,transform 0.85s ease';
-          img.style.opacity='1';
-          img.style.transform='scale(1)';
+          hero.style.transition='opacity 0.9s ease,transform 0.9s ease';
+          hero.style.opacity='1';
+          hero.style.transform='scale(1)';
         });
       });
-      /* Remove video and restore img to base CSS after transition completes */
-      setTimeout(function(){ vid.remove(); img.style.cssText=''; },950);
-    },350);
+      /* After transition: remove video + old img, let hero settle into base CSS */
+      setTimeout(function(){
+        card.querySelectorAll('img').forEach(function(el){ if(el!==hero) el.remove(); });
+        vid.remove();
+        hero.style.cssText='';
+      },950);
+    },380);
   });
 })();
 /* ── end hero experiment ── */
