@@ -2714,7 +2714,7 @@ async function init(){
 }
 init();
 
-/* ── Hero animation — plays once per page load, holds on last frame ── */
+/* ── Hero animation — plays once, then scales into hero photo ── */
 (function(){
   const card=document.getElementById('portrait-card');
   if(!card) return;
@@ -2725,6 +2725,15 @@ init();
   vid.setAttribute('playsinline','');
   vid.innerHTML='<source src="images/hero-morph.webm" type="video/webm"><source src="images/hero-morph.mp4" type="video/mp4">';
   card.appendChild(vid);
+  vid.addEventListener('ended',function(){
+    const img=card.querySelector('img');
+    if(!img){ vid.remove(); return; }
+    img.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 0.9s ease,transform 0.9s ease;z-index:2';
+    void img.getBoundingClientRect();
+    img.style.opacity='1';
+    img.style.transform='scale(1)';
+    setTimeout(function(){ vid.remove(); img.style.cssText=''; },950);
+  });
 })();
 /* ── end hero experiment ── */
 </script>
