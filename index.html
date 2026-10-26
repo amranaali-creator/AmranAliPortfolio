@@ -2731,31 +2731,32 @@ init();
   vid.innerHTML='<source src="images/hero-morph.webm" type="video/webm"><source src="images/hero-morph.mp4" type="video/mp4">';
   card.appendChild(vid);
   vid.addEventListener('ended',function(){
+    /* Snapshot last frame as a fixed canvas overlay so the geometry snap is invisible */
+    var rect=card.getBoundingClientRect();
+    var vw=vid.videoWidth||960, vh=vid.videoHeight||720;
+    var scale=Math.min(rect.width/vw, rect.height/vh);
+    var cw=vw*scale, ch=vh*scale;
+    var canvas=document.createElement('canvas');
+    canvas.width=vw; canvas.height=vh;
+    try{ canvas.getContext('2d').drawImage(vid,0,0,vw,vh); }catch(e){}
+    canvas.style.cssText='position:fixed;z-index:9999;pointer-events:none;'
+      +'top:'+rect.top+'px;left:'+(rect.left+(rect.width-cw)/2)+'px;'
+      +'width:'+cw+'px;height:'+ch+'px;';
+    document.body.appendChild(canvas);
+    /* Snap card to portrait immediately — canvas hides the layout change */
+    card.style.opacity='0';
+    card.querySelectorAll('img').forEach(function(el){ el.remove(); });
+    vid.remove();
+    /* Add hero to the now-portrait card */
     var hero=document.createElement('img');
     hero.src='images/hero-photo.png';
     hero.alt='Amran Ali';
-    hero.className='sa-static';
-    hero.style.display='block';
-    hero.style.zIndex='2';
     card.appendChild(hero);
-    /* Slow pure crossfade — no transforms */
-    hero.animate([{opacity:0},{opacity:1}],{duration:1400,easing:'ease',fill:'forwards'});
-    vid.animate([{opacity:1},{opacity:0}],{duration:1400,easing:'ease',fill:'forwards'});
-    /* After crossfade completes: briefly fade card to hide geometry snap */
-    setTimeout(function(){
-      card.style.transition='opacity 0.18s ease';
-      card.style.opacity='0';
-      setTimeout(function(){
-        card.querySelectorAll('img').forEach(function(el){ if(el!==hero) el.remove(); });
-        vid.remove();
-        hero.getAnimations().forEach(function(a){a.commitStyles();a.cancel();});
-        hero.className='';
-        hero.style.cssText='';
-        card.style.transition='opacity 0.35s ease';
-        card.style.opacity='1';
-        setTimeout(function(){ card.style.transition=''; card.style.opacity=''; },380);
-      },200);
-    },1450);
+    /* Crossfade: canvas (last animation frame) fades out, portrait card fades in */
+    card.animate([{opacity:0},{opacity:1}],{duration:1200,easing:'ease-in-out',fill:'forwards'})
+      .finished.then(function(){ card.style.opacity=''; });
+    canvas.animate([{opacity:1},{opacity:0}],{duration:1200,easing:'ease-in-out',fill:'forwards'})
+      .finished.then(function(){ canvas.remove(); });
   });
 })();
 /* ── end hero experiment ── */
