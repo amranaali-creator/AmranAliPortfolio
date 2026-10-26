@@ -2714,7 +2714,7 @@ async function init(){
 }
 init();
 
-/* ── Hero animation — plays once per page load, then shows static ── */
+/* ── Hero animation — plays once per page load, holds on last frame ── */
 (function(){
   const card=document.getElementById('portrait-card');
   if(!card) return;
@@ -2725,23 +2725,6 @@ init();
   vid.setAttribute('playsinline','');
   vid.innerHTML='<source src="images/hero-morph.webm" type="video/webm"><source src="images/hero-morph.mp4" type="video/mp4">';
   card.appendChild(vid);
-  const FADE=0.35;
-  vid.addEventListener('timeupdate',function(){
-    const d=vid.duration;
-    if(!d) return;
-    const left=d-vid.currentTime;
-    vid.style.opacity=left<FADE?(left/FADE).toFixed(3):'1';
-  });
-  vid.addEventListener('ended',function(){
-    const img=document.createElement('img');
-    img.className='sa-static';
-    img.src='images/hero-static.png';
-    img.alt='Amran Ali';
-    img.style.opacity='0';
-    card.appendChild(img);
-    vid.remove();
-    requestAnimationFrame(function(){ img.style.transition='opacity 0.35s'; img.style.opacity='1'; });
-  });
 })();
 /* ── end hero experiment ── */
 </script>
