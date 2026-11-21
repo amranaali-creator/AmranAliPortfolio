@@ -18,7 +18,7 @@ jobs:
           python3 -c "
           import os, json
           folder = 'images/model-making'
-          exts = {'.jpg','.jpeg','.png','.webp','.gif'}
+          exts = {'.jpg','.jpeg','.png','.webp','.gif','.mp4','.mov','.webm'}
           files = sorted([f for f in os.listdir(folder)
                           if os.path.splitext(f.lower())[1] in exts and f != 'manifest.json'])
           with open(os.path.join(folder,'manifest.json'),'w') as f:

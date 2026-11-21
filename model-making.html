@@ -70,8 +70,8 @@ h1{font-family:var(--serif);font-size:clamp(44px,8vw,72px);font-weight:900;line-
 .mm-gallery{padding:0 0 96px}
 .masonry{columns:3;column-gap:12px}
 .masonry-item{break-inside:avoid;margin-bottom:12px;border-radius:var(--r-sm);overflow:hidden;background:var(--surface)}
-.masonry-item img{width:100%;display:block;transition:transform .3s var(--ease)}
-.masonry-item:hover img{transform:scale(1.02)}
+.masonry-item img,.masonry-item video{width:100%;display:block;transition:transform .3s var(--ease)}
+.masonry-item:hover img,.masonry-item:hover video{transform:scale(1.02)}
 .gallery-loading{text-align:center;padding:60px 0;color:var(--text-muted)}
 .gallery-empty{text-align:center;padding:60px 0;color:var(--text-muted)}
 
@@ -177,9 +177,13 @@ async function loadGallery(){
     if(!res.ok) throw new Error('manifest not found');
     images = await res.json();
     if(!images.length){ gallery.innerHTML='<div class="gallery-empty">No images yet.</div>'; return; }
+    const isVideo = f => /\.(mp4|mov|webm)$/i.test(f);
     gallery.innerHTML = images.map((f,i)=>
       `<div class="masonry-item" data-idx="${i}">
-        <img src="images/model-making/${encodeURIComponent(f)}" alt="${f}" loading="lazy">
+        ${isVideo(f)
+          ? `<video src="images/model-making/${encodeURIComponent(f)}" autoplay muted loop playsinline></video>`
+          : `<img src="images/model-making/${encodeURIComponent(f)}" alt="${f}" loading="lazy">`
+        }
       </div>`
     ).join('');
     gallery.querySelectorAll('.masonry-item').forEach(item=>{
@@ -195,6 +199,7 @@ const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lb-img');
 
 function openLightbox(idx){
+  if(/\.(mp4|mov|webm)$/i.test(images[idx])) return;
   currentIdx = idx;
   lbImg.src = `images/model-making/${encodeURIComponent(images[idx])}`;
   lbImg.alt = images[idx];
