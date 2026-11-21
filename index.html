@@ -1300,7 +1300,7 @@ input[type="file"]{display:none}
         "role": "Designer",
         "link": "model-making.html",
         "image": null,
-        "staticImage": "images/model-making.png",
+        "staticImage": "images/model-making/Lokuchairwoodmetalwalnut34 (2020_08_06 12_34_02 UTC).jpg",
         "detail": {
           "heroImage": null,
           "result": "A collection of physical prototypes, model-making work, and earlier design projects from my early career.",
@@ -1417,6 +1417,9 @@ input[type="file"]{display:none}
     "email": "amran.a.ali@gmail.com",
     "linkedin": "linkedin.com/in/amran-ali-719b3842",
     "footerName": "Amran Ali"
+  },
+  "modelMaking": {
+    "blurb": "Physical prototypes, furniture models and product design projects from Kingston University and my early career. Craft-led work exploring materials, form and manufacturing."
   }
 }
 </script>
@@ -2381,11 +2384,14 @@ function buildCVEd(){return `
     <div class="field"><textarea data-p="skills-csv" rows="3">${esc(editData.skills.join(', '))}</textarea></div>
   </div>`;}
 
-function buildContactEd(){const c=editData.contact; return `
+function buildContactEd(){const c=editData.contact; const mm=editData.modelMaking||{}; return `
   <div class="ed-sec"><div class="ed-sec-title">Contact details</div>
     <div class="field"><label>Email</label><input type="email" data-p="contact.email" value="${esc(c.email)}"></div>
     <div class="field"><label>LinkedIn URL (no https://)</label><input type="text" data-p="contact.linkedin" value="${esc(c.linkedin)}"></div>
     <div class="field"><label>Footer name</label><input type="text" data-p="contact.footerName" value="${esc(c.footerName)}"></div>
+  </div>
+  <div class="ed-sec"><div class="ed-sec-title">Model Making page — description</div>
+    <div class="field"><textarea data-p="modelMaking.blurb" rows="4">${esc(mm.blurb||'')}</textarea></div>
   </div>`;}
 
 /* ── Add / Remove dynamic rows ── */

@@ -21,9 +21,6 @@
   --a2:         #17e3c7;
   --border:     rgba(37,37,37,0.14);
   --shadow:     #252525;
-  --shadow-sm:  4px 4px 0px;
-  --shadow-md:  6px 6px 0px;
-  --shadow-lg:  8px 8px 0px;
   --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
   --serif: 'Playfair Display', Georgia, serif;
   --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -67,24 +64,7 @@ h1{font-family:var(--serif);font-size:clamp(44px,8vw,72px);font-weight:900;line-
 .mm-hero{padding:140px 0 56px}
 .mm-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:16px}
 .mm-title{margin-bottom:28px}
-.mm-blurb-wrap{position:relative;max-width:680px}
-#mm-blurb{font-size:18px;line-height:1.7;color:var(--text-muted)}
-.edit-btn{position:absolute;top:0;right:-36px;background:none;border:none;cursor:pointer;color:var(--text-muted);padding:4px;border-radius:6px;transition:color .2s,background .2s;display:none}
-.edit-btn:hover{color:var(--a1);background:var(--a1-lt)}
-.edit-btn svg{width:16px;height:16px}
-.has-token .edit-btn{display:flex}
-
-/* EDIT PANEL */
-#edit-panel{display:none;margin-top:16px;background:var(--surface);border:2px solid var(--border);border-radius:var(--r-md);padding:20px;max-width:680px}
-#edit-panel.open{display:block}
-#edit-textarea{width:100%;min-height:120px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px;font-size:16px;line-height:1.65;color:var(--text);font-family:var(--sans);resize:vertical;outline:none}
-#edit-textarea:focus{border-color:var(--a1)}
-.edit-actions{display:flex;gap:10px;margin-top:12px;align-items:center}
-.btn-publish{background:var(--a1);color:#fff;border:none;border-radius:var(--r-sm);padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
-.btn-publish:hover{background:var(--a1-dk)}
-.btn-cancel{background:none;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;color:var(--text);transition:border-color .2s}
-.btn-cancel:hover{border-color:var(--a1)}
-#edit-status{font-size:13px;color:var(--text-muted)}
+#mm-blurb{font-size:18px;line-height:1.7;color:var(--text-muted);max-width:680px}
 
 /* GALLERY */
 .mm-gallery{padding:0 0 96px}
@@ -129,22 +109,7 @@ h1{font-family:var(--serif);font-size:clamp(44px,8vw,72px);font-weight:900;line-
   <div class="container">
     <div class="mm-eyebrow">Earlier Work</div>
     <h1 class="mm-title">Model Making<br><span class="a1">&</span> Earlier Work</h1>
-    <div class="mm-blurb-wrap" id="blurb-wrap">
-<!-- MM-CONTENT-START -->
-<p id="mm-blurb">Physical prototypes, furniture models and product design projects from Kingston University and my early career. Craft-led work exploring materials, form and manufacturing.</p>
-<!-- MM-CONTENT-END -->
-      <button class="edit-btn" id="edit-btn" title="Edit blurb">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      </button>
-    </div>
-    <div id="edit-panel">
-      <textarea id="edit-textarea" placeholder="Describe your model making work…"></textarea>
-      <div class="edit-actions">
-        <button class="btn-publish" id="btn-publish">Publish</button>
-        <button class="btn-cancel" id="btn-cancel">Cancel</button>
-        <span id="edit-status"></span>
-      </div>
-    </div>
+    <p id="mm-blurb">Physical prototypes, furniture models and product design projects from Kingston University and my early career. Craft-led work exploring materials, form and manufacturing.</p>
   </div>
 </section>
 
@@ -165,10 +130,6 @@ h1{font-family:var(--serif);font-size:clamp(44px,8vw,72px);font-weight:900;line-
 </div>
 
 <script>
-const GH_REPO = 'amranaali-creator/AmranAliPortfolio';
-const GH_BRANCH = 'main';
-const GH_FILE = 'model-making.html';
-
 /* ── Theme ── */
 (function(){
   const saved = localStorage.getItem('aa-theme');
@@ -180,10 +141,7 @@ const GH_FILE = 'model-making.html';
       ? '<circle cx="10" cy="10" r="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="14.4" y1="14.4" x2="15.8" y2="15.8"/><line x1="4.2" y1="15.8" x2="5.6" y2="14.4"/><line x1="14.4" y1="5.6" x2="15.8" y2="4.2"/>'
       : '<path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>';
   }
-  function sync(){
-    const dark = document.documentElement.getAttribute('data-theme')==='dark';
-    setIcon(dark);
-  }
+  function sync(){ setIcon(document.documentElement.getAttribute('data-theme')==='dark'); }
   sync();
   btn.addEventListener('click',()=>{
     const dark = document.documentElement.getAttribute('data-theme')==='dark';
@@ -199,72 +157,14 @@ window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
 },{passive:true});
 
-/* ── CMS token check ── */
+/* ── Load blurb from CMS localStorage ── */
 (function(){
-  if(localStorage.getItem('aa-gh-token')){
-    document.getElementById('blurb-wrap').classList.add('has-token');
-  }
-})();
-
-/* ── Edit blurb ── */
-const editBtn = document.getElementById('edit-btn');
-const editPanel = document.getElementById('edit-panel');
-const textarea = document.getElementById('edit-textarea');
-const btnPublish = document.getElementById('btn-publish');
-const btnCancel = document.getElementById('btn-cancel');
-const statusEl = document.getElementById('edit-status');
-
-editBtn.addEventListener('click',()=>{
-  textarea.value = document.getElementById('mm-blurb').textContent.trim();
-  editPanel.classList.add('open');
-  textarea.focus();
-});
-btnCancel.addEventListener('click',()=>{ editPanel.classList.remove('open'); statusEl.textContent=''; });
-
-btnPublish.addEventListener('click', async ()=>{
-  const newText = textarea.value.trim();
-  if(!newText){ statusEl.textContent='Please enter some text.'; return; }
-  const token = localStorage.getItem('aa-gh-token');
-  if(!token){ statusEl.textContent='No GitHub token set.'; return; }
-  statusEl.textContent='Publishing…';
-  btnPublish.disabled = true;
   try {
-    const metaRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`,{
-      headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json'}
-    });
-    if(!metaRes.ok) throw new Error(`API ${metaRes.status}`);
-    const meta = await metaRes.json();
-    const sha = meta.sha;
-    const bytes = Uint8Array.from(atob(meta.content.replace(/\n/g,'')), c=>c.charCodeAt(0));
-    const rawHtml = new TextDecoder().decode(bytes);
-    let found = false;
-    const newPara = `<p id="mm-blurb">${newText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>`;
-    const updated = rawHtml.replace(
-      /(<!-- MM-CONTENT-START -->\n)([\s\S]*?)(\n<!-- MM-CONTENT-END -->)/,
-      (_,open,_old,close)=>{ found=true; return open+newPara+close; }
-    );
-    if(!found) throw new Error('Content markers not found in file.');
-    const encoder = new TextEncoder();
-    const encoded = encoder.encode(updated);
-    let b64=''; const chunk=8192;
-    for(let i=0;i<encoded.length;i+=chunk){
-      b64+=btoa(String.fromCharCode(...encoded.subarray(i,i+chunk)));
-    }
-    const putRes = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,{
-      method:'PUT',
-      headers:{Authorization:`token ${token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
-      body:JSON.stringify({message:'Update model-making blurb via CMS',content:b64,sha,branch:GH_BRANCH})
-    });
-    if(!putRes.ok){ const e=await putRes.json().catch(()=>({})); throw new Error(e.message||putRes.status); }
-    document.getElementById('mm-blurb').textContent = newText;
-    statusEl.textContent='✓ Published';
-    editPanel.classList.remove('open');
-  } catch(e){
-    statusEl.textContent='Error: '+e.message;
-  } finally {
-    btnPublish.disabled=false;
-  }
-});
+    const stored = JSON.parse(localStorage.getItem('aa-v4') || '{}');
+    const blurb = stored?.modelMaking?.blurb;
+    if(blurb) document.getElementById('mm-blurb').textContent = blurb;
+  } catch(e){}
+})();
 
 /* ── Gallery ── */
 let images = [];
