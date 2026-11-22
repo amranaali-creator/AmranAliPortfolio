@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Veeva Seating — Amran Ali</title>
+  <link rel="icon" type="image/png" href="images/icons/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+:root {
+  --bg:         #EDE8DF;
+  --surface:    #F5F2EC;
+  --offwhite:   #FAFAF7;
+  --text:       #252525;
+  --text-muted: rgba(37,37,37,0.55);
+  --a1:         #17405f;
+  --a1-dk:      #0d2a3e;
+  --a1-lt:      #e8f0f6;
+  --a2:         #17e3c7;
+  --border:     rgba(37,37,37,0.14);
+  --shadow:     #252525;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ease:  cubic-bezier(0.22,1,0.36,1);
+}
+[data-theme="dark"] {
+  --bg:         #0d1b26;
+  --surface:    #152232;
+  --offwhite:   #1c2f40;
+  --text:       #EDE8DF;
+  --text-muted: rgba(237,232,223,0.55);
+  --a1:         #17e3c7;
+  --a1-dk:      #0fb5a0;
+  --a1-lt:      rgba(23,227,199,0.1);
+  --a2:         #4ea8d4;
+  --border:     rgba(237,232,223,0.12);
+  --shadow:     rgba(0,0,0,0.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.a1{color:var(--a1)}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 0;transition:background .25s var(--ease),border-color .25s var(--ease),padding .25s var(--ease);border-bottom:1px solid transparent}
+#nav.scrolled{background:var(--bg);border-color:var(--border);padding:12px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--a1);line-height:1}
+.nav-right{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;transition:color .2s;letter-spacing:.01em}
+.back-btn:hover{color:var(--a1)}
+.theme-toggle{background:none;border:2px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--a1);color:var(--a1)}
+.theme-toggle svg{width:16px;height:16px}
+
+/* HERO */
+.vs-hero{padding:120px 0 80px}
+.vs-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:20px}
+.vs-split{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.vs-left{display:flex;flex-direction:column}
+.vs-title{font-family:var(--serif);font-size:clamp(52px,8vw,96px);font-weight:900;line-height:1.0;letter-spacing:-.02em;margin-bottom:28px}
+.vs-title span{display:block;white-space:nowrap}
+.vs-dot{display:inline-block!important;width:12px;height:12px;border-radius:50%;background:var(--a1);margin-left:4px;line-height:0;vertical-align:baseline}
+.vs-meta{display:flex;gap:32px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border)}
+.vs-meta-item{display:flex;flex-direction:column;gap:4px}
+.vs-meta-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.vs-meta-val{font-size:15px;font-weight:600}
+.vs-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
+.vs-body p:last-child{margin-bottom:0}
+
+/* RIGHT COLUMN */
+.vs-right{display:flex;flex-direction:column;gap:28px}
+
+/* Technical drawings */
+.vs-drawings{background:var(--offwhite);border-radius:var(--r-md);overflow:hidden;padding:24px}
+.vs-drawings img{width:100%;height:auto;display:block}
+[data-theme="dark"] .vs-drawings img{filter:invert(1) hue-rotate(180deg) brightness(0.85)}
+
+/* Product comparison */
+.vs-products{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.vs-product{display:flex;flex-direction:column;gap:16px;padding:0 20px 0 0}
+.vs-product+.vs-product{padding:0 0 0 20px;border-left:1px solid var(--border)}
+.vs-product-label{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--text-muted);text-align:center;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.vs-product-img{border-radius:var(--r-sm);overflow:hidden;background:var(--surface);cursor:zoom-in}
+.vs-product-img img{width:100%;height:200px;object-fit:contain;padding:16px;transition:transform .3s var(--ease)}
+.vs-product-img:hover img{transform:scale(1.04)}
+.vs-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
+.vs-bullets li{font-size:14px;color:var(--text-muted);line-height:1.5;padding-left:16px;position:relative}
+.vs-bullets li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--a1)}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:var(--r-sm)}
+#lb-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+#lb-prev{left:16px}#lb-next{right:16px}
+#lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
+
+@media(max-width:900px){
+  .vs-split{grid-template-columns:1fr;gap:32px}
+  .vs-hero{padding:110px 0 56px}
+}
+@media(max-width:560px){
+  .vs-products{grid-template-columns:1fr}
+  .vs-product+.vs-product{padding:20px 0 0 0;border-left:none;border-top:1px solid var(--border)}
+}
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">AA<span class="a1">.</span></a>
+    <div class="nav-right">
+      <a class="back-btn" href="index.html">← Portfolio</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section class="vs-hero">
+  <div class="container">
+    <div class="vs-eyebrow">Street Furniture</div>
+    <div class="vs-split">
+
+      <!-- TEXT -->
+      <div class="vs-left">
+        <h1 class="vs-title">
+          <span>Veeva</span>
+          <span>Seating<span class="vs-dot"></span></span>
+        </h1>
+        <div class="vs-meta">
+          <div class="vs-meta-item">
+            <span class="vs-meta-label">Client</span>
+            <span class="vs-meta-val">Furnitubes</span>
+          </div>
+          <div class="vs-meta-item">
+            <span class="vs-meta-label">Role</span>
+            <span class="vs-meta-val">Designer</span>
+          </div>
+          <div class="vs-meta-item">
+            <span class="vs-meta-label">Type</span>
+            <span class="vs-meta-val">Product Range</span>
+          </div>
+        </div>
+        <div class="vs-body">
+          <p>Modular straight and curved seating as part of the mid range products for Furnitubes' catalogue.</p>
+          <p>Modularity was achieved by 'flexing' the straight geometry of the bench to form curved segments of the same length. These pieces can be bolted together to form perfect circles or bolted to straight pieces to create organic, but geometrically controlled shapes to suit different sites.</p>
+          <p>A further feature was a straight backrest on the curved benches which offered a cost effective solution. Character was added using tapered steel plates to form the V of the support.</p>
+          <p>Two distinct looks were developed: Side-to-side and Front-to-back, each with its own merits, in function and form.</p>
+        </div>
+      </div>
+
+      <!-- IMAGES RIGHT -->
+      <div class="vs-right">
+
+        <!-- Technical drawings -->
+        <div class="vs-drawings">
+          <img src="images/Veeva/Veeva Vectors.svg" alt="Veeva Seating technical drawings">
+        </div>
+
+        <!-- Product comparison -->
+        <div class="vs-products">
+          <div class="vs-product">
+            <div class="vs-product-label">Side-to-side</div>
+            <div class="vs-product-img clickable" data-src="images/Veeva/VEEVA STS INDEPENDENT SEAT.JPG">
+              <img src="images/Veeva/VEEVA STS INDEPENDENT SEAT.JPG" alt="Side-to-side seat">
+            </div>
+            <ul class="vs-bullets">
+              <li>Long and chunky slats</li>
+              <li>Linear modularity for long runs</li>
+              <li>Simple, elegant and economical</li>
+            </ul>
+          </div>
+          <div class="vs-product">
+            <div class="vs-product-label">Front-to-back</div>
+            <div class="vs-product-img clickable" data-src="images/Veeva/VEEVA FTB INDEPENDENT SEAT.png">
+              <img src="images/Veeva/VEEVA FTB INDEPENDENT SEAT.png" alt="Front-to-back seat">
+            </div>
+            <ul class="vs-bullets">
+              <li>Short and chunky slats</li>
+              <li>Available as straight and curved</li>
+              <li>Dynamic and versatile, suitable for complex schemes</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-label="Image viewer">
+  <button id="lb-close" aria-label="Close">×</button>
+  <button id="lb-prev" aria-label="Previous">‹</button>
+  <img id="lb-img" src="" alt=""/>
+  <button id="lb-next" aria-label="Next">›</button>
+</div>
+
+<script>
+/* ── Theme ── */
+(function(){
+  const saved = localStorage.getItem('aa-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  function setIcon(dark){
+    icon.innerHTML = dark
+      ? '<circle cx="10" cy="10" r="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="14.4" y1="14.4" x2="15.8" y2="15.8"/><line x1="4.2" y1="15.8" x2="5.6" y2="14.4"/><line x1="14.4" y1="5.6" x2="15.8" y2="4.2"/>'
+      : '<path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>';
+  }
+  function sync(){ setIcon(document.documentElement.getAttribute('data-theme')==='dark'); }
+  sync();
+  btn.addEventListener('click',()=>{
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    const next = dark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('aa-theme', next);
+    sync();
+  });
+})();
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+},{passive:true});
+
+/* ── Lightbox ── */
+const images = [
+  'images/Veeva/VEEVA STS INDEPENDENT SEAT.JPG',
+  'images/Veeva/VEEVA FTB INDEPENDENT SEAT.png'
+];
+let currentIdx = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+
+function openLightbox(src){
+  currentIdx = images.indexOf(src);
+  if(currentIdx < 0) currentIdx = 0;
+  lbImg.src = images[currentIdx];
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+function prev(){ currentIdx = (currentIdx - 1 + images.length) % images.length; lbImg.src = images[currentIdx]; }
+function next(){ currentIdx = (currentIdx + 1) % images.length; lbImg.src = images[currentIdx]; }
+
+document.querySelectorAll('.clickable').forEach(el => {
+  el.addEventListener('click', () => openLightbox(el.dataset.src));
+});
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); prev(); });
+document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); next(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') prev();
+  if(e.key === 'ArrowRight') next();
+});
+</script>
+</body>
+</html>
