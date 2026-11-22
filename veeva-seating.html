@@ -89,8 +89,7 @@ a{color:inherit;text-decoration:none}
 .vs-product-label{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--text-muted);text-align:center;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .vs-product-img{border-radius:var(--r-sm);overflow:hidden;cursor:zoom-in}
 .vs-product-img img{width:100%;height:200px;object-fit:contain;mix-blend-mode:multiply;transition:transform .3s var(--ease)}
-[data-theme="dark"] .vs-product-img{background:rgba(255,255,255,0.93);padding:12px}
-[data-theme="dark"] .vs-product-img img{mix-blend-mode:multiply;filter:none}
+[data-theme="dark"] .vs-product-img img{mix-blend-mode:screen;filter:invert(1) hue-rotate(170deg)}
 .vs-product-img:hover img{transform:scale(1.04)}
 
 /* Photo gallery */
