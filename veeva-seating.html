@@ -78,18 +78,27 @@ a{color:inherit;text-decoration:none}
 .vs-right{display:flex;flex-direction:column;gap:28px}
 
 /* Technical drawings */
-.vs-drawings{background:var(--offwhite);border-radius:var(--r-md);overflow:hidden;padding:24px}
-.vs-drawings img{width:100%;height:auto;display:block}
-[data-theme="dark"] .vs-drawings img{filter:invert(1) hue-rotate(180deg) brightness(0.85)}
+.vs-drawings{border-radius:var(--r-md);overflow:hidden}
+.vs-drawings img{width:100%;height:auto;display:block;mix-blend-mode:multiply}
+[data-theme="dark"] .vs-drawings img{mix-blend-mode:normal;filter:invert(1) hue-rotate(180deg) brightness(0.75)}
 
 /* Product comparison */
 .vs-products{display:grid;grid-template-columns:1fr 1fr;gap:0}
 .vs-product{display:flex;flex-direction:column;gap:16px;padding:0 20px 0 0}
 .vs-product+.vs-product{padding:0 0 0 20px;border-left:1px solid var(--border)}
 .vs-product-label{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--text-muted);text-align:center;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.vs-product-img{border-radius:var(--r-sm);overflow:hidden;background:var(--surface);cursor:zoom-in}
-.vs-product-img img{width:100%;height:200px;object-fit:contain;padding:16px;transition:transform .3s var(--ease)}
+.vs-product-img{border-radius:var(--r-sm);overflow:hidden;cursor:zoom-in}
+.vs-product-img img{width:100%;height:200px;object-fit:contain;mix-blend-mode:multiply;transition:transform .3s var(--ease)}
+[data-theme="dark"] .vs-product-img img{mix-blend-mode:normal}
 .vs-product-img:hover img{transform:scale(1.04)}
+
+/* Photo gallery */
+.vs-gallery{padding:0 0 96px}
+.vs-gallery-grid{columns:3;column-gap:12px}
+.vs-gallery-item{break-inside:avoid;margin-bottom:12px;border-radius:var(--r-sm);overflow:hidden;cursor:zoom-in}
+.vs-gallery-item img{width:100%;display:block;transition:transform .3s var(--ease)}
+.vs-gallery-item:hover img{transform:scale(1.02)}
+@media(max-width:700px){.vs-gallery-grid{columns:2}}
 .vs-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
 .vs-bullets li{font-size:14px;color:var(--text-muted);line-height:1.5;padding-left:16px;position:relative}
 .vs-bullets li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--a1)}
@@ -201,6 +210,26 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- Photo gallery -->
+<section class="vs-gallery">
+  <div class="container">
+    <div class="vs-gallery-grid">
+      <div class="vs-gallery-item" data-src="images/Veeva/veevaZhomeZpage (2020_08_06 12_34_02 UTC).jpg">
+        <img src="images/Veeva/veevaZhomeZpage (2020_08_06 12_34_02 UTC).jpg" alt="Veeva seating overview" loading="lazy">
+      </div>
+      <div class="vs-gallery-item" data-src="images/Veeva/veevaZseatZ01 (2020_08_06 12_34_02 UTC).jpg">
+        <img src="images/Veeva/veevaZseatZ01 (2020_08_06 12_34_02 UTC).jpg" alt="Veeva seat detail" loading="lazy">
+      </div>
+      <div class="vs-gallery-item" data-src="images/Veeva/veevaZseatZ02 (2020_08_06 12_34_02 UTC).jpg">
+        <img src="images/Veeva/veevaZseatZ02 (2020_08_06 12_34_02 UTC).jpg" alt="Veeva seat detail" loading="lazy">
+      </div>
+      <div class="vs-gallery-item" data-src="images/Veeva/IMG-20220309-WA0019.jpg">
+        <img src="images/Veeva/IMG-20220309-WA0019.jpg" alt="Veeva seating installation" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Lightbox -->
 <div id="lightbox" role="dialog" aria-label="Image viewer">
   <button id="lb-close" aria-label="Close">×</button>
@@ -240,7 +269,11 @@ window.addEventListener('scroll',()=>{
 /* ── Lightbox ── */
 const images = [
   'images/Veeva/VEEVA STS INDEPENDENT SEAT.JPG',
-  'images/Veeva/VEEVA FTB INDEPENDENT SEAT.png'
+  'images/Veeva/VEEVA FTB INDEPENDENT SEAT.png',
+  'images/Veeva/veevaZhomeZpage (2020_08_06 12_34_02 UTC).jpg',
+  'images/Veeva/veevaZseatZ01 (2020_08_06 12_34_02 UTC).jpg',
+  'images/Veeva/veevaZseatZ02 (2020_08_06 12_34_02 UTC).jpg',
+  'images/Veeva/IMG-20220309-WA0019.jpg'
 ];
 let currentIdx = 0;
 const lb = document.getElementById('lightbox');
@@ -257,7 +290,7 @@ function closeLightbox(){ lb.classList.remove('open'); document.body.style.overf
 function prev(){ currentIdx = (currentIdx - 1 + images.length) % images.length; lbImg.src = images[currentIdx]; }
 function next(){ currentIdx = (currentIdx + 1) % images.length; lbImg.src = images[currentIdx]; }
 
-document.querySelectorAll('.clickable').forEach(el => {
+document.querySelectorAll('.clickable, .vs-gallery-item').forEach(el => {
   el.addEventListener('click', () => openLightbox(el.dataset.src));
 });
 document.getElementById('lb-close').addEventListener('click', closeLightbox);
