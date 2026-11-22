@@ -61,9 +61,10 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 .theme-toggle svg{width:16px;height:16px}
 
 /* HERO — split layout */
-.kc-hero{padding:120px 0 64px}
-.kc-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.kc-hero{padding:120px 0 80px}
 .kc-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:16px}
+.kc-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:stretch}
+.kc-left{display:flex;flex-direction:column}
 .kc-title{margin-bottom:32px}
 .kc-title span{display:block}
 .kc-dot{color:var(--a1)}
@@ -74,17 +75,12 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 .kc-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
 .kc-body p:last-child{margin-bottom:0}
 
-/* IMAGES — right column */
-.kc-images{display:grid;gap:10px}
-.kc-img-top{border-radius:var(--r-md);overflow:hidden}
-.kc-img-top img{width:100%;height:280px;object-fit:cover}
-.kc-img-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.kc-img-row img{width:100%;height:180px;object-fit:cover;border-radius:var(--r-md)}
-
-/* FULL WIDTH SECTION */
-.kc-full{padding:0 0 96px}
-.kc-full-img{border-radius:var(--r-md);overflow:hidden}
-.kc-full-img img{width:100%;height:420px;object-fit:cover}
+/* IMAGES — right column, stretches to match text height */
+.kc-images{display:grid;grid-template-rows:1fr 1fr 1fr;gap:10px}
+.kc-img-cell{border-radius:var(--r-md);overflow:hidden;min-height:0}
+.kc-img-cell img{width:100%;height:100%;object-fit:cover;display:block}
+.kc-img-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-height:0}
+.kc-img-row .kc-img-cell{min-height:0}
 
 /* LIGHTBOX */
 #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;align-items:center;justify-content:center;cursor:zoom-out}
@@ -97,17 +93,17 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 
 .clickable{cursor:zoom-in}
 .clickable img{transition:transform .3s var(--ease)}
-.clickable:hover img{transform:scale(1.02)}
+.clickable:hover img{transform:scale(1.03)}
 
 @media(max-width:900px){
-  .kc-split{grid-template-columns:1fr;gap:40px}
-  .kc-hero{padding:110px 0 48px}
-  .kc-img-top img{height:220px}
-  .kc-full-img img{height:260px}
+  .kc-split{grid-template-columns:1fr;gap:32px;align-items:start}
+  .kc-hero{padding:110px 0 56px}
+  .kc-images{grid-template-rows:240px 180px 180px}
 }
 @media(max-width:560px){
   .kc-img-row{grid-template-columns:1fr}
-  .kc-img-row img{height:220px}
+  .kc-images{grid-template-rows:none}
+  .kc-img-cell{min-height:200px}
 }
   </style>
 </head>
@@ -129,11 +125,11 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 
 <section class="kc-hero">
   <div class="container">
+    <div class="kc-eyebrow">Public Realm</div>
     <div class="kc-split">
 
       <!-- TEXT -->
-      <div>
-        <div class="kc-eyebrow">Public Realm</div>
+      <div class="kc-left">
         <h1 class="kc-title">
           <span>Kings</span>
           <span>Crescent<span class="kc-dot">.</span></span>
@@ -161,16 +157,24 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 
       <!-- IMAGES RIGHT -->
       <div class="kc-images">
-        <div class="kc-img-top clickable" data-src="images/kings-crescent/Tree bench.png">
-          <img src="images/kings-crescent/Tree bench.png" alt="Tree bench at Kings Crescent">
+        <div class="kc-img-cell clickable" data-src="images/kings-crescent/Low bench.png">
+          <img src="images/kings-crescent/Low bench.png" alt="Low bench at Kings Crescent">
         </div>
         <div class="kc-img-row">
-          <img src="images/kings-crescent/Standard.png" alt="Standard bench" class="clickable" data-src="images/kings-crescent/Standard.png">
-          <img src="images/kings-crescent/Sunk bench.png" alt="Sunk bench" class="clickable" data-src="images/kings-crescent/Sunk bench.png">
+          <div class="kc-img-cell clickable" data-src="images/kings-crescent/Sunk bench.png">
+            <img src="images/kings-crescent/Sunk bench.png" alt="Sunk bench">
+          </div>
+          <div class="kc-img-cell clickable" data-src="images/kings-crescent/Standard.png">
+            <img src="images/kings-crescent/Standard.png" alt="Standard bench">
+          </div>
         </div>
         <div class="kc-img-row">
-          <img src="images/kings-crescent/Carpet.png" alt="Carpet seating" class="clickable" data-src="images/kings-crescent/Carpet.png">
-          <img src="images/kings-crescent/Low bench.png" alt="Low bench" class="clickable" data-src="images/kings-crescent/Low bench.png">
+          <div class="kc-img-cell clickable" data-src="images/kings-crescent/Carpet.png">
+            <img src="images/kings-crescent/Carpet.png" alt="Carpet seating">
+          </div>
+          <div class="kc-img-cell clickable" data-src="images/kings-crescent/Tree bench.png">
+            <img src="images/kings-crescent/Tree bench.png" alt="Tree bench">
+          </div>
         </div>
       </div>
 
@@ -238,7 +242,7 @@ function prev(){ currentIdx = (currentIdx - 1 + images.length) % images.length; 
 function next(){ currentIdx = (currentIdx + 1) % images.length; lbImg.src = images[currentIdx]; }
 
 document.querySelectorAll('.clickable').forEach(el => {
-  el.addEventListener('click', () => openLightbox(el.dataset.src || el.querySelector('img')?.src.split(location.origin+'/')[1]));
+  el.addEventListener('click', () => openLightbox(el.dataset.src));
 });
 document.getElementById('lb-close').addEventListener('click', closeLightbox);
 lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
