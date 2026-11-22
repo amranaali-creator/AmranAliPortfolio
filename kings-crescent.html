@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kings Crescent — Amran Ali</title>
+  <link rel="icon" type="image/png" href="images/icons/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+:root {
+  --bg:         #EDE8DF;
+  --surface:    #F5F2EC;
+  --offwhite:   #FAFAF7;
+  --text:       #252525;
+  --text-muted: rgba(37,37,37,0.55);
+  --a1:         #17405f;
+  --a1-dk:      #0d2a3e;
+  --a1-lt:      #e8f0f6;
+  --a2:         #17e3c7;
+  --border:     rgba(37,37,37,0.14);
+  --shadow:     #252525;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ease:  cubic-bezier(0.22,1,0.36,1);
+}
+[data-theme="dark"] {
+  --bg:         #0d1b26;
+  --surface:    #152232;
+  --offwhite:   #1c2f40;
+  --text:       #EDE8DF;
+  --text-muted: rgba(237,232,223,0.55);
+  --a1:         #17e3c7;
+  --a1-dk:      #0fb5a0;
+  --a1-lt:      rgba(23,227,199,0.1);
+  --a2:         #4ea8d4;
+  --border:     rgba(237,232,223,0.12);
+  --shadow:     rgba(0,0,0,0.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;letter-spacing:-.02em}
+.a1{color:var(--a1)}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 0;transition:background .25s var(--ease),border-color .25s var(--ease),padding .25s var(--ease);border-bottom:1px solid transparent}
+#nav.scrolled{background:var(--bg);border-color:var(--border);padding:12px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--a1);line-height:1}
+.nav-right{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;transition:color .2s;letter-spacing:.01em}
+.back-btn:hover{color:var(--a1)}
+.theme-toggle{background:none;border:2px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--a1);color:var(--a1)}
+.theme-toggle svg{width:16px;height:16px}
+
+/* HERO — split layout */
+.kc-hero{padding:120px 0 64px}
+.kc-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.kc-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:16px}
+.kc-title{margin-bottom:32px}
+.kc-title span{display:block}
+.kc-dot{color:var(--a1)}
+.kc-meta{display:flex;gap:32px;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.kc-meta-item{display:flex;flex-direction:column;gap:4px}
+.kc-meta-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.kc-meta-val{font-size:15px;font-weight:600}
+.kc-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
+.kc-body p:last-child{margin-bottom:0}
+
+/* IMAGES — right column */
+.kc-images{display:grid;gap:10px}
+.kc-img-top{border-radius:var(--r-md);overflow:hidden}
+.kc-img-top img{width:100%;height:280px;object-fit:cover}
+.kc-img-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kc-img-row img{width:100%;height:180px;object-fit:cover;border-radius:var(--r-md)}
+
+/* FULL WIDTH SECTION */
+.kc-full{padding:0 0 96px}
+.kc-full-img{border-radius:var(--r-md);overflow:hidden}
+.kc-full-img img{width:100%;height:420px;object-fit:cover}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:var(--r-sm)}
+#lb-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+#lb-prev{left:16px}#lb-next{right:16px}
+#lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
+
+.clickable{cursor:zoom-in}
+.clickable img{transition:transform .3s var(--ease)}
+.clickable:hover img{transform:scale(1.02)}
+
+@media(max-width:900px){
+  .kc-split{grid-template-columns:1fr;gap:40px}
+  .kc-hero{padding:110px 0 48px}
+  .kc-img-top img{height:220px}
+  .kc-full-img img{height:260px}
+}
+@media(max-width:560px){
+  .kc-img-row{grid-template-columns:1fr}
+  .kc-img-row img{height:220px}
+}
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">AA<span class="a1">.</span></a>
+    <div class="nav-right">
+      <a class="back-btn" href="index.html">← Portfolio</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section class="kc-hero">
+  <div class="container">
+    <div class="kc-split">
+
+      <!-- TEXT -->
+      <div>
+        <div class="kc-eyebrow">Public Realm</div>
+        <h1 class="kc-title">
+          <span>Kings</span>
+          <span>Crescent<span class="kc-dot">.</span></span>
+        </h1>
+        <div class="kc-meta">
+          <div class="kc-meta-item">
+            <span class="kc-meta-label">Client</span>
+            <span class="kc-meta-val">MUF Architecture</span>
+          </div>
+          <div class="kc-meta-item">
+            <span class="kc-meta-label">Location</span>
+            <span class="kc-meta-val">Hackney, London</span>
+          </div>
+          <div class="kc-meta-item">
+            <span class="kc-meta-label">Role</span>
+            <span class="kc-meta-val">Designer</span>
+          </div>
+        </div>
+        <div class="kc-body">
+          <p>Working with MUF architects to create feature seating in a new development: Kings Crescent, Hackney. Helping the client with their key objectives and architectural stages as well as project managing through to delivery.</p>
+          <p>Communication with all stakeholders was essential. Typically 3 different groups: The Architect for design, the main contractor for costs and project delivery, and manufacturing supply chain for constructing the products.</p>
+          <p>The result was a series of playful interventions in a communal area for the community that encouraged the use of public seating in a more organic and fluid way.</p>
+        </div>
+      </div>
+
+      <!-- IMAGES RIGHT -->
+      <div class="kc-images">
+        <div class="kc-img-top clickable" data-src="images/kings-crescent/Tree bench.png">
+          <img src="images/kings-crescent/Tree bench.png" alt="Tree bench at Kings Crescent">
+        </div>
+        <div class="kc-img-row">
+          <img src="images/kings-crescent/Standard.png" alt="Standard bench" class="clickable" data-src="images/kings-crescent/Standard.png">
+          <img src="images/kings-crescent/Sunk bench.png" alt="Sunk bench" class="clickable" data-src="images/kings-crescent/Sunk bench.png">
+        </div>
+        <div class="kc-img-row">
+          <img src="images/kings-crescent/Carpet.png" alt="Carpet seating" class="clickable" data-src="images/kings-crescent/Carpet.png">
+          <img src="images/kings-crescent/Low bench.png" alt="Low bench" class="clickable" data-src="images/kings-crescent/Low bench.png">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-label="Image viewer">
+  <button id="lb-close" aria-label="Close">×</button>
+  <button id="lb-prev" aria-label="Previous">‹</button>
+  <img id="lb-img" src="" alt=""/>
+  <button id="lb-next" aria-label="Next">›</button>
+</div>
+
+<script>
+/* ── Theme ── */
+(function(){
+  const saved = localStorage.getItem('aa-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  function setIcon(dark){
+    icon.innerHTML = dark
+      ? '<circle cx="10" cy="10" r="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="14.4" y1="14.4" x2="15.8" y2="15.8"/><line x1="4.2" y1="15.8" x2="5.6" y2="14.4"/><line x1="14.4" y1="5.6" x2="15.8" y2="4.2"/>'
+      : '<path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>';
+  }
+  function sync(){ setIcon(document.documentElement.getAttribute('data-theme')==='dark'); }
+  sync();
+  btn.addEventListener('click',()=>{
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    const next = dark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('aa-theme', next);
+    sync();
+  });
+})();
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+},{passive:true});
+
+/* ── Lightbox ── */
+const images = [
+  'images/kings-crescent/Tree bench.png',
+  'images/kings-crescent/Standard.png',
+  'images/kings-crescent/Sunk bench.png',
+  'images/kings-crescent/Carpet.png',
+  'images/kings-crescent/Low bench.png'
+];
+let currentIdx = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+
+function openLightbox(src){
+  currentIdx = images.indexOf(src);
+  if(currentIdx < 0) currentIdx = 0;
+  lbImg.src = images[currentIdx];
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+function prev(){ currentIdx = (currentIdx - 1 + images.length) % images.length; lbImg.src = images[currentIdx]; }
+function next(){ currentIdx = (currentIdx + 1) % images.length; lbImg.src = images[currentIdx]; }
+
+document.querySelectorAll('.clickable').forEach(el => {
+  el.addEventListener('click', () => openLightbox(el.dataset.src || el.querySelector('img')?.src.split(location.origin+'/')[1]));
+});
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); prev(); });
+document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); next(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') prev();
+  if(e.key === 'ArrowRight') next();
+});
+</script>
+</body>
+</html>
