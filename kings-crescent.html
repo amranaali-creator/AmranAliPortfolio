@@ -62,21 +62,22 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 
 /* HERO — split layout */
 .kc-hero{padding:120px 0 80px}
-.kc-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:16px}
-.kc-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:stretch}
+.kc-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:20px}
+.kc-split{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:stretch}
 .kc-left{display:flex;flex-direction:column}
-.kc-title{margin-bottom:32px}
+.kc-title{font-size:clamp(52px,8vw,96px);margin-bottom:28px}
 .kc-title span{display:block;white-space:nowrap}
 .kc-dot{color:var(--a1)}
-.kc-meta{display:flex;gap:32px;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.kc-sep{width:12px;height:12px;border-radius:50%;background:var(--a1);margin-bottom:28px}
+.kc-meta{display:flex;gap:32px;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border)}
 .kc-meta-item{display:flex;flex-direction:column;gap:4px}
 .kc-meta-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
 .kc-meta-val{font-size:15px;font-weight:600}
 .kc-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
 .kc-body p:last-child{margin-bottom:0}
 
-/* IMAGES — right column, stretches to match text height */
-.kc-images{display:grid;grid-template-rows:1fr 1fr 1fr;gap:10px}
+/* IMAGES — right column, top image 2× taller than grid rows */
+.kc-images{display:grid;grid-template-rows:2fr 1fr 1fr;gap:10px}
 .kc-img-cell{border-radius:var(--r-md);overflow:hidden;min-height:0}
 .kc-img-cell img{width:100%;height:100%;object-fit:cover;display:block}
 .kc-img-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-height:0}
@@ -98,7 +99,7 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
 @media(max-width:900px){
   .kc-split{grid-template-columns:1fr;gap:32px;align-items:start}
   .kc-hero{padding:110px 0 56px}
-  .kc-images{grid-template-rows:240px 180px 180px}
+  .kc-images{grid-template-rows:260px 180px 180px}
 }
 @media(max-width:560px){
   .kc-img-row{grid-template-columns:1fr}
@@ -132,8 +133,9 @@ h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-
       <div class="kc-left">
         <h1 class="kc-title">
           <span>Kings</span>
-          <span>Crescent<span class="kc-dot">.</span></span>
+          <span>Crescent</span>
         </h1>
+        <div class="kc-sep"></div>
         <div class="kc-meta">
           <div class="kc-meta-item">
             <span class="kc-meta-label">Client</span>
