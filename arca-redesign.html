@@ -115,6 +115,25 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
 /* 2-col image pair */
 .ar-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* FTD floating composition */
+.ar-ftd{position:relative;width:560px;height:420px;flex-shrink:0}
+.ar-ftd-sheet{position:absolute;width:260px;height:184px;border-radius:3px;overflow:hidden;
+  box-shadow:0 5px 20px rgba(0,0,0,0.13);
+  transform:rotate(var(--r,0deg));
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),filter .3s,box-shadow .3s;
+  animation:ar-ftd-float var(--t,4s) ease-in-out var(--d,0s) infinite;
+  filter:blur(3px)}
+[data-theme="dark"] .ar-ftd-sheet{box-shadow:0 5px 24px rgba(0,0,0,0.5)}
+.ar-ftd-sheet img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply}
+[data-theme="dark"] .ar-ftd-sheet img{mix-blend-mode:screen;filter:invert(1) hue-rotate(180deg) brightness(0.85)}
+.ar-ftd-sheet:hover{filter:blur(2px);box-shadow:0 12px 36px rgba(0,0,0,0.2);
+  transform:rotate(0deg) translateY(-10px) scale(1.05)!important;
+  animation-play-state:paused;z-index:20!important}
+[data-theme="dark"] .ar-ftd-sheet:hover{box-shadow:0 12px 36px rgba(0,0,0,0.6)}
+@keyframes ar-ftd-float{
+  0%,100%{transform:rotate(var(--r,0deg)) translateY(0)}
+  50%{transform:rotate(var(--r,0deg)) translateY(-8px)}}
+
 /* stacked image column */
 .ar-img-stack{display:flex;flex-direction:column;gap:24px;align-items:center}
 .ar-img-stack .ar-phase-img:not(.ar-phase-img--contain){margin-left:30%;width:140%}
@@ -277,22 +296,26 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
       </div>
     </div>
 
-    <!-- Phase 3: Detailing -->
+    <!-- Phase 4: Detailing -->
     <div class="ar-phase">
-      <div class="ar-phase-header">
-        <div class="ar-phase-label">
-          <p>Phase Three</p>
-          <h2>Detailing & Prototyping</h2>
-        </div>
-      </div>
       <div class="ar-phase-body ar-phase-body--reverse">
         <div class="ar-phase-text" style="order:2">
+          <div class="ar-phase-header">
+            <div class="ar-phase-label">
+              <p>Phase Four</p>
+              <h2>Detailing & Prototyping</h2>
+            </div>
+          </div>
           <p>Using all the learnings from the previous phases we created the design more formally, assisting the marketing team with the communication of the product.</p>
           <p>My focus was to ensure the details were collated and executed. Working alongside the engineering team and factory to create a system for drawing, manufacturing and processing the product using the business ERP system.</p>
           <p>We then built a prototype to test not only the product design but the methods for processing — ensuring the new manufacturing approach was viable at scale.</p>
         </div>
-        <div class="ar-phase-img ar-phase-img--contain clickable" data-src="images/Arca/ARC5T.png" style="order:1">
-          <img src="images/Arca/ARC5T.png" alt="Arca 5T prototype render" style="height:360px">
+        <div class="ar-ftd" style="order:1">
+          <div class="ar-ftd-sheet" style="top:0;left:0;--r:-1.5deg;--d:0s;--t:4.4s;z-index:5"><img src="images/Arca/FTD-55-ash-assy.png" alt=""></div>
+          <div class="ar-ftd-sheet" style="top:50px;left:90px;--r:1deg;--d:0.5s;--t:4s;z-index:4"><img src="images/Arca/FTD-55-ash-assy-p2.png" alt=""></div>
+          <div class="ar-ftd-sheet" style="top:100px;left:180px;--r:-0.8deg;--d:1s;--t:3.9s;z-index:3"><img src="images/Arca/FTD-40-chassis.png" alt=""></div>
+          <div class="ar-ftd-sheet" style="top:150px;left:270px;--r:1.5deg;--d:1.4s;--t:4.5s;z-index:2"><img src="images/Arca/FTD-53-timber-body.png" alt=""></div>
+          <div class="ar-ftd-sheet" style="top:200px;left:180px;--r:0.3deg;--d:0.7s;--t:4.2s;z-index:1"><img src="images/Arca/FTD-51-lock.png" alt=""></div>
         </div>
       </div>
     </div>
