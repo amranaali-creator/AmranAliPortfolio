@@ -61,10 +61,11 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 .theme-toggle:hover{border-color:var(--a1);color:var(--a1)}
 .theme-toggle svg{width:16px;height:16px}
 
-/* HERO — full-bleed right column */
-.ar-hero{display:grid;grid-template-columns:5fr 7fr;min-height:88vh;overflow:hidden}
+/* HERO */
+.ar-hero{padding:120px 0 80px}
 .ar-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:20px}
-.ar-left{display:flex;flex-direction:column;padding:120px 40px 80px clamp(24px,calc((100vw - 1160px)/2 + 24px),120px)}
+.ar-split{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:stretch}
+.ar-left{display:flex;flex-direction:column}
 .ar-title{font-size:clamp(52px,8vw,96px);margin-bottom:28px}
 .ar-title span{display:block;white-space:nowrap}
 .ar-dot{display:inline-block!important;width:12px;height:12px;border-radius:50%;background:var(--a1);margin-left:4px;line-height:0;vertical-align:baseline}
@@ -75,8 +76,8 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 .ar-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
 .ar-body p:last-child{margin-bottom:0}
 
-/* hero right image — bleeds to top and right edge */
-.ar-hero-right{overflow:hidden;border-radius:0 0 0 var(--r-lg);cursor:zoom-in}
+/* hero right image — matches text column height */
+.ar-hero-right{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
 .ar-hero-right img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s var(--ease)}
 .ar-hero-right:hover img{transform:scale(1.02)}
 
@@ -132,10 +133,9 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 #lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
 
 @media(max-width:900px){
-  .ar-hero{grid-template-columns:1fr;min-height:auto}
-  .ar-left{padding:110px 24px 48px}
-  .ar-hero-right{height:360px;border-radius:0}
-  .ar-phase-body,.ar-phase-body.ar-phase-body--reverse{grid-template-columns:1fr;gap:32px}
+  .ar-split,.ar-phase-body,.ar-phase-body.ar-phase-body--reverse{grid-template-columns:1fr;gap:32px}
+  .ar-hero{padding:110px 0 56px}
+  .ar-hero-right{height:360px}
   .ar-renders{grid-template-columns:1fr 1fr}
   .ar-phase-num{font-size:48px}
 }
@@ -163,35 +163,38 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
 <!-- HERO -->
 <section class="ar-hero">
-  <div class="ar-left">
+  <div class="container">
     <div class="ar-eyebrow">Street Furniture</div>
-    <h1 class="ar-title">
-      <span>Arca</span>
-      <span>Redesign<span class="ar-dot"></span></span>
-    </h1>
-    <div class="ar-meta">
-      <div class="ar-meta-item">
-        <span class="ar-meta-label">Client</span>
-        <span class="ar-meta-val">Furnitubes</span>
+    <div class="ar-split">
+      <div class="ar-left">
+        <h1 class="ar-title">
+          <span>Arca</span>
+          <span>Redesign<span class="ar-dot"></span></span>
+        </h1>
+        <div class="ar-meta">
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Client</span>
+            <span class="ar-meta-val">Furnitubes</span>
+          </div>
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Role</span>
+            <span class="ar-meta-val">Project Instigator & Designer</span>
+          </div>
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Type</span>
+            <span class="ar-meta-val">Product Redesign</span>
+          </div>
+        </div>
+        <div class="ar-body">
+          <p>The Arca is a modular bin that allows users to customise the product across over 32 different functional and visual styles. Its principle design focuses on a core structure with changeable parts.</p>
+          <p>After several years on the market and a new series of on-boardings, I noticed that the bin was very complicated to explain and understand. It was also laborious to process and expensive to produce.</p>
+          <p>The challenge was to make it simpler and easier to communicate, make and sell — without losing the visual character that had made it successful.</p>
+        </div>
       </div>
-      <div class="ar-meta-item">
-        <span class="ar-meta-label">Role</span>
-        <span class="ar-meta-val">Project Instigator & Designer</span>
-      </div>
-      <div class="ar-meta-item">
-        <span class="ar-meta-label">Type</span>
-        <span class="ar-meta-val">Product Redesign</span>
+      <div class="ar-hero-right clickable" data-src="images/Arca/Double - Corten TP.png">
+        <img src="images/Arca/Double - Corten TP.png" alt="Arca double bin in Corten finish">
       </div>
     </div>
-    <div class="ar-body">
-      <p>The Arca is a modular bin that allows users to customise the product across over 32 different functional and visual styles. Its principle design focuses on a core structure with changeable parts.</p>
-      <p>After several years on the market and a new series of on-boardings, I noticed that the bin was very complicated to explain and understand. It was also laborious to process and expensive to produce.</p>
-      <p>The challenge was to make it simpler and easier to communicate, make and sell — without losing the visual character that had made it successful.</p>
-    </div>
-  </div>
-
-  <div class="ar-hero-right clickable" data-src="images/Arca/Double - Corten TP.png">
-    <img src="images/Arca/Double - Corten TP.png" alt="Arca double bin in Corten finish">
   </div>
 </section>
 
