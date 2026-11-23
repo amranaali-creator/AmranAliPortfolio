@@ -166,6 +166,16 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
   .ar-hero-right img{object-position:center bottom}
   .ar-renders{grid-template-columns:1fr 1fr}
   .ar-phase-num{font-size:48px}
+  /* FTD: compact diagonal that fits mobile without horizontal scroll */
+  .ar-ftd{width:300px;height:220px}
+  .ar-ftd .ar-ftd-sheet{width:150px!important;height:106px!important}
+  .ar-ftd .ar-ftd-sheet:nth-child(1){top:0!important;left:0!important}
+  .ar-ftd .ar-ftd-sheet:nth-child(2){top:25px!important;left:50px!important}
+  .ar-ftd .ar-ftd-sheet:nth-child(3){top:50px!important;left:100px!important}
+  .ar-ftd .ar-ftd-sheet:nth-child(4){top:75px!important;left:150px!important}
+  .ar-ftd .ar-ftd-sheet:nth-child(5){top:100px!important;left:100px!important}
+  /* Pallet: cap width/offset so it doesn't overflow mobile */
+  .ar-img-stack .ar-phase-img:not(.ar-phase-img--contain){margin-left:0;width:100%}
 }
 @media(max-width:560px){
   .ar-renders{grid-template-columns:1fr}
