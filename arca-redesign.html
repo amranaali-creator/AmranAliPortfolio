@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arca Redesign — Amran Ali</title>
+  <link rel="icon" type="image/png" href="images/icons/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+:root {
+  --bg:         #EDE8DF;
+  --surface:    #F5F2EC;
+  --offwhite:   #FAFAF7;
+  --text:       #252525;
+  --text-muted: rgba(37,37,37,0.55);
+  --a1:         #17405f;
+  --a1-dk:      #0d2a3e;
+  --a1-lt:      #e8f0f6;
+  --a2:         #17e3c7;
+  --border:     rgba(37,37,37,0.14);
+  --shadow:     #252525;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ease:  cubic-bezier(0.22,1,0.36,1);
+}
+[data-theme="dark"] {
+  --bg:         #0d1b26;
+  --surface:    #152232;
+  --offwhite:   #1c2f40;
+  --text:       #EDE8DF;
+  --text-muted: rgba(237,232,223,0.55);
+  --a1:         #17e3c7;
+  --a1-dk:      #0fb5a0;
+  --a1-lt:      rgba(23,227,199,0.1);
+  --a2:         #4ea8d4;
+  --border:     rgba(237,232,223,0.12);
+  --shadow:     rgba(0,0,0,0.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.01em}
+.a1{color:var(--a1)}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 0;transition:background .25s var(--ease),border-color .25s var(--ease),padding .25s var(--ease);border-bottom:1px solid transparent}
+#nav.scrolled{background:var(--bg);border-color:var(--border);padding:12px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--a1);line-height:1}
+.nav-right{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;transition:color .2s;letter-spacing:.01em}
+.back-btn:hover{color:var(--a1)}
+.theme-toggle{background:none;border:2px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--a1);color:var(--a1)}
+.theme-toggle svg{width:16px;height:16px}
+
+/* HERO */
+.ar-hero{padding:120px 0 80px}
+.ar-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:20px}
+.ar-split{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.ar-left{display:flex;flex-direction:column}
+.ar-title{font-size:clamp(52px,8vw,96px);margin-bottom:28px}
+.ar-title span{display:block;white-space:nowrap}
+.ar-dot{display:inline-block!important;width:12px;height:12px;border-radius:50%;background:var(--a1);margin-left:4px;line-height:0;vertical-align:baseline}
+.ar-meta{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border)}
+.ar-meta-item{display:flex;flex-direction:column;gap:4px}
+.ar-meta-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.ar-meta-val{font-size:15px;font-weight:600}
+.ar-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
+.ar-body p:last-child{margin-bottom:0}
+
+/* hero right image */
+.ar-hero-img{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
+.ar-hero-img img{width:100%;height:580px;object-fit:cover;display:block;mix-blend-mode:multiply;transition:transform .3s var(--ease)}
+.ar-hero-img:hover img{transform:scale(1.02)}
+[data-theme="dark"] .ar-hero-img img{mix-blend-mode:screen;filter:invert(1) hue-rotate(170deg)}
+
+/* PHASE SECTIONS */
+.ar-phases{padding:0 0 80px}
+.ar-phase{padding:64px 0;border-top:1px solid var(--border)}
+.ar-phase-header{display:flex;align-items:baseline;gap:20px;margin-bottom:40px}
+.ar-phase-num{font-family:var(--serif);font-size:72px;font-weight:900;line-height:1;color:var(--border);letter-spacing:-.03em;flex-shrink:0}
+.ar-phase-label{display:flex;flex-direction:column;gap:4px}
+.ar-phase-label h2{margin:0}
+.ar-phase-label p{font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a1);margin:0}
+.ar-phase-body{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.ar-phase-body.ar-phase-body--reverse{grid-template-columns:7fr 5fr}
+.ar-phase-text p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
+.ar-phase-text p:last-child{margin-bottom:0}
+.ar-phase-text h3{font-size:17px;font-weight:700;margin-bottom:12px;margin-top:4px;color:var(--a1)}
+
+/* phase images */
+.ar-phase-img{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
+.ar-phase-img img{width:100%;object-fit:cover;display:block;transition:transform .3s var(--ease)}
+.ar-phase-img:hover img{transform:scale(1.02)}
+.ar-phase-img--contain img{object-fit:contain;height:340px;mix-blend-mode:multiply}
+[data-theme="dark"] .ar-phase-img--contain img{mix-blend-mode:screen;filter:invert(1) hue-rotate(170deg)}
+.ar-phase-img--svg img{object-fit:contain;width:100%;height:auto}
+[data-theme="dark"] .ar-phase-img--svg img{filter:invert(1) hue-rotate(180deg) brightness(0.8)}
+
+/* exploded view — full width */
+.ar-exploded{margin-top:40px;border-radius:var(--r-md);overflow:hidden;background:var(--surface);padding:32px}
+.ar-exploded img{width:100%;height:auto;mix-blend-mode:multiply}
+[data-theme="dark"] .ar-exploded img{mix-blend-mode:screen;filter:invert(1) hue-rotate(180deg) brightness(0.75)}
+
+/* 2-col image pair */
+.ar-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* RESULT */
+.ar-result{padding:64px 0 96px;border-top:1px solid var(--border)}
+.ar-result-heading{margin-bottom:16px}
+.ar-result-heading h2{margin-bottom:12px}
+.ar-result-heading p{color:var(--text-muted);font-size:16px;line-height:1.75;max-width:640px}
+.ar-renders{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.ar-render-item{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
+.ar-render-item img{width:100%;height:280px;object-fit:contain;display:block;mix-blend-mode:multiply;transition:transform .3s var(--ease)}
+.ar-render-item:hover img{transform:scale(1.04)}
+[data-theme="dark"] .ar-render-item img{mix-blend-mode:screen;filter:invert(1) hue-rotate(170deg)}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:var(--r-sm)}
+#lb-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+#lb-prev{left:16px}#lb-next{right:16px}
+#lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
+
+@media(max-width:900px){
+  .ar-split,.ar-phase-body,.ar-phase-body.ar-phase-body--reverse{grid-template-columns:1fr;gap:32px}
+  .ar-hero{padding:110px 0 56px}
+  .ar-hero-img img{height:360px}
+  .ar-renders{grid-template-columns:1fr 1fr}
+  .ar-phase-num{font-size:48px}
+}
+@media(max-width:560px){
+  .ar-renders{grid-template-columns:1fr}
+  .ar-img-pair{grid-template-columns:1fr}
+}
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">AA<span class="a1">.</span></a>
+    <div class="nav-right">
+      <a class="back-btn" href="index.html">← Portfolio</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ar-hero">
+  <div class="container">
+    <div class="ar-eyebrow">Street Furniture</div>
+    <div class="ar-split">
+
+      <div class="ar-left">
+        <h1 class="ar-title">
+          <span>Arca</span>
+          <span>Redesign<span class="ar-dot"></span></span>
+        </h1>
+        <div class="ar-meta">
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Client</span>
+            <span class="ar-meta-val">Furnitubes</span>
+          </div>
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Role</span>
+            <span class="ar-meta-val">Project Instigator & Designer</span>
+          </div>
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Type</span>
+            <span class="ar-meta-val">Product Redesign</span>
+          </div>
+        </div>
+        <div class="ar-body">
+          <p>The Arca is a modular bin that allows users to customise the product across over 32 different functional and visual styles. Its principle design focuses on a core structure with changeable parts.</p>
+          <p>After several years on the market and a new series of on-boardings, I noticed that the bin was very complicated to explain and understand. It was also laborious to process and expensive to produce.</p>
+          <p>The challenge was to make it simpler and easier to communicate, make and sell — without losing the visual character that had made it successful.</p>
+        </div>
+      </div>
+
+      <div class="ar-hero-img clickable" data-src="images/Arca/Double - Corten TP.png">
+        <img src="images/Arca/Double - Corten TP.png" alt="Arca double bin in Corten finish">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<div class="ar-phases">
+  <div class="container">
+
+    <!-- Phase 1: Review -->
+    <div class="ar-phase">
+      <div class="ar-phase-header">
+        <span class="ar-phase-num">01</span>
+        <div class="ar-phase-label">
+          <p>Phase One</p>
+          <h2>Range Review</h2>
+        </div>
+      </div>
+      <div class="ar-phase-body">
+        <div class="ar-phase-text">
+          <p>The first step to understanding this problem was to map the range out. Working closely with the sales and marketing team we were able to identify what actually sold and what to focus on.</p>
+          <p>Over 76% of sales and enquiries were for a third of the range — primarily the bin with a lid, in both circular and square forms. This gave us a clear direction for where to focus design effort.</p>
+          <p>The initial review allowed us to refine the range to what worked in the market and aligned it to business and manufacturing goals of efficiency.</p>
+        </div>
+        <div class="ar-phase-img clickable" data-src="images/Arca/Arca mapped.png">
+          <img src="images/Arca/Arca mapped.png" alt="Arca range mapped out" style="height:380px;object-fit:cover">
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 1: R&D -->
+    <div class="ar-phase">
+      <div class="ar-phase-header">
+        <span class="ar-phase-num">02</span>
+        <div class="ar-phase-label">
+          <p>Phase One</p>
+          <h2>Research & Development</h2>
+        </div>
+      </div>
+      <div class="ar-phase-body ar-phase-body--reverse">
+        <div class="ar-phase-text" style="order:2">
+          <h3>A truly modular design</h3>
+          <p>We used the review findings to redevelop and improve the design in light of manufacturing changes — namely the move away from galvanising.</p>
+          <p>Reviewing the original purpose of the design, which was to offer a truly modular bin, we proposed a new universal chassis that allows components of both the circular and square styles to fit without the need of new fabrications.</p>
+          <p>The aim was to improve the details without impacting the visuals too much, as the latter were part of the product's current success.</p>
+        </div>
+        <div class="ar-exploded clickable" data-src="images/Arca/OLD VS NEW ARCA EXPLODED VIEW.svg" style="order:1">
+          <img src="images/Arca/OLD VS NEW ARCA EXPLODED VIEW.svg" alt="Old vs new Arca exploded view">
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Commercial -->
+    <div class="ar-phase">
+      <div class="ar-phase-header">
+        <span class="ar-phase-num">03</span>
+        <div class="ar-phase-label">
+          <p>Phase Two</p>
+          <h2>Commercial Review</h2>
+        </div>
+      </div>
+      <div class="ar-phase-body">
+        <div class="ar-phase-text">
+          <p>Using competitor analysis we were able to benchmark this design. Working closely with marketing and sales data, we proposed a new strategy for the product: batch production and stocking.</p>
+          <p>This would allow the product to be more competitively priced and take advantage of automated manufacturing. My role here was to work on different iterations of the design and gather costs.</p>
+          <p>This information was presented back to stakeholders to ensure the idea would be feasible before committing to the next phase of development.</p>
+        </div>
+        <div class="ar-img-pair">
+          <div class="ar-phase-img clickable" data-src="images/Arca/Pallet 10.png">
+            <img src="images/Arca/Pallet 10.png" alt="Arca units on pallet for batch production" style="height:220px;object-fit:cover">
+          </div>
+          <div class="ar-phase-img ar-phase-img--contain clickable" data-src="images/Arca/design costs img.png">
+            <img src="images/Arca/design costs img.png" alt="Design cost breakdown chart">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Detailing -->
+    <div class="ar-phase">
+      <div class="ar-phase-header">
+        <span class="ar-phase-num">04</span>
+        <div class="ar-phase-label">
+          <p>Phase Three</p>
+          <h2>Detailing & Prototyping</h2>
+        </div>
+      </div>
+      <div class="ar-phase-body ar-phase-body--reverse">
+        <div class="ar-phase-text" style="order:2">
+          <p>Using all the learnings from the previous phases we created the design more formally, assisting the marketing team with the communication of the product.</p>
+          <p>My focus was to ensure the details were collated and executed. Working alongside the engineering team and factory to create a system for drawing, manufacturing and processing the product using the business ERP system.</p>
+          <p>We then built a prototype to test not only the product design but the methods for processing — ensuring the new manufacturing approach was viable at scale.</p>
+        </div>
+        <div class="ar-phase-img ar-phase-img--contain clickable" data-src="images/Arca/ARC5T.png" style="order:1">
+          <img src="images/Arca/ARC5T.png" alt="Arca 5T prototype render" style="height:360px">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESULT -->
+<section class="ar-result">
+  <div class="container">
+    <div class="ar-result-heading">
+      <h2>The result<span class="ar-dot"></span></h2>
+      <p>A core range of 12 products that offer a simple and functional bin that is truly modular. With ambitions of being stockable for faster lead times and easier customisation, this refined iteration secured more specifications and sales for the business.</p>
+    </div>
+    <div class="ar-renders">
+      <div class="ar-render-item clickable" data-src="images/Arca/ARC5T.png">
+        <img src="images/Arca/ARC5T.png" alt="Arca 5T — circular with lid">
+      </div>
+      <div class="ar-render-item clickable" data-src="images/Arca/ARC5DT.png">
+        <img src="images/Arca/ARC5DT.png" alt="Arca 5DT — double circular">
+      </div>
+      <div class="ar-render-item clickable" data-src="images/Arca/Square Arca.png">
+        <img src="images/Arca/Square Arca.png" alt="Arca square form">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-label="Image viewer">
+  <button id="lb-close" aria-label="Close">×</button>
+  <button id="lb-prev" aria-label="Previous">‹</button>
+  <img id="lb-img" src="" alt=""/>
+  <button id="lb-next" aria-label="Next">›</button>
+</div>
+
+<script>
+/* ── Theme ── */
+(function(){
+  const saved = localStorage.getItem('aa-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  function setIcon(dark){
+    icon.innerHTML = dark
+      ? '<circle cx="10" cy="10" r="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="14.4" y1="14.4" x2="15.8" y2="15.8"/><line x1="4.2" y1="15.8" x2="5.6" y2="14.4"/><line x1="14.4" y1="5.6" x2="15.8" y2="4.2"/>'
+      : '<path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>';
+  }
+  function sync(){ setIcon(document.documentElement.getAttribute('data-theme')==='dark'); }
+  sync();
+  btn.addEventListener('click',()=>{
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    const next = dark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('aa-theme', next);
+    sync();
+  });
+})();
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+},{passive:true});
+
+/* ── Lightbox ── */
+const images = [
+  'images/Arca/Double - Corten TP.png',
+  'images/Arca/Arca mapped.png',
+  'images/Arca/OLD VS NEW ARCA EXPLODED VIEW.svg',
+  'images/Arca/Pallet 10.png',
+  'images/Arca/design costs img.png',
+  'images/Arca/ARC5T.png',
+  'images/Arca/ARC5DT.png',
+  'images/Arca/Square Arca.png'
+];
+let currentIdx = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+
+function openLightbox(src){
+  currentIdx = images.indexOf(src);
+  if(currentIdx < 0) currentIdx = 0;
+  lbImg.src = images[currentIdx];
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+function prev(){ currentIdx = (currentIdx - 1 + images.length) % images.length; lbImg.src = images[currentIdx]; }
+function next(){ currentIdx = (currentIdx + 1) % images.length; lbImg.src = images[currentIdx]; }
+
+document.querySelectorAll('.clickable').forEach(el => {
+  el.addEventListener('click', () => openLightbox(el.dataset.src));
+});
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); prev(); });
+document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); next(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') prev();
+  if(e.key === 'ArrowRight') next();
+});
+</script>
+</body>
+</html>
