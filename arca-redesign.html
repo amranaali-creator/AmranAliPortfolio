@@ -94,15 +94,10 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 .ar-phase-text p:last-child{margin-bottom:0}
 .ar-phase-text h3{font-size:17px;font-weight:700;margin-bottom:12px;margin-top:4px;color:var(--a1)}
 
-/* Range map image — full display, no background, with selection highlight */
-.ar-range-wrap{position:relative;line-height:0}
+/* Range map image — full display, no background */
+.ar-range-wrap{line-height:0}
 .ar-range-wrap img{width:100%;height:auto;display:block;mix-blend-mode:multiply}
-[data-theme="dark"] .ar-range-wrap img{mix-blend-mode:screen;filter:invert(1) hue-rotate(180deg) brightness(0.8)}
-.ar-range-highlight{position:absolute;left:0;width:37%;background:rgba(23,227,199,0.13);border-radius:var(--r-sm);pointer-events:none}
-[data-theme="dark"] .ar-range-highlight{background:rgba(23,227,199,0.18)}
-/* Two separate blocks with a gap between them, matching the product row groupings */
-.ar-range-highlight:nth-child(2){top:0;height:57%}
-.ar-range-highlight:nth-child(3){top:60%;height:23%}
+[data-theme="dark"] .ar-range-wrap img{mix-blend-mode:normal;filter:invert(1)}
 
 /* phase images */
 .ar-phase-img{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
@@ -227,8 +222,6 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
         </div>
         <div class="ar-range-wrap clickable" data-src="images/Arca/Arca mapped.png">
           <img src="images/Arca/Arca mapped.png" alt="Arca range mapped out">
-          <div class="ar-range-highlight"></div>
-          <div class="ar-range-highlight"></div>
         </div>
       </div>
     </div>
