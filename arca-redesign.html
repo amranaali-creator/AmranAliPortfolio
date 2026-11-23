@@ -116,7 +116,8 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 /* 2-col image pair */
 .ar-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 /* stacked image column */
-.ar-img-stack{display:flex;flex-direction:column;gap:24px}
+.ar-img-stack{display:flex;flex-direction:column;gap:24px;align-items:center}
+.ar-img-stack .ar-phase-img:not(.ar-phase-img--contain){margin-left:30%;width:140%}
 [data-theme="dark"] .ar-img-stack .ar-phase-img:not(.ar-phase-img--contain) img{mix-blend-mode:screen;filter:invert(1) hue-rotate(170deg)}
 
 /* RESULT */
