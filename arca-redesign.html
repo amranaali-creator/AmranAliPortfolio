@@ -115,6 +115,9 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
 /* 2-col image pair */
 .ar-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* stacked image column */
+.ar-img-stack{display:flex;flex-direction:column;gap:24px}
+[data-theme="dark"] .ar-img-stack .ar-phase-img:not(.ar-phase-img--contain) img{mix-blend-mode:screen;filter:invert(1) hue-rotate(170deg)}
 
 /* RESULT */
 .ar-result{padding:64px 0 96px;border-top:1px solid var(--border)}
@@ -247,26 +250,26 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
       </div>
     </div>
 
-    <!-- Phase 2: Commercial -->
+    <!-- Phase 3: Commercial -->
     <div class="ar-phase">
-      <div class="ar-phase-header">
-        <div class="ar-phase-label">
-          <p>Phase Two</p>
-          <h2>Commercial Review</h2>
-        </div>
-      </div>
       <div class="ar-phase-body">
         <div class="ar-phase-text">
+          <div class="ar-phase-header">
+            <div class="ar-phase-label">
+              <p>Phase Three</p>
+              <h2>Commercial Review</h2>
+            </div>
+          </div>
           <p>Using competitor analysis we were able to benchmark this design. Working closely with marketing and sales data, we proposed a new strategy for the product: batch production and stocking.</p>
           <p>This would allow the product to be more competitively priced and take advantage of automated manufacturing. My role here was to work on different iterations of the design and gather costs.</p>
           <p>This information was presented back to stakeholders to ensure the idea would be feasible before committing to the next phase of development.</p>
         </div>
-        <div class="ar-img-pair">
-          <div class="ar-phase-img clickable" data-src="images/Arca/Pallet 10.png">
-            <img src="images/Arca/Pallet 10.png" alt="Arca units on pallet for batch production" style="height:220px;object-fit:cover">
-          </div>
+        <div class="ar-img-stack">
           <div class="ar-phase-img ar-phase-img--contain clickable" data-src="images/Arca/design costs img.png">
             <img src="images/Arca/design costs img.png" alt="Design cost breakdown chart">
+          </div>
+          <div class="ar-phase-img clickable" data-src="images/Arca/Pallet 10.png">
+            <img src="images/Arca/Pallet 10.png" alt="Arca units on pallet for batch production" style="mix-blend-mode:multiply">
           </div>
         </div>
       </div>
