@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FERN Planter — Amran Ali</title>
+  <link rel="icon" type="image/png" href="images/icons/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+:root {
+  --bg:         #EDE8DF;
+  --surface:    #F5F2EC;
+  --offwhite:   #FAFAF7;
+  --text:       #252525;
+  --text-muted: rgba(37,37,37,0.55);
+  --a1:         #17405f;
+  --a1-dk:      #0d2a3e;
+  --a1-lt:      #e8f0f6;
+  --a2:         #17e3c7;
+  --border:     rgba(37,37,37,0.14);
+  --shadow:     #252525;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ease:  cubic-bezier(0.22,1,0.36,1);
+}
+[data-theme="dark"] {
+  --bg:         #0d1b26;
+  --surface:    #152232;
+  --offwhite:   #1c2f40;
+  --text:       #EDE8DF;
+  --text-muted: rgba(237,232,223,0.55);
+  --a1:         #17e3c7;
+  --a1-dk:      #0fb5a0;
+  --a1-lt:      rgba(23,227,199,0.1);
+  --a2:         #4ea8d4;
+  --border:     rgba(237,232,223,0.12);
+  --shadow:     rgba(0,0,0,0.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1{font-family:var(--serif);font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.01em}
+.a1{color:var(--a1)}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 0;transition:background .25s var(--ease),border-color .25s var(--ease),padding .25s var(--ease);border-bottom:1px solid transparent}
+#nav.scrolled{background:var(--bg);border-color:var(--border);padding:12px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{font-family:var(--serif);font-size:21px;font-weight:900;color:var(--a1);line-height:1}
+.nav-right{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;transition:color .2s;letter-spacing:.01em}
+.back-btn:hover{color:var(--a1)}
+.theme-toggle{background:none;border:2px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);transition:border-color .2s,color .2s}
+.theme-toggle:hover{border-color:var(--a1);color:var(--a1)}
+.theme-toggle svg{width:16px;height:16px}
+
+/* HERO */
+.ar-hero{padding:120px 0 80px}
+.ar-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a1);margin-bottom:20px}
+.ar-split{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:stretch}
+.ar-left{display:flex;flex-direction:column}
+.ar-title{font-size:clamp(52px,8vw,96px);margin-bottom:28px}
+.ar-title span{display:block;white-space:nowrap}
+.ar-dot{display:inline-block!important;width:12px;height:12px;border-radius:50%;background:var(--a1);margin-left:4px;line-height:0;vertical-align:baseline}
+.ar-meta{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border)}
+.ar-meta-item{display:flex;flex-direction:column;gap:4px}
+.ar-meta-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.ar-meta-val{font-size:15px;font-weight:600}
+.ar-body p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
+.ar-body p:last-child{margin-bottom:0}
+
+/* hero right image */
+.ar-hero-right{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
+.ar-hero-right img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s var(--ease)}
+.ar-hero-right:hover img{transform:scale(1.02)}
+
+/* PHASE SECTIONS */
+.ar-phases{padding:0 0 80px}
+.ar-phase{padding:64px 0;border-top:1px solid var(--border)}
+.ar-phase-header{margin-bottom:32px}
+.ar-phase-label{display:flex;flex-direction:column;gap:6px}
+.ar-phase-label h2{margin:0}
+.ar-phase-label p{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a1);margin:0;line-height:1.2}
+.ar-phase-body{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.ar-phase-body.ar-phase-body--reverse{grid-template-columns:7fr 5fr}
+.ar-phase-text p{color:var(--text-muted);font-size:16px;line-height:1.75;margin-bottom:20px}
+.ar-phase-text p:last-child{margin-bottom:0}
+.ar-phase-text h3{font-size:17px;font-weight:700;margin-bottom:12px;margin-top:4px;color:var(--a1)}
+
+/* phase images */
+.ar-phase-img{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
+.ar-phase-img img{width:100%;object-fit:cover;display:block;transition:transform .3s var(--ease)}
+.ar-phase-img:hover img{transform:scale(1.02)}
+
+/* research pillars cards */
+.fn-pillars{display:flex;flex-direction:column;gap:16px}
+.fn-pillar{background:var(--surface);border-radius:var(--r-md);padding:24px;border:1px solid var(--border)}
+.fn-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--a1);margin-bottom:10px}
+.fn-pillar-body{font-size:15px;color:var(--text-muted);line-height:1.6}
+
+/* user persona cards */
+.fn-personas{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.fn-persona{background:var(--a1);border-radius:var(--r-md);padding:20px 22px;color:var(--offwhite)}
+[data-theme="dark"] .fn-persona{background:var(--a1-lt);border:1px solid var(--border)}
+[data-theme="dark"] .fn-persona .fn-persona-title{color:var(--a1)}
+[data-theme="dark"] .fn-persona li{color:var(--text-muted)}
+.fn-persona-title{font-size:14px;font-weight:700;letter-spacing:.04em;margin-bottom:12px;opacity:0.9}
+.fn-persona ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.fn-persona li{font-size:14px;opacity:0.85;padding-left:12px;position:relative}
+.fn-persona li::before{content:'·';position:absolute;left:0;opacity:0.7}
+
+/* features list */
+.fn-features{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-top:4px}
+.fn-feature{font-size:15px;color:var(--text-muted);padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.fn-feature::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--a1);flex-shrink:0}
+
+/* image pair */
+.ar-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* RESULT */
+.ar-result{padding:64px 0 96px;border-top:1px solid var(--border)}
+.ar-result-heading{margin-bottom:16px}
+.ar-result-heading h2{margin-bottom:12px}
+.ar-result-heading p{color:var(--text-muted);font-size:16px;line-height:1.75;max-width:640px}
+.ar-renders{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.ar-render-item{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
+.ar-render-item img{width:100%;height:300px;object-fit:cover;display:block;transition:transform .3s var(--ease)}
+.ar-render-item:hover img{transform:scale(1.04)}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:500;align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:var(--r-sm)}
+#lb-close{position:absolute;top:20px;right:20px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+#lb-prev{left:16px}#lb-next{right:16px}
+#lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
+
+@media(max-width:900px){
+  .ar-split,.ar-phase-body,.ar-phase-body.ar-phase-body--reverse{grid-template-columns:1fr;gap:32px}
+  .ar-hero{padding:110px 0 56px}
+  .ar-hero-right{height:360px}
+  .ar-renders{grid-template-columns:1fr 1fr}
+  .fn-personas{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .ar-renders{grid-template-columns:1fr}
+  .ar-img-pair{grid-template-columns:1fr}
+  .fn-features{grid-template-columns:1fr}
+}
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">AA<span class="a1">.</span></a>
+    <div class="nav-right">
+      <a class="back-btn" href="index.html#work">← Portfolio</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="theme-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ar-hero">
+  <div class="container">
+    <div class="ar-eyebrow">Industrial Design</div>
+    <div class="ar-split">
+      <div class="ar-left">
+        <h1 class="ar-title">
+          <span>FERN</span>
+          <span>Planter<span class="ar-dot"></span></span>
+        </h1>
+        <div class="ar-meta">
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Client</span>
+            <span class="ar-meta-val">Furnitubes</span>
+          </div>
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Role</span>
+            <span class="ar-meta-val">Design Project Lead</span>
+          </div>
+          <div class="ar-meta-item">
+            <span class="ar-meta-label">Year</span>
+            <span class="ar-meta-val">2021–2022</span>
+          </div>
+        </div>
+        <div class="ar-body">
+          <p>FERN is a freestanding planter range designed for the outdoor public realm market. The brief was clear: create a range that is easy to manufacture, meets specification requirements for planting depth, and is competitively priced.</p>
+          <p>As Design Project Lead I coordinated across marketing, sales, design, and production — from initial research and concept workshops through to manufacturing-ready drawings and product launch.</p>
+        </div>
+      </div>
+      <div class="ar-hero-right clickable" data-src="images/FERN/Ferns In-situ.jpg">
+        <img src="images/FERN/Ferns In-situ.jpg" alt="FERN planters installed on a London street">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<div class="ar-phases">
+  <div class="container">
+
+    <!-- Phase 1: Research -->
+    <div class="ar-phase">
+      <div class="ar-phase-body">
+        <div class="ar-phase-text">
+          <div class="ar-phase-header">
+            <div class="ar-phase-label">
+              <p>Phase One</p>
+              <h2>Research</h2>
+            </div>
+          </div>
+          <p>The approach was grounded in three research pillars, each informing a different dimension of the product — from how it would sit in the market to how it would be built and used.</p>
+          <p>Competitor analysis conducted by our marketing team benchmarked pricing and quality, allowing us to identify where Furnitubes sat and where we should aim. Sales discussions and stakeholder workshops surfaced the technical constraints that would shape the range.</p>
+        </div>
+        <div class="fn-pillars">
+          <div class="fn-pillar">
+            <div class="fn-pillar-title">1. Market</div>
+            <div class="fn-pillar-body">Competitor analysis across pricing and quality. Metalco and Vestre dominated the high-quality, high-price segment. The opportunity was to move Furnitubes into the high-quality, more competitive price point.</div>
+          </div>
+          <div class="fn-pillar">
+            <div class="fn-pillar-title">2. User / Client</div>
+            <div class="fn-pillar-body">Discussions with the sales team revealed two distinct buyer profiles — landscape architects and contractors — with different priorities driving their purchasing decisions.</div>
+          </div>
+          <div class="fn-pillar">
+            <div class="fn-pillar-title">3. Technical</div>
+            <div class="fn-pillar-body">Working closely with production to understand what could be manufactured efficiently, using this to facilitate workshops that balanced market needs and manufacturing constraints.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: User Insights -->
+    <div class="ar-phase">
+      <div class="ar-phase-body ar-phase-body--reverse">
+        <div class="ar-phase-text" style="order:2">
+          <div class="ar-phase-header">
+            <div class="ar-phase-label">
+              <p>Phase Two</p>
+              <h2>Concept Development</h2>
+            </div>
+          </div>
+          <h3>Understanding the buyer</h3>
+          <p>Discussions with the sales team surfaced two distinct client profiles, each with different priorities. Landscape architects valued variety, flexibility, quality finish, and the ability to contain trees as well as plants. Contractors were focused on price, lead times, ease of installation, and low maintenance.</p>
+          <p>These insights, alongside the technical workshops, allowed us to take 27 possible planter configurations and refine them down to a core 14 options — covering rectangular, square, and circular forms across two standard heights.</p>
+          <div class="fn-personas">
+            <div class="fn-persona">
+              <div class="fn-persona-title">Landscape Architect</div>
+              <ul>
+                <li>Variety</li>
+                <li>Tree / plant containment</li>
+                <li>Flexibility</li>
+                <li>Quality finish</li>
+              </ul>
+            </div>
+            <div class="fn-persona">
+              <div class="fn-persona-title">Contractor</div>
+              <ul>
+                <li>Price</li>
+                <li>Lead times</li>
+                <li>Easy of installation</li>
+                <li>Maintenance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="ar-phase-img clickable" data-src="images/FERN/Ferns STILLS 1..3.png" style="order:1">
+          <img src="images/FERN/Ferns STILLS 1..3.png" alt="FERN planter concept renders">
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Detailing & Features -->
+    <div class="ar-phase">
+      <div class="ar-phase-body">
+        <div class="ar-phase-text">
+          <div class="ar-phase-header">
+            <div class="ar-phase-label">
+              <p>Phase Three</p>
+              <h2>Detailing & Features</h2>
+            </div>
+          </div>
+          <p>Using feedback from workshops and learnings from previous ranges, we developed a set of features that completed the design. These features were then used to build the marketing collateral for the product launch.</p>
+          <div class="fn-features">
+            <div class="fn-feature">Free-standing</div>
+            <div class="fn-feature">Adjustable levelling feet</div>
+            <div class="fn-feature">Durable construction</div>
+            <div class="fn-feature">Fully welded watertight body</div>
+            <div class="fn-feature">Low height — plants</div>
+            <div class="fn-feature">High height — trees</div>
+            <div class="fn-feature">Standard base option</div>
+            <div class="fn-feature">100mm drainage reservoir</div>
+            <div class="fn-feature">Forklift base option</div>
+            <div class="fn-feature">Anchorage for root ball</div>
+          </div>
+        </div>
+        <div class="ar-phase-img clickable" data-src="images/FERN/Ferns STILLS 2..3.png">
+          <img src="images/FERN/Ferns STILLS 2..3.png" alt="FERN planter detail renders">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESULT -->
+<section class="ar-result">
+  <div class="container">
+    <div class="ar-result-heading">
+      <h2>The result<span class="ar-dot"></span></h2>
+      <p>Taking into account stakeholders' needs, we brought a range of planters to market in March 2022. A back catalogue of feasible sizes and shapes was retained, allowing the range to adapt and scale as user needs evolve over time.</p>
+    </div>
+    <div class="ar-renders">
+      <div class="ar-render-item clickable" data-src="images/FERN/Ferns STILLS 1..3.png">
+        <img src="images/FERN/Ferns STILLS 1..3.png" alt="FERN planter — render one">
+      </div>
+      <div class="ar-render-item clickable" data-src="images/FERN/Ferns STILLS 2..3.png">
+        <img src="images/FERN/Ferns STILLS 2..3.png" alt="FERN planter — render two">
+      </div>
+      <div class="ar-render-item clickable" data-src="images/FERN/Ferns STILLS 3..4.png">
+        <img src="images/FERN/Ferns STILLS 3..4.png" alt="FERN planter — render three">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-label="Image viewer">
+  <button id="lb-close" aria-label="Close">×</button>
+  <button id="lb-prev" aria-label="Previous">‹</button>
+  <img id="lb-img" src="" alt=""/>
+  <button id="lb-next" aria-label="Next">›</button>
+</div>
+
+<script>
+/* ── Theme ── */
+(function(){
+  const saved = localStorage.getItem('aa-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  function setIcon(dark){
+    icon.innerHTML = dark
+      ? '<circle cx="10" cy="10" r="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="14.4" y1="14.4" x2="15.8" y2="15.8"/><line x1="4.2" y1="15.8" x2="5.6" y2="14.4"/><line x1="14.4" y1="5.6" x2="15.8" y2="4.2"/>'
+      : '<path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z"/>';
+  }
+  function sync(){ setIcon(document.documentElement.getAttribute('data-theme')==='dark'); }
+  sync();
+  btn.addEventListener('click',()=>{
+    const dark = document.documentElement.getAttribute('data-theme')==='dark';
+    const next = dark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('aa-theme', next);
+    sync();
+  });
+})();
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+},{passive:true});
+
+/* ── Lightbox ── */
+const images = [
+  'images/FERN/Ferns In-situ.jpg',
+  'images/FERN/Ferns STILLS 1..3.png',
+  'images/FERN/Ferns STILLS 2..3.png',
+  'images/FERN/Ferns STILLS 3..4.png'
+];
+let currentIdx = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+
+function openLightbox(src){
+  currentIdx = images.indexOf(src);
+  if(currentIdx < 0) currentIdx = 0;
+  lbImg.src = images[currentIdx];
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+function prev(){ currentIdx = (currentIdx - 1 + images.length) % images.length; lbImg.src = images[currentIdx]; }
+function next(){ currentIdx = (currentIdx + 1) % images.length; lbImg.src = images[currentIdx]; }
+
+document.querySelectorAll('.clickable').forEach(el => {
+  el.addEventListener('click', () => openLightbox(el.dataset.src));
+});
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); prev(); });
+document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); next(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') prev();
+  if(e.key === 'ArrowRight') next();
+});
+</script>
+</body>
+</html>
