@@ -127,6 +127,7 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
 /* explainer diagram row */
 .fn-diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fn-diagram-stack{display:flex;flex-direction:column;gap:16px}
 .fn-diagram{cursor:zoom-in}
 .fn-diagram img{width:100%;height:auto;display:block;transition:transform .3s var(--ease)}
 .fn-diagram:hover img{transform:scale(1.02)}
@@ -256,43 +257,43 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
     <!-- Phase 2: Concept Development -->
     <div class="ar-phase">
-      <div class="fn-phase-stack">
-        <div class="fn-phase-top">
-          <div class="ar-phase-label">
-            <p>Phase Two</p>
-            <h2>Concept Development</h2>
+      <div class="ar-phase-body">
+        <div class="ar-phase-text">
+          <div class="ar-phase-header">
+            <div class="ar-phase-label">
+              <p>Phase Two</p>
+              <h2>Concept Development</h2>
+            </div>
           </div>
-          <div class="ar-phase-text">
-            <p>Discussions with the sales team surfaced two distinct client profiles, each with different priorities. Landscape architects valued variety, flexibility, quality finish, and the ability to contain trees as well as plants. Contractors were focused on price, lead times, ease of installation, and low maintenance.</p>
-            <p>These insights, alongside the technical workshops, allowed us to take 27 possible planter configurations and refine them down to a core 14 options — covering rectangular, square, and circular forms across two standard heights.</p>
+          <p>Discussions with the sales team surfaced two distinct client profiles, each with different priorities. Landscape architects valued variety, flexibility, quality finish, and the ability to contain trees as well as plants. Contractors were focused on price, lead times, ease of installation, and low maintenance.</p>
+          <p>These insights, alongside the technical workshops, allowed us to take 27 possible planter configurations and refine them down to a core 14 options — covering rectangular, square, and circular forms across two standard heights.</p>
+          <div class="fn-personas">
+            <div class="fn-persona">
+              <div class="fn-persona-title">Landscape Architect</div>
+              <ul>
+                <li>Variety</li>
+                <li>Tree / plant containment</li>
+                <li>Flexibility</li>
+                <li>Quality finish</li>
+              </ul>
+            </div>
+            <div class="fn-persona">
+              <div class="fn-persona-title">Contractor</div>
+              <ul>
+                <li>Price</li>
+                <li>Lead times</li>
+                <li>Easy of installation</li>
+                <li>Maintenance</li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div class="fn-personas">
-          <div class="fn-persona">
-            <div class="fn-persona-title">Landscape Architect</div>
-            <ul>
-              <li>Variety</li>
-              <li>Tree / plant containment</li>
-              <li>Flexibility</li>
-              <li>Quality finish</li>
-            </ul>
+        <div class="fn-diagram-stack">
+          <div class="fn-diagram clickable" data-src="images/FERN/screenshot-elimination-nobg.png">
+            <img src="images/FERN/screenshot-elimination-nobg.png" alt="FERN range options — 27 configurations refined to 14">
           </div>
-          <div class="fn-persona">
-            <div class="fn-persona-title">Contractor</div>
-            <ul>
-              <li>Price</li>
-              <li>Lead times</li>
-              <li>Easy of installation</li>
-              <li>Maintenance</li>
-            </ul>
-          </div>
-        </div>
-        <div class="fn-diagram-row">
-          <div class="fn-diagram clickable" data-src="images/FERN/explainer-3-nobg.png">
-            <img src="images/FERN/explainer-3-nobg.png" alt="FERN final range — rectangular, square and circular with sizes">
-          </div>
-          <div class="fn-diagram clickable" data-src="images/FERN/explainer-2-nobg.png">
-            <img src="images/FERN/explainer-2-nobg.png" alt="FERN range options — 27 configurations refined to 14">
+          <div class="fn-diagram clickable" data-src="images/FERN/screenshot-sizes-nobg.png">
+            <img src="images/FERN/screenshot-sizes-nobg.png" alt="FERN final range — rectangular, square and circular with sizes">
           </div>
         </div>
       </div>
@@ -392,8 +393,8 @@ window.addEventListener('scroll',()=>{
 const images = [
   'images/FERN/Ferns In-situ.jpg',
   'images/FERN/explainer-1.png',
-  'images/FERN/explainer-3.png',
-  'images/FERN/explainer-2.png',
+  'images/FERN/screenshot-elimination-nobg.png',
+  'images/FERN/screenshot-sizes-nobg.png',
   'images/FERN/Ferns STILLS 2..3.png',
   'images/FERN/Ferns STILLS 3..4.png',
   'images/FERN/Ferns STILLS 1..3.png'
