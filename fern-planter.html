@@ -107,14 +107,14 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
 /* user persona cards */
 .fn-personas{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
-.fn-persona{background:var(--a1);border-radius:var(--r-md);padding:20px 22px;color:var(--offwhite)}
-[data-theme="dark"] .fn-persona{background:var(--a1-lt);border:1px solid var(--border)}
-[data-theme="dark"] .fn-persona .fn-persona-title{color:var(--a1)}
-[data-theme="dark"] .fn-persona li{color:var(--text-muted)}
-.fn-persona-title{font-size:14px;font-weight:700;letter-spacing:.04em;margin-bottom:12px;opacity:0.9}
+.fn-persona{background:#dff0e9;border-radius:var(--r-md);padding:20px 22px;color:var(--text);border:1px solid rgba(29,107,82,0.2)}
+[data-theme="dark"] .fn-persona{background:var(--a1-lt);border:1px solid var(--border);color:var(--text)}
+.fn-persona-title{font-size:14px;font-weight:700;letter-spacing:.04em;margin-bottom:12px;color:#1d6b52}
+[data-theme="dark"] .fn-persona-title{color:var(--a1)}
 .fn-persona ul{list-style:none;display:flex;flex-direction:column;gap:6px}
-.fn-persona li{font-size:14px;opacity:0.85;padding-left:12px;position:relative}
-.fn-persona li::before{content:'·';position:absolute;left:0;opacity:0.7}
+.fn-persona li{font-size:14px;color:var(--text-muted);padding-left:12px;position:relative}
+.fn-persona li::before{content:'·';position:absolute;left:0;color:#1d6b52;opacity:0.8}
+[data-theme="dark"] .fn-persona li::before{color:var(--a1)}
 
 /* features list */
 .fn-features{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-top:4px}
@@ -123,6 +123,14 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
 /* image pair */
 .ar-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* explainer diagram stack */
+.fn-diagram-stack{display:flex;flex-direction:column;gap:12px}
+.fn-diagram{border-radius:var(--r-md);overflow:hidden;cursor:zoom-in;background:var(--offwhite)}
+.fn-diagram img{width:100%;height:auto;display:block;mix-blend-mode:multiply;transition:transform .3s var(--ease)}
+.fn-diagram:hover img{transform:scale(1.02)}
+[data-theme="dark"] .fn-diagram{background:var(--surface)}
+[data-theme="dark"] .fn-diagram img{mix-blend-mode:screen;filter:invert(1) hue-rotate(180deg) brightness(0.85)}
 
 /* RESULT */
 .ar-result{padding:64px 0 96px;border-top:1px solid var(--border)}
@@ -277,8 +285,13 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
             </div>
           </div>
         </div>
-        <div class="ar-phase-img clickable" data-src="images/FERN/Ferns STILLS 1..3.png" style="order:1">
-          <img src="images/FERN/Ferns STILLS 1..3.png" alt="FERN planter concept renders">
+        <div class="fn-diagram-stack" style="order:1">
+          <div class="fn-diagram clickable" data-src="images/FERN/explainer-2.png">
+            <img src="images/FERN/explainer-2.png" alt="FERN range options — 27 configurations refined to 14">
+          </div>
+          <div class="fn-diagram clickable" data-src="images/FERN/explainer-3.png">
+            <img src="images/FERN/explainer-3.png" alt="FERN final range — rectangular, square and circular with sizes">
+          </div>
         </div>
       </div>
     </div>
@@ -376,9 +389,11 @@ window.addEventListener('scroll',()=>{
 /* ── Lightbox ── */
 const images = [
   'images/FERN/Ferns In-situ.jpg',
-  'images/FERN/Ferns STILLS 1..3.png',
+  'images/FERN/explainer-2.png',
+  'images/FERN/explainer-3.png',
   'images/FERN/Ferns STILLS 2..3.png',
-  'images/FERN/Ferns STILLS 3..4.png'
+  'images/FERN/Ferns STILLS 3..4.png',
+  'images/FERN/Ferns STILLS 1..3.png'
 ];
 let currentIdx = 0;
 const lb = document.getElementById('lightbox');
