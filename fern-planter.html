@@ -136,11 +136,12 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 [data-theme="dark"] .fn-diagram img{filter:invert(1) hue-rotate(180deg) brightness(0.85)}
 
 /* RESULT */
-.ar-result{padding:64px 0 96px;border-top:1px solid var(--border)}
-.ar-result-heading{margin-bottom:48px}
-.ar-result-heading h2{margin-bottom:12px}
-.ar-result-heading p{color:var(--text-muted);font-size:16px;line-height:1.75;max-width:640px}
-.fn-combined-render{cursor:zoom-in;max-width:75%;margin:0 auto}
+.ar-result{padding:64px 0 0;border-top:1px solid var(--border)}
+.ar-result-split{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:start}
+.ar-result-heading{padding-top:8px}
+.ar-result-heading h2{margin-bottom:16px}
+.ar-result-heading p{color:var(--text-muted);font-size:16px;line-height:1.75}
+.fn-combined-render{cursor:zoom-in}
 .fn-combined-render img{width:100%;height:auto;display:block;transition:transform .3s var(--ease)}
 .fn-combined-render:hover img{transform:scale(1.01)}
 
@@ -154,7 +155,7 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 #lb-prev:hover,#lb-next:hover{background:rgba(255,255,255,.25)}
 
 @media(max-width:900px){
-  .ar-split,.ar-phase-body,.ar-phase-body.ar-phase-body--reverse{grid-template-columns:1fr;gap:32px}
+  .ar-split,.ar-phase-body,.ar-phase-body.ar-phase-body--reverse,.ar-result-split{grid-template-columns:1fr;gap:32px}
   .ar-hero{padding:110px 0 56px}
   .ar-hero-right{height:360px}
   .ar-renders{grid-template-columns:1fr 1fr}
@@ -339,12 +340,14 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 <!-- RESULT -->
 <section class="ar-result">
   <div class="container">
-    <div class="ar-result-heading">
-      <h2>The result<span class="ar-dot"></span></h2>
-      <p>Taking into account stakeholders' needs, we brought a range of planters to market in March 2022. A back catalogue of feasible sizes and shapes was retained, allowing the range to adapt and scale as user needs evolve over time.</p>
-    </div>
-    <div class="fn-combined-render clickable" data-src="images/FERN/Ferns STILLS combined-nobg.webp">
-      <img src="images/FERN/Ferns STILLS combined-nobg.webp" alt="FERN planter range — teal square, yellow cylinder and corten square planters with planting">
+    <div class="ar-result-split">
+      <div class="ar-result-heading">
+        <h2>The result<span class="ar-dot"></span></h2>
+        <p>Taking into account stakeholders' needs, we brought a range of planters to market in March 2022. A back catalogue of feasible sizes and shapes was retained, allowing the range to adapt and scale as user needs evolve over time.</p>
+      </div>
+      <div class="fn-combined-render clickable" data-src="images/FERN/Ferns STILLS combined-nobg.webp">
+        <img src="images/FERN/Ferns STILLS combined-nobg.webp" alt="FERN planter range — teal square, yellow cylinder and corten square planters with planting">
+      </div>
     </div>
   </div>
 </section>
