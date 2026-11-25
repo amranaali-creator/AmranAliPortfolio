@@ -128,6 +128,8 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 /* explainer diagram row */
 .fn-diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .fn-diagram-stack{display:flex;flex-direction:column;gap:16px}
+/* spec sheet — proportional to natural crop widths (700 : 1300) */
+.fn-spec-row{display:grid;grid-template-columns:7fr 13fr;gap:16px;align-items:start}
 .fn-diagram{cursor:zoom-in}
 .fn-diagram img{width:100%;height:auto;display:block;transition:transform .3s var(--ease)}
 .fn-diagram:hover img{transform:scale(1.02)}
@@ -160,7 +162,7 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
   .fn-personas{grid-template-columns:1fr}
   .fn-pillars{grid-template-columns:1fr}
   .fn-phase-top{grid-template-columns:1fr;gap:16px}
-  .fn-diagram-row{grid-template-columns:1fr}
+  .fn-diagram-row,.fn-spec-row{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .ar-renders{grid-template-columns:1fr}
@@ -299,28 +301,35 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
     <!-- Phase 3: Detailing & Features -->
     <div class="ar-phase">
-      <div class="ar-phase-body">
-        <div class="ar-phase-text">
-          <div class="ar-phase-label" style="margin-bottom:24px">
+      <div class="fn-phase-stack">
+        <div class="fn-phase-top">
+          <div class="ar-phase-label">
             <p>Phase Three</p>
             <h2>Detailing & Features</h2>
           </div>
-          <p>Using feedback from workshops and learnings from previous ranges, we developed a set of features that completed the design. These features were then used to build the marketing collateral for the product launch.</p>
-          <div class="fn-features">
-            <div class="fn-feature">Free-standing</div>
-            <div class="fn-feature">Adjustable levelling feet</div>
-            <div class="fn-feature">Durable construction</div>
-            <div class="fn-feature">Fully welded watertight body</div>
-            <div class="fn-feature">Low height — plants</div>
-            <div class="fn-feature">High height — trees</div>
-            <div class="fn-feature">Standard base option</div>
-            <div class="fn-feature">100mm drainage reservoir</div>
-            <div class="fn-feature">Forklift base option</div>
-            <div class="fn-feature">Anchorage for root ball</div>
+          <div class="ar-phase-text">
+            <p>Using feedback from workshops and learnings from previous ranges, we developed a set of features that completed the design. These features were then used to build the marketing collateral for the product launch.</p>
+            <div class="fn-features">
+              <div class="fn-feature">Free-standing</div>
+              <div class="fn-feature">Adjustable levelling feet</div>
+              <div class="fn-feature">Durable construction</div>
+              <div class="fn-feature">Fully welded watertight body</div>
+              <div class="fn-feature">Low height — plants</div>
+              <div class="fn-feature">High height — trees</div>
+              <div class="fn-feature">Standard base option</div>
+              <div class="fn-feature">100mm drainage reservoir</div>
+              <div class="fn-feature">Forklift base option</div>
+              <div class="fn-feature">Anchorage for root ball</div>
+            </div>
           </div>
         </div>
-        <div class="ar-phase-img clickable" data-src="images/FERN/Ferns STILLS 2..3.png">
-          <img src="images/FERN/Ferns STILLS 2..3.png" alt="FERN planter detail renders">
+        <div class="fn-spec-row">
+          <div class="fn-diagram clickable" data-src="images/FERN/spec-details-nobg.png">
+            <img src="images/FERN/spec-details-nobg.png" alt="FERN construction details — welded seams, drainage, levelling feet, fixing options">
+          </div>
+          <div class="fn-diagram clickable" data-src="images/FERN/spec-elevations-nobg.png">
+            <img src="images/FERN/spec-elevations-nobg.png" alt="FERN elevation drawings — 600mm plant height and 900mm tree height">
+          </div>
         </div>
       </div>
     </div>
@@ -391,7 +400,8 @@ const images = [
   'images/FERN/explainer-1.png',
   'images/FERN/screenshot-elimination-nobg.png',
   'images/FERN/screenshot-sizes-nobg.png',
-  'images/FERN/Ferns STILLS 2..3.png',
+  'images/FERN/spec-details-nobg.png',
+  'images/FERN/spec-elevations-nobg.png',
   'images/FERN/Ferns STILLS 3..4.png',
   'images/FERN/Ferns STILLS 1..3.png'
 ];
