@@ -99,8 +99,12 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 .ar-phase-img img{width:100%;object-fit:cover;display:block;transition:transform .3s var(--ease)}
 .ar-phase-img:hover img{transform:scale(1.02)}
 
-/* research pillars cards */
-.fn-pillars{display:flex;flex-direction:column;gap:16px}
+/* research pillars — stacked layout */
+.fn-phase-stack{display:flex;flex-direction:column;gap:32px}
+.fn-phase-stack .ar-phase-label{margin-bottom:16px}
+.fn-phase-top{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.fn-phase-top .ar-phase-label{display:flex;flex-direction:column;gap:6px}
+.fn-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .fn-pillar{background:var(--surface);border-radius:var(--r-md);padding:24px;border:1px solid var(--border)}
 .fn-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--a1);margin-bottom:10px}
 .fn-pillar-body{font-size:15px;color:var(--text-muted);line-height:1.6}
@@ -157,6 +161,8 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
   .ar-hero-right{height:360px}
   .ar-renders{grid-template-columns:1fr 1fr}
   .fn-personas{grid-template-columns:1fr}
+  .fn-pillars{grid-template-columns:1fr}
+  .fn-phase-top{grid-template-columns:1fr;gap:16px}
 }
 @media(max-width:560px){
   .ar-renders{grid-template-columns:1fr}
@@ -223,16 +229,16 @@ h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:900;line-
 
     <!-- Phase 1: Research -->
     <div class="ar-phase">
-      <div class="ar-phase-body">
-        <div class="ar-phase-text">
-          <div class="ar-phase-header">
-            <div class="ar-phase-label">
-              <p>Phase One</p>
-              <h2>Research</h2>
-            </div>
+      <div class="fn-phase-stack">
+        <div class="fn-phase-top">
+          <div class="ar-phase-label">
+            <p>Phase One</p>
+            <h2>Research</h2>
           </div>
-          <p>The approach was grounded in three research pillars, each informing a different dimension of the product — from how it would sit in the market to how it would be built and used.</p>
-          <p>Competitor analysis conducted by our marketing team benchmarked pricing and quality, allowing us to identify where Furnitubes sat and where we should aim. Sales discussions and stakeholder workshops surfaced the technical constraints that would shape the range.</p>
+          <div class="ar-phase-text">
+            <p>The approach was grounded in three research pillars, each informing a different dimension of the product — from how it would sit in the market to how it would be built and used.</p>
+            <p>Competitor analysis conducted by our marketing team benchmarked pricing and quality, allowing us to identify where Furnitubes sat and where we should aim. Sales discussions and stakeholder workshops surfaced the technical constraints that would shape the range.</p>
+          </div>
         </div>
         <div class="fn-pillars">
           <div class="fn-pillar">
